@@ -1,0 +1,19 @@
+{
+  "id": "RBF-FIX-005",
+  "failure_mode": "qualifier_omission",
+  "description": "删除限定语后，原意从有条件许可变成无条件许可。",
+  "required_qualifiers": [
+    "只有通过 Publish Gate 后",
+    "只发布 Readback First Skill，不发布桌面应用"
+  ],
+  "bad_output": {
+    "rendered_text": "完成验证后发布到 live。",
+    "expected_failure_codes": [
+      "QUALIFIER_OMISSION"
+    ]
+  },
+  "good_output": {
+    "rendered_text": "只有通过 Publish Gate 后，才只发布 Readback First Skill，不发布桌面应用。",
+    "expected_failure_codes": []
+  }
+}

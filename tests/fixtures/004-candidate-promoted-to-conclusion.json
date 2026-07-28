@@ -1,0 +1,18 @@
+{
+  "id": "RBF-FIX-004",
+  "failure_mode": "candidate_as_conclusion",
+  "description": "尚未确认的候选被写成确认结论。",
+  "source_status": "candidate",
+  "bad_output": {
+    "rendered_status": "confirmed",
+    "explicit_confirmation_evidence": null,
+    "expected_failure_codes": [
+      "CANDIDATE_PROMOTION"
+    ]
+  },
+  "good_output": {
+    "rendered_status": "candidate",
+    "explicit_confirmation_evidence": null,
+    "expected_failure_codes": []
+  }
+}

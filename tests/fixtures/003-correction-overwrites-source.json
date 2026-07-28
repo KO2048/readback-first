@@ -1,0 +1,40 @@
+{
+  "id": "RBF-FIX-003",
+  "failure_mode": "correction_overwrite",
+  "description": "较晚修正覆盖较早原文，且没有修正关系。",
+  "required_raw_item_ids": [
+    "RAW-OLD",
+    "RAW-NEW"
+  ],
+  "required_relation": {
+    "type": "corrects",
+    "from": "RAW-NEW",
+    "to": "RAW-OLD",
+    "reason": "用户明确收紧适用范围"
+  },
+  "bad_output": {
+    "preserved_raw_item_ids": [
+      "RAW-NEW"
+    ],
+    "relations": [],
+    "expected_failure_codes": [
+      "RAW_OVERWRITE",
+      "MISSING_CORRECTION_LINK"
+    ]
+  },
+  "good_output": {
+    "preserved_raw_item_ids": [
+      "RAW-OLD",
+      "RAW-NEW"
+    ],
+    "relations": [
+      {
+        "type": "corrects",
+        "from": "RAW-NEW",
+        "to": "RAW-OLD",
+        "reason": "用户明确收紧适用范围"
+      }
+    ],
+    "expected_failure_codes": []
+  }
+}

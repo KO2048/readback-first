@@ -1,0 +1,23 @@
+{
+  "id": "RBF-FIX-007",
+  "failure_mode": "summary_only_confirmation",
+  "description": "只让用户确认摘要，不提供源信息覆盖核对。",
+  "bad_output": {
+    "confirmation_target": "summary",
+    "coverage_item_ids": [],
+    "rendered_text": "以上十个重点是否准确？",
+    "expected_failure_codes": [
+      "SUMMARY_ONLY_CONFIRMATION"
+    ]
+  },
+  "good_output": {
+    "confirmation_target": "source_coverage",
+    "coverage_item_ids": [
+      "HR-0001",
+      "HR-0002",
+      "HR-0003"
+    ],
+    "rendered_text": "请核对 HR-0001 至 HR-0003 的接收、限定和关系是否完整。",
+    "expected_failure_codes": []
+  }
+}

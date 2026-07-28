@@ -1,0 +1,25 @@
+{
+  "id": "RBF-FIX-006",
+  "failure_mode": "invented_intent",
+  "description": "系统把问题讨论擅自补全为立即执行意图。",
+  "explicit_intents": [
+    "记录问题",
+    "等待后续判断"
+  ],
+  "bad_output": {
+    "asserted_intents": [
+      "记录问题",
+      "立即发布"
+    ],
+    "expected_failure_codes": [
+      "INVENTED_INTENT"
+    ]
+  },
+  "good_output": {
+    "asserted_intents": [
+      "记录问题",
+      "等待后续判断"
+    ],
+    "expected_failure_codes": []
+  }
+}

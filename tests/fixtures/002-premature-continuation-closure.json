@@ -1,0 +1,20 @@
+{
+  "id": "RBF-FIX-002",
+  "failure_mode": "premature_closure",
+  "description": "用户明确仍在连续口述，系统却提前宣布接收完成并开始总结。",
+  "input_stage": "open",
+  "bad_output": {
+    "state": "RECEPTION_CONFIRMED",
+    "declares_complete": true,
+    "rendered_text": "信息已经完整，我来总结最终结论。",
+    "expected_failure_codes": [
+      "PREMATURE_CLOSURE"
+    ]
+  },
+  "good_output": {
+    "state": "INPUT_OPEN",
+    "declares_complete": false,
+    "rendered_text": "当前 batch 标记为进行中；新输入继续追加，不提前封口。",
+    "expected_failure_codes": []
+  }
+}

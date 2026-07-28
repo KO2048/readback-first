@@ -1,0 +1,24 @@
+{
+  "id": "RBF-FIX-016",
+  "failure_mode": "overblocked_closed_request",
+  "description": "输入很长但已明确收束，目标是顾问判断且不做持久转换；不能仅因密度高就阻塞。",
+  "input_state": "closed",
+  "high_density": true,
+  "unfinished_declared": false,
+  "explicit_reception_completeness_requested": false,
+  "retention_or_conversion_task": false,
+  "high_risk_action": false,
+  "request_kind": "advisory_answer",
+  "bad_output": {
+    "gate_action": "block_for_reception_confirmation",
+    "rendered_state": "WAITING_FOR_RECEPTION_CONFIRMATION",
+    "expected_failure_codes": [
+      "OVERBLOCKED_CLOSED_REQUEST"
+    ]
+  },
+  "good_output": {
+    "gate_action": "non_blocking_receipt_then_answer",
+    "rendered_state": "DISCUSSION_ACTIVE",
+    "expected_failure_codes": []
+  }
+}

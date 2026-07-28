@@ -1,0 +1,33 @@
+{
+  "id": "RBF-FIX-001",
+  "failure_mode": "unauthorized_compression",
+  "description": "在未授权总结时，把 1000 个原子信息点压缩为 10 个重点。",
+  "generated_atomic_item_count": 1000,
+  "synthesis_authorized": false,
+  "bad_output": {
+    "rendered_text": "我总结了十个重点，请确认。",
+    "covered_item_ids": [
+      "INFO-0001",
+      "INFO-0002",
+      "INFO-0003",
+      "INFO-0004",
+      "INFO-0005",
+      "INFO-0006",
+      "INFO-0007",
+      "INFO-0008",
+      "INFO-0009",
+      "INFO-0010"
+    ],
+    "expected_failure_codes": [
+      "UNAUTHORIZED_COMPRESSION"
+    ]
+  },
+  "good_output": {
+    "rendered_text": "已生成 INFO-0001 至 INFO-1000 的可核对覆盖表；尚未获得总结授权。",
+    "covered_item_range": [
+      1,
+      1000
+    ],
+    "expected_failure_codes": []
+  }
+}

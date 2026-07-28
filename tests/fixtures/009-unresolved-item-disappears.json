@@ -1,0 +1,31 @@
+{
+  "id": "RBF-FIX-009",
+  "failure_mode": "unresolved_item_disappearance",
+  "description": "后续文档没有继承已提出但未解决的问题，也没有解决证据。",
+  "previous_unresolved_item_ids": [
+    "U-101",
+    "U-102"
+  ],
+  "bad_output": {
+    "carried_item_ids": [
+      "U-101"
+    ],
+    "resolved_items": [],
+    "expected_failure_codes": [
+      "UNRESOLVED_ITEM_DROPPED"
+    ]
+  },
+  "good_output": {
+    "carried_item_ids": [
+      "U-101"
+    ],
+    "resolved_items": [
+      {
+        "item_id": "U-102",
+        "resolution_evidence": "DEC-20260727-02",
+        "provenance": "public-synthetic-fixture:RBF-FIX-009"
+      }
+    ],
+    "expected_failure_codes": []
+  }
+}
