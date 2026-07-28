@@ -1,0 +1,4 @@
+interface:
+  display_name: "Readback First"
+  short_description: "Align user expression with AI working understanding"
+  default_prompt: "Use $readback-first to show the working understanding you are preparing to rely on, preserve corrections and uncertainty, let me verify reception when needed, and keep semantic confirmation separate from action authorization."
