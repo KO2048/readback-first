@@ -92,10 +92,10 @@ Readback First 是一个在 AI 回答或行动前，让用户表达与 AI
 
 ## 安装
 
-在 Codex 中请求安装：
+在 Codex 中从仓库根目录安装：
 
 ```text
-$skill-installer install https://github.com/KO2048/readback-first
+$skill-installer install --repo KO2048/readback-first --path . --name readback-first
 ```
 
 或者手动 clone：

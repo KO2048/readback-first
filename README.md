@@ -85,10 +85,10 @@ It is not:
 
 ### Codex
 
-Ask Codex to install the repository Skill:
+Ask Codex to install the Skill from the repository root:
 
 ```text
-$skill-installer install https://github.com/KO2048/readback-first
+$skill-installer install --repo KO2048/readback-first --path . --name readback-first
 ```
 
 Or clone it manually:
