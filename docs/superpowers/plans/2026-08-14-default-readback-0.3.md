@@ -100,8 +100,8 @@
 - [x] Update metadata so discovery covers ordinary user expression while stating reference-Skill limits.
 - [x] Run `python3 tests/validate_contract.py` and `python3 tests/validate_fixtures.py` fresh.
 - [x] Run fresh-agent pressure regressions for simple readback, proceed-after-readback, interrupt correction, low/high-impact ambiguity, and no-menu adaptation.
-- [ ] Review `git diff --check`, `git status --short --branch`, and the full scoped diff.
-- [ ] Commit the aligned public package. Do not push or publish.
+- [x] Review `git diff --check`, `git status --short --branch`, and the full scoped diff.
+- [x] Commit the aligned public package (`67c376f`). No push or publish was performed.
 
 ### Review-fix sub-slice: Canonical route mutant hardening / 复审修复：规范路由变异防护
 
@@ -114,7 +114,7 @@
 - [x] Re-run both mutants and observe `EXPLICIT_PROCEED_OVERBLOCKED` and
   `PROCEED_REQUIRED_GATE_BYPASS`.
 - [x] Re-run 33 fixtures, contract validation, and `git diff --check`.
-- [ ] Commit this review fix independently from the public-document alignment.
+- [x] Commit this review fix independently from the public-document alignment (`267041b`).
 
 - [x] 复现非规范路由值仍会错误通过的 reviewer mutants。
 - [x] 对允许继续的场景强制要求 `proceed_with_provisional_response`，对宿主行动
@@ -122,4 +122,4 @@
 - [x] 重新运行两个 mutant，分别得到 `EXPLICIT_PROCEED_OVERBLOCKED` 与
   `PROCEED_REQUIRED_GATE_BYPASS`。
 - [x] 重新运行 33 个 fixtures、contract validation 与 `git diff --check`。
-- [ ] 将该复审修复与公开文档对齐分开提交。
+- [x] 将该复审修复与公开文档对齐分开提交（`267041b`）。
