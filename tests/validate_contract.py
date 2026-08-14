@@ -17,6 +17,9 @@ def require(text: str, needle: str, source: str, failures: list[str]) -> None:
 def main() -> int:
     failures: list[str] = []
     protocol_path = ROOT / "PROTOCOL.md"
+    skill_path = ROOT / "SKILL.md"
+    example_path = ROOT / "examples" / "before-after.md"
+    metadata_path = ROOT / "agents" / "openai.yaml"
 
     if not protocol_path.exists():
         failures.append("PROTOCOL.md: missing normative protocol")
@@ -38,6 +41,48 @@ def main() -> int:
             "Current-session boundary",
         ):
             require(protocol, needle, "PROTOCOL.md", failures)
+
+    skill = skill_path.read_text(encoding="utf-8")
+    for needle in (
+        "Protocol version: 0.2",
+        "Readback shown is not reception confirmed",
+        "source_state",
+        "reception_state",
+        "decision_state",
+        "action_authority",
+        "organization_method",
+        "minto_pyramid",
+        "WAITING_FOR_RECEPTION_CONFIRMATION",
+        "reception_coverage",
+    ):
+        require(skill, needle, "SKILL.md", failures)
+
+    example = example_path.read_text(encoding="utf-8")
+    metadata = metadata_path.read_text(encoding="utf-8")
+
+    forbidden = {
+        "SKILL.md": (
+            (skill, "WAITING_FOR_CONFIRMATION"),
+            (skill, "source_coverage"),
+            (skill, "[confirmed request]"),
+            (skill, "[confirmed correction]"),
+        ),
+        "examples/before-after.md": (
+            (example, "[confirmed request]"),
+            (example, "[confirmed correction]"),
+        ),
+    }
+    for source, checks in forbidden.items():
+        for text, needle in checks:
+            if needle in text:
+                failures.append(f"{source}: forbidden legacy contract {needle!r}")
+
+    for needle in (
+        "visible working understanding",
+        "confirmation",
+        "authorization",
+    ):
+        require(metadata.lower(), needle, "agents/openai.yaml", failures)
 
     if failures:
         print("CONTRACT VALIDATION FAILED")
