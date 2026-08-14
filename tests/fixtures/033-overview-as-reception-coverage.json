@@ -1,0 +1,19 @@
+{
+  "id": "RBF-FIX-033",
+  "failure_mode": "overview_as_reception_coverage",
+  "description": "A high-level overview is treated as the only evidence for reception-coverage confirmation of material source units.",
+  "confirmation_target": "reception_coverage",
+  "material_meaning_unit_ids": ["RBF-0001", "RBF-0002", "RBF-0003"],
+  "bad_output": {
+    "confirmation_depth": "overview",
+    "overview_used_as_navigation": false,
+    "material_coverage_item_ids": [],
+    "expected_failure_codes": ["OVERVIEW_AS_RECEPTION_COVERAGE"]
+  },
+  "good_output": {
+    "confirmation_depth": "detailed",
+    "overview_used_as_navigation": true,
+    "material_coverage_item_ids": ["RBF-0001", "RBF-0002", "RBF-0003"],
+    "expected_failure_codes": []
+  }
+}

@@ -110,9 +110,20 @@ whose answers would not change the working understanding or the next gate.
 Material contextual corrections remain candidates until the user accepts them.
 Punctuation, filler removal, and meaning-preserving ASR cleanup may be silent.
 
+Check uncertainty in this order: input completion, source adequacy, semantic
+ambiguity, then output-form uncertainty. For **low-impact uncertainty** that is
+reversible and has a dominant contextual interpretation, state the working
+assumption and what the alternative would change, then continue. For
+**material uncertainty**, use a **recommendation-first** sequence after the
+substantive readback: name the uncertainty, give the current judgment and
+basis, explain the downstream difference, recommend a route, and ask only the
+smallest question needed. Do not silently choose a materially different result.
+
 ## Adapt how the readback is organized
 
-Choose a reasonable presentation from context and allow the user to adjust it:
+**Silent adaptation** is the default. Choose a reasonable presentation from
+context and let the user adjust it when they ask. Do not routinely expose mode
+names, parameters, a selected-view footer, or a configuration menu:
 
 ```yaml
 organization_method: natural | minto_pyramid
@@ -127,19 +138,17 @@ readback_view:
 only from a locatable, reception-confirmed, same-scope baseline; formal
 retention or handoff recompiles the full current view.
 
+A session preference may change presentation, not required coverage. Re-evaluate
+coverage when the task changes. Output-form uncertainty normally belongs to the
+AI: choose and continue. Ask only when different forms materially change
+coverage, task meaning, downstream use, or risk.
+
 Use `minto_pyramid` only when it makes complex material easier to inspect. It
 means grouping ideas of the same kind, deriving each upper point from the ideas
 below it, keeping vertical support visible, and ordering sibling ideas with a
 defensible horizontal logic. It is a method for improving a readback, not the
 core of Readback First and not shorthand for a layered format. Never let the
 organization hide source details, exceptions, corrections, or open items.
-
-State the chosen presentation **after** the substantive readback, for example:
-
-```text
-Readback view: standard · full · semantic trace · natural organization
-You can ask for compact/standard, full/delta, natural/Minto, or exact trace.
-```
 
 ## Confirmation contract
 
@@ -157,10 +166,12 @@ confirmation_evidence: user's exact confirming span
 A bare "yes" applies only to the nearest clear target and scope. Allow partial
 acceptance and item-level correction.
 
-Use `overview` for low-risk advisory discussion, `detailed` for material items
-and qualifiers, and `traced` for formal retention or handoff when source trace
-is available. Do not require traced confirmation when the source is not
-available; report the fidelity limit instead.
+Use `overview` for low-risk orientation, `detailed` for material items and
+qualifiers, and `traced` for formal retention or handoff when source trace is
+available. **Overview is navigation**, not sufficient confirmation of
+`reception_coverage` for material source units. Do not require traced
+confirmation when the source is not available; report the fidelity limit
+instead.
 
 ## Output pattern
 
@@ -191,9 +202,6 @@ State: READBACK_SHOWN | WAITING_FOR_RECEPTION_CONFIRMATION |
 
 response_route: proceed_with_provisional_response |
   wait_for_reception_confirmation | host_authorization_required
-
-Readback view: standard · full · semantic trace · natural organization
-Adjust: compact/standard · full/delta · natural/Minto · off/semantic/exact trace
 ```
 
 For a simple closed request, compress this to one line. Do not expose internal

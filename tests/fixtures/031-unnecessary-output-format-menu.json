@@ -1,0 +1,22 @@
+{
+  "id": "RBF-FIX-031",
+  "failure_mode": "unnecessary_output_format_question",
+  "description": "The AI exposes readback parameters and a mode menu even though format uncertainty would not change coverage or the requested result.",
+  "material_output_form_uncertainty": false,
+  "bad_output": {
+    "presentation_selected": true,
+    "presentation_parameters_exposed": true,
+    "mode_menu_offered": true,
+    "format_question_asked": false,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": ["UNNECESSARY_OUTPUT_FORMAT_QUESTION"]
+  },
+  "good_output": {
+    "presentation_selected": true,
+    "presentation_parameters_exposed": false,
+    "mode_menu_offered": false,
+    "format_question_asked": false,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": []
+  }
+}

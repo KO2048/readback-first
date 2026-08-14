@@ -1,0 +1,24 @@
+{
+  "id": "RBF-FIX-029",
+  "failure_mode": "low_impact_ambiguity_overquestioned",
+  "description": "A reversible, low-impact ambiguity with a reasonable working interpretation becomes a blocking question.",
+  "ambiguity_impact": "low",
+  "reversible": true,
+  "dominant_interpretation_available": true,
+  "bad_output": {
+    "uncertainty_visible": true,
+    "working_assumption": null,
+    "alternative_impact_visible": false,
+    "blocking_question_asked": true,
+    "response_route": "wait_for_reception_confirmation",
+    "expected_failure_codes": ["LOW_IMPACT_AMBIGUITY_OVERQUESTIONED"]
+  },
+  "good_output": {
+    "uncertainty_visible": true,
+    "working_assumption": "Use the contextually dominant interpretation for this reversible draft.",
+    "alternative_impact_visible": true,
+    "blocking_question_asked": false,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": []
+  }
+}

@@ -207,9 +207,10 @@ unrelated confirmed scope.
 
 ## 8. Adaptive readback presentation
 
-The user may set a turn-level or session-level preference. The AI may select a
-reasonable default from context, but must state the selected presentation
-after the substantive readback and allow adjustment.
+**Silent adaptation** is the default. The AI selects a reasonable presentation
+from the content, task, consequence, and current-session preference without
+showing a parameter footer or asking the user to configure a mode. A user may
+still request a different density, organization, focus, or source trace.
 
 ```yaml
 organization_method: natural | minto_pyramid
@@ -223,7 +224,32 @@ readback_view:
 `compact` may reduce repeated wording, never material coverage. `delta` is
 allowed only when the prior baseline is locatable, reception-confirmed for the
 relevant scope, and unchanged source items remain traceable. Formal retention
-or handoff recompiles the full current view.
+or handoff recompiles the full current view. A session preference changes
+presentation, not required coverage; re-evaluate coverage when the task changes.
+
+Evaluate uncertainty in this order:
+
+1. Is the user still speaking or is the input complete?
+2. Is the available source adequate for the requested result?
+3. Is there semantic ambiguity that could change the result?
+4. Is there genuine output-form uncertainty that changes coverage, task nature,
+   or risk?
+
+For **low-impact uncertainty** that is reversible and has a contextually
+dominant interpretation, show the working assumption and the alternative's
+effect, then continue. Do not make the user answer a question that would not
+change the next safe step.
+
+For **material uncertainty**, use a **recommendation-first** sequence after the
+substantive readback: identify the uncertain point, show the current judgment
+and its basis, explain the downstream difference, recommend a route, and ask
+only the smallest scoped question needed before proceeding. Do not silently
+choose between materially different interpretations.
+
+Output-form uncertainty normally belongs to the AI: choose and proceed. Ask
+only when different forms would materially change source coverage, task
+meaning, downstream use, or risk. Never replace that judgment with a standing
+menu of presentation parameters.
 
 ### Optional Minto Pyramid Principle method
 
@@ -251,8 +277,9 @@ confirmation_scope: [batch IDs, item IDs, sections, or named actions]
 confirmation_evidence: user's exact confirming span
 ```
 
-- `overview` confirms the displayed high-level working understanding and may
-  support low-risk advisory discussion.
+- `overview` acknowledges a high-level orientation and may support low-risk
+  advisory discussion. **Overview is navigation**, not sufficient evidence for
+  `reception_coverage` of material source units.
 - `detailed` confirms the material items and qualifiers in the named scope.
 - `traced` confirms a source-linked view appropriate for formal retention,
   conversion, or handoff when the source is available.

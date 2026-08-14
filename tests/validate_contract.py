@@ -40,6 +40,11 @@ def main() -> int:
             "dependent provisional output",
             "needs_revision",
             "re-evaluate the blocking predicates",
+            "Silent adaptation",
+            "recommendation-first",
+            "low-impact uncertainty",
+            "material uncertainty",
+            "Overview is navigation",
             "WAITING_FOR_RECEPTION_CONFIRMATION",
             "confirmation_depth",
             "reception_coverage",
@@ -66,6 +71,11 @@ def main() -> int:
         "dependent provisional output",
         "needs_revision",
         "re-evaluate the blocking predicates",
+        "Silent adaptation",
+        "recommendation-first",
+        "low-impact uncertainty",
+        "material uncertainty",
+        "Overview is navigation",
         "reception_coverage",
     ):
         require(skill, needle, "SKILL.md", failures)
@@ -79,6 +89,12 @@ def main() -> int:
             (skill, "source_coverage"),
             (skill, "[confirmed request]"),
             (skill, "[confirmed correction]"),
+            (skill, "State the chosen presentation **after**"),
+            (skill, "You can ask for compact/standard"),
+            (skill, "Adjust: compact/standard"),
+        ),
+        "PROTOCOL.md": (
+            (protocol, "must state the selected presentation"),
         ),
         "examples/before-after.md": (
             (example, "[confirmed request]"),

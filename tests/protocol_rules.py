@@ -343,6 +343,71 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
         if invalid:
             codes.add("INTERRUPT_CORRECTION_STALE_OUTPUT")
 
+    elif kind == "low_impact_ambiguity_overquestioned":
+        should_continue = (
+            case["ambiguity_impact"] == "low"
+            and case["reversible"]
+            and case["dominant_interpretation_available"]
+        )
+        invalid = should_continue and (
+            output.get("blocking_question_asked") is True
+            or output.get("response_route") != "proceed_with_provisional_response"
+            or not output.get("working_assumption")
+            or output.get("alternative_impact_visible") is not True
+        )
+        if invalid:
+            codes.add("LOW_IMPACT_AMBIGUITY_OVERQUESTIONED")
+
+    elif kind == "material_ambiguity_not_exposed":
+        material = (
+            case["ambiguity_impact"] == "material"
+            and case["plausible_interpretation_count"] >= 2
+            and case["result_changes"]
+        )
+        invalid = material and (
+            output.get("uncertainty_visible") is not True
+            or not output.get("current_judgment")
+            or not output.get("judgment_basis")
+            or output.get("downstream_difference_visible") is not True
+            or not output.get("recommendation")
+            or output.get("scoped_question_asked") is not True
+            or output.get("response_route") != "wait_for_reception_confirmation"
+        )
+        if invalid:
+            codes.add("MATERIAL_AMBIGUITY_NOT_EXPOSED")
+
+    elif kind == "unnecessary_output_format_question":
+        if not case["material_output_form_uncertainty"] and (
+            output.get("presentation_parameters_exposed") is True
+            or output.get("mode_menu_offered") is True
+            or output.get("format_question_asked") is True
+            or output.get("response_route") == "wait_for_reception_confirmation"
+        ):
+            codes.add("UNNECESSARY_OUTPUT_FORMAT_QUESTION")
+
+    elif kind == "session_preference_coverage_bypass":
+        required = set(case["required_meaning_unit_ids"])
+        covered = set(output.get("covered_meaning_unit_ids", []))
+        formal_retention = case["current_task"] == "formal_retention"
+        invalid = formal_retention and (
+            not required.issubset(covered)
+            or output.get("coverage_requirement_re_evaluated") is not True
+            or not output.get("preference_override_reason")
+            or output.get("mode_menu_offered") is True
+        )
+        if invalid:
+            codes.add("SESSION_PREFERENCE_COVERAGE_BYPASS")
+
+    elif kind == "overview_as_reception_coverage":
+        required = set(case["material_meaning_unit_ids"])
+        visible = set(output.get("material_coverage_item_ids", []))
+        if case["confirmation_target"] == "reception_coverage" and (
+            output.get("confirmation_depth") == "overview"
+            or not required.issubset(visible)
+            or output.get("overview_used_as_navigation") is not True
+        ):
+            codes.add("OVERVIEW_AS_RECEPTION_COVERAGE")
+
     else:
         raise ValueError(f"Unknown failure mode: {kind}")
 

@@ -63,10 +63,10 @@
 
 **Interfaces:** input completion → source adequacy → semantic ambiguity → output-form uncertainty. No material uncertainty means silent adaptation; low-impact uncertainty states a working assumption and continues; material uncertainty exposes impact and recommendation before waiting.
 
-- [ ] Add fixtures `029-033` for overquestioning, silent material assumption, mode menus, session-preference coverage bypass, and overview-only coverage; observe fixture RED.
-- [ ] Add evaluator branches and contract assertions; observe contract RED on current v0.2 wording.
-- [ ] Update the normative protocol and reference Skill; remove required mode footer/menu language.
-- [ ] Re-run the exact public-introduction pressure scenario and verify no menu, no unnecessary wait, and a normal continuation.
+- [x] Add fixtures `029-033` for overquestioning, silent material assumption, mode menus, session-preference coverage bypass, and overview-only coverage; observe fixture RED.
+- [x] Add evaluator branches and contract assertions; observe contract RED on the pre-slice wording.
+- [x] Update the normative protocol and reference Skill; remove required mode footer/menu language.
+- [x] Re-run the exact public-introduction pressure scenario and verify no menu, no unnecessary wait, and a normal continuation.
 - [ ] Run all validators and commit the green slice.
 
 ### Task 4: Public alignment and final verification / 公开对齐与最终验证
