@@ -12,7 +12,7 @@
   "bad_output": {
     "readback_shown": true,
     "reception_state": "shown",
-    "response_route": "block_for_reception_confirmation",
+    "response_route": "wait_for_reception_confirmation",
     "expected_failure_codes": ["EXPLICIT_PROCEED_OVERBLOCKED"]
   },
   "good_output": {

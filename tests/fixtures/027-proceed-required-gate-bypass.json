@@ -1,22 +1,19 @@
 {
   "id": "RBF-FIX-027",
   "failure_mode": "proceed_required_gate_bypass",
-  "description": "Proceed-after-readback is treated as permission to bypass open-input, material-ambiguity, or host-authorization gates.",
+  "description": "Proceed-after-readback is treated as permission to bypass a required host-action authorization route.",
   "required_gate_reasons": [
-    "input_open",
-    "material_ambiguity",
     "host_action_authorization"
   ],
+  "expected_response_route": "host_authorization_required",
   "bad_output": {
     "response_route": "proceed_with_provisional_response",
     "honored_gate_reasons": [],
     "expected_failure_codes": ["PROCEED_REQUIRED_GATE_BYPASS"]
   },
   "good_output": {
-    "response_route": "wait_at_required_gate",
+    "response_route": "host_authorization_required",
     "honored_gate_reasons": [
-      "input_open",
-      "material_ambiguity",
       "host_action_authorization"
     ],
     "expected_failure_codes": []

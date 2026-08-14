@@ -19,16 +19,38 @@
 - Plan version is `plan-v2`; branch is `codex/readback-first-default-readback-v3`.
 - Base commit is `d89353b`; protocol target is `0.3 candidate`.
 - Preserve fixtures `001-024` unless a directly conflicting contract requires a scoped migration.
-- Use RED → GREEN → REFACTOR for every behavior slice.
+- Use behavior RED → GREEN when a reproducible runtime failure exists. Label an
+  unknown evaluator branch only as a fixture-harness RED, and label missing
+  normative wording as contract RED; neither substitutes for behavior evidence.
 - Do not touch prior untracked `evals/`, `CODEX-SETTING`, live targets, or private source material.
 - Do not push, publish, tag, or create a release.
 
 - Plan version 为 `plan-v2`；branch 为 `codex/readback-first-default-readback-v3`。
 - Base commit 为 `d89353b`；目标协议为 `0.3 candidate`。
 - 除非存在直接冲突的契约迁移，否则保留 fixtures `001-024`。
-- 每个行为 slice 都执行 RED → GREEN → REFACTOR。
+- 只有可复现运行时失败才标记 behavior RED → GREEN；未知 evaluator 分支只标记为
+  fixture-harness RED，规范文案缺失只标记为 contract RED，二者都不能替代行为证据。
 - 不触碰旧未追踪 `evals/`、`CODEX-SETTING`、live 或私有材料。
 - 不 push、不 publish、不打 tag、不创建 release。
+
+### Evidence semantics / 证据语义
+
+- Slice 1 had a real runtime behavior RED for overblocking an explicit in-chat
+  proceed request, plus fixture-harness and contract REDs.
+- Slice 2's pre-slice runtime already behaved correctly. It is a contract
+  codification and regression lock, not a claimed behavior fix.
+- Slice 3 had a real runtime behavior RED for exposing a presentation footer and
+  mode menu, plus fixture-harness and contract REDs.
+- Slice 4 had public-contract REDs and alignment work; it does not add runtime
+  capability.
+
+- Slice 1 存在真实运行时 RED：已闭合会话内草稿仍被错误阻塞；同时有 fixture
+  harness RED 与 contract RED。
+- Slice 2 的运行时基线已经正确，因此它是契约显式化与回归锁定，不声称修复了
+  一个运行时行为失败。
+- Slice 3 存在真实运行时 RED：暴露展示页脚和模式菜单；同时有 fixture harness
+  RED 与 contract RED。
+- Slice 4 只有公开契约 RED 与对齐工作，不新增运行能力。
 
 ---
 
@@ -43,7 +65,7 @@
 - [x] Add minimal evaluator branches and contract assertions; run validators and observe the old protocol contract fail.
 - [x] Update `PROTOCOL.md` and `SKILL.md` minimally, preserving `reception_state: shown` while separating continuation route.
 - [x] Run both validators and the existing 24-case regression; expect all cases to pass.
-- [ ] Commit the independently green slice.
+- [x] Commit the independently green slice (`b6c8461`).
 
 ### Task 2: Interrupting corrections / 打断式纠正
 
@@ -55,7 +77,7 @@
 - [x] Add fixture `028`; run fixture validation and observe RED from the previously unknown invariant.
 - [x] Add the minimal rule and explicit protocol/Skill contract for the already-observed behavior.
 - [x] Preserve the fresh-agent transcript as the conditional GREEN evidence for this slice; no second behavior-changing run was necessary.
-- [ ] Run all validators and commit the green slice.
+- [x] Run all validators and commit the green slice (`46337ee`).
 
 ### Task 3: Recommendation-first uncertainty without menus / 推荐优先且无菜单的不确定处理
 
@@ -67,16 +89,37 @@
 - [x] Add evaluator branches and contract assertions; observe contract RED on the pre-slice wording.
 - [x] Update the normative protocol and reference Skill; remove required mode footer/menu language.
 - [x] Re-run the exact public-introduction pressure scenario and verify no menu, no unnecessary wait, and a normal continuation.
-- [ ] Run all validators and commit the green slice.
+- [x] Run all validators and commit the green slice (`911fedc`).
 
 ### Task 4: Public alignment and final verification / 公开对齐与最终验证
 
-**Files:** `README.md`, `README.zh-CN.md`, `CHANGELOG.md`, `examples/before-after.md`, `agents/openai.yaml`, `tests/README.md`.
+**Files:** `README.md`, `README.zh-CN.md`, `CHANGELOG.md`, `PROTOCOL.md`, `examples/before-after.md`, `agents/openai.yaml`, `tests/README.md`, `tests/validate_contract.py`, and this plan status record.
 
-- [ ] Update public definitions and the 0.2 → 0.3 migration without claiming host default delivery.
-- [ ] Update the example to show readback followed by provisional continuation and user interruption.
-- [ ] Update metadata so discovery covers ordinary user expression while stating reference-Skill limits.
-- [ ] Run `python3 tests/validate_contract.py` and `python3 tests/validate_fixtures.py` fresh.
-- [ ] Run fresh-agent pressure regressions for simple readback, proceed-after-readback, interrupt correction, low/high-impact ambiguity, and no-menu adaptation.
+- [x] Update public definitions and the 0.2 → 0.3 migration without claiming host default delivery.
+- [x] Update the example to show readback followed by provisional continuation and user interruption.
+- [x] Update metadata so discovery covers ordinary user expression while stating reference-Skill limits.
+- [x] Run `python3 tests/validate_contract.py` and `python3 tests/validate_fixtures.py` fresh.
+- [x] Run fresh-agent pressure regressions for simple readback, proceed-after-readback, interrupt correction, low/high-impact ambiguity, and no-menu adaptation.
 - [ ] Review `git diff --check`, `git status --short --branch`, and the full scoped diff.
 - [ ] Commit the aligned public package. Do not push or publish.
+
+### Review-fix sub-slice: Canonical route mutant hardening / 复审修复：规范路由变异防护
+
+**Files:** `tests/protocol_rules.py`, `tests/fixtures/026-explicit-proceed-overblocked.json`, `tests/fixtures/027-proceed-required-gate-bypass.json`, and this plan status record.
+
+- [x] Reproduce the reviewer mutants that incorrectly passed with non-canonical
+  route values.
+- [x] Require `proceed_with_provisional_response` for the eligible proceed case
+  and `host_authorization_required` for the host-action gate case.
+- [x] Re-run both mutants and observe `EXPLICIT_PROCEED_OVERBLOCKED` and
+  `PROCEED_REQUIRED_GATE_BYPASS`.
+- [x] Re-run 33 fixtures, contract validation, and `git diff --check`.
+- [ ] Commit this review fix independently from the public-document alignment.
+
+- [x] 复现非规范路由值仍会错误通过的 reviewer mutants。
+- [x] 对允许继续的场景强制要求 `proceed_with_provisional_response`，对宿主行动
+  门禁强制要求 `host_authorization_required`。
+- [x] 重新运行两个 mutant，分别得到 `EXPLICIT_PROCEED_OVERBLOCKED` 与
+  `PROCEED_REQUIRED_GATE_BYPASS`。
+- [x] 重新运行 33 个 fixtures、contract validation 与 `git diff --check`。
+- [ ] 将该复审修复与公开文档对齐分开提交。

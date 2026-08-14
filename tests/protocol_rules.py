@@ -300,14 +300,17 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
         )
         if (
             eligible_to_proceed
-            and output.get("response_route") == "block_for_reception_confirmation"
+            and output.get("response_route") != "proceed_with_provisional_response"
         ):
             codes.add("EXPLICIT_PROCEED_OVERBLOCKED")
 
     elif kind == "proceed_required_gate_bypass":
         required = set(case["required_gate_reasons"])
         honored = set(output.get("honored_gate_reasons", []))
-        if not required.issubset(honored):
+        if (
+            not required.issubset(honored)
+            or output.get("response_route") != case["expected_response_route"]
+        ):
             codes.add("PROCEED_REQUIRED_GATE_BYPASS")
 
     elif kind == "interrupt_correction_stale_output":
@@ -330,11 +333,12 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
             states.get(output_id) == "active"
             for output_id in case["independent_output_ids"]
         )
-        expected_route = (
-            "wait_at_required_gate"
-            if case["new_blockers"]
-            else "proceed_with_provisional_response"
-        )
+        if "host_action_authorization" in case["new_blockers"]:
+            expected_route = "host_authorization_required"
+        elif case["new_blockers"]:
+            expected_route = "wait_for_reception_confirmation"
+        else:
+            expected_route = "proceed_with_provisional_response"
         invalid = not required_source.issubset(preserved)
         invalid |= not required_links.issubset(links)
         invalid |= not dependent_invalidated or not independent_preserved
