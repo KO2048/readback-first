@@ -1,23 +1,24 @@
 # Readback First Protocol
 
-**Protocol Version: 0.2**
+**Protocol Version: 0.3**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
 ## 1. Central contract
 
-**Readback is the core.** Before an AI relies on a user's expression to answer
-or act, it makes its **Visible working understanding** inspectable. The user can
-then correct that working understanding and, where the task requires it,
-confirm a specifically scoped input.
+**Readback is the core. Default readback is the normal route.** Before an AI
+relies on a user's expression to answer or act, it makes its **Visible working understanding**
+inspectable. The user can interrupt and correct that working
+understanding at any time. When no named blocker applies, the AI continues from
+the readback instead of turning it into a mandatory confirmation popup.
 
 ```text
 user expression
   -> visible working understanding
-  -> user correction or scoped confirmation
-  -> confirmed input where required
-  -> risk-appropriate authorization
-  -> answer or action
+  -> proceed with a provisional response, or wait at a named gate
+  -> user correction or scoped confirmation when required
+  -> risk-appropriate authorization for consequential action
+  -> answer, revision, or action
 ```
 
 The protocol aligns user expression with what the AI says it is preparing to
@@ -84,36 +85,48 @@ authority on its own.
 
 ## 4. Lifecycle and gates
 
-The reference lifecycle is:
+Reception state and response routing are independent. The reference lifecycle
+is:
 
 ```text
 INPUT_OPEN
   -> RECEPTION_DRAFT
   -> READBACK_SHOWN
   -> optional ACTIVE_ALIGNMENT
-  -> WAITING_FOR_RECEPTION_CONFIRMATION
-  -> RECEPTION_CONFIRMED
-  -> separately authorized synthesis or action
+  -> response_route:
+       proceed_with_provisional_response |
+       wait_for_reception_confirmation |
+       host_authorization_required
 ```
 
 `READBACK_SHOWN` means the user has been shown the working understanding. It is
-not a claim of confirmation.
+not a claim of confirmation. Continuing does not change reception state from
+`shown` to `confirmed`.
 
 Blocking reception confirmation is required when any of the following applies:
 
-- the user is still speaking, adding, correcting, or explicitly marks the
-  input `in_progress`;
-- the user asks to verify reception completeness before continuing;
-- the task converts, retains, hands off, or formally propagates the source;
-- a material ambiguity could change a high-impact answer or action;
-- the user explicitly requests a confirmation stop.
+- the user is still speaking, adding, correcting, or explicitly marks the input
+  `in_progress`;
+- the available source is inadequate for the requested transformation;
+- a material ambiguity changes the next safe response or action;
+- the user explicitly requests confirm-first, readback-only, or reception
+  completeness checking;
+- a persistent canonical artifact, formal handoff, or propagation requires
+  confirmed reception coverage.
+
+Host safety and action authorization remain a separate blocker. When the next
+step is a file write, external message, system call, commit, push, publish,
+purchase, or another consequential act, use `host_authorization_required` and
+the host's normal gate even if reception was confirmed.
 
 A simple, closed, low-risk question may receive a one-line readback followed by
 an answer. A longer but clearly closed, low-risk advisory request may receive a
-structured readback followed by a **provisional response**. In both cases the
-reception state remains `shown`, not `confirmed`, unless the user actually
-confirms it. The response must not erase open items or pretend alignment was
-completed.
+structured readback followed by an **in-chat provisional response**. A closed,
+source-adequate in-chat analysis or draft also proceeds after readback,
+especially when the user explicitly asks the AI to continue after showing the
+readback. In all of these cases the reception state remains `shown`, not
+`confirmed`, unless the user actually confirms it. The response must not erase
+open items or pretend alignment was completed.
 
 If the user confirms one batch and adds another, advance only the confirmed
 batch and append the new batch. Do not restart the entire conversation or make

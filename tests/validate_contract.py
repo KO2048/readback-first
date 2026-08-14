@@ -26,14 +26,17 @@ def main() -> int:
     else:
         protocol = protocol_path.read_text(encoding="utf-8")
         for needle in (
-            "Protocol Version: 0.2",
+            "Protocol Version: 0.3",
             "Readback is the core",
+            "Default readback",
             "Visible working understanding",
             "Source state",
             "Reception state",
             "Decision state",
             "Action authority",
             "READBACK_SHOWN",
+            "response_route",
+            "proceed_with_provisional_response",
             "WAITING_FOR_RECEPTION_CONFIRMATION",
             "confirmation_depth",
             "reception_coverage",
@@ -44,7 +47,8 @@ def main() -> int:
 
     skill = skill_path.read_text(encoding="utf-8")
     for needle in (
-        "Protocol version: 0.2",
+        "Protocol version: 0.3",
+        "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",
         "reception_state",
@@ -53,6 +57,9 @@ def main() -> int:
         "organization_method",
         "minto_pyramid",
         "WAITING_FOR_RECEPTION_CONFIRMATION",
+        "response_route",
+        "proceed_with_provisional_response",
+        "in-chat provisional",
         "reception_coverage",
     ):
         require(skill, needle, "SKILL.md", failures)

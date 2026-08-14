@@ -276,6 +276,40 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
             if invalid:
                 codes.add("CLARIFICATION_CLOSED_OPEN_INPUT")
 
+    elif kind == "missing_default_readback":
+        if (
+            case["meaningful_input"]
+            and not case["explicit_direct_answer"]
+            and output.get("substantive_response_started")
+            and (
+                not output.get("readback_shown")
+                or not output.get("readback_before_response")
+            )
+        ):
+            codes.add("MISSING_DEFAULT_READBACK")
+
+    elif kind == "explicit_proceed_overblocked":
+        eligible_to_proceed = (
+            case["input_state"] == "closed"
+            and case["source_adequate"]
+            and not case["material_ambiguity"]
+            and not case["explicit_confirm_first"]
+            and case["explicit_proceed_after_readback"]
+            and case["task_effect"] == "in_chat_provisional_draft"
+            and not case["external_action"]
+        )
+        if (
+            eligible_to_proceed
+            and output.get("response_route") == "block_for_reception_confirmation"
+        ):
+            codes.add("EXPLICIT_PROCEED_OVERBLOCKED")
+
+    elif kind == "proceed_required_gate_bypass":
+        required = set(case["required_gate_reasons"])
+        honored = set(output.get("honored_gate_reasons", []))
+        if not required.issubset(honored):
+            codes.add("PROCEED_REQUIRED_GATE_BYPASS")
+
     else:
         raise ValueError(f"Unknown failure mode: {kind}")
 
