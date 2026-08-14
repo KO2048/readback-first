@@ -1,0 +1,19 @@
+{
+  "id": "RBF-FIX-024",
+  "failure_mode": "clarification_closes_open_input",
+  "description": "A clarification during continuing input is treated as completion instead of an appended refinement.",
+  "input_state": "open",
+  "clarification_item_id": "RBF-004",
+  "bad_output": {
+    "state": "READY_FOR_PROVISIONAL_RESPONSE",
+    "declares_input_closed": true,
+    "appended_item_ids": [],
+    "expected_failure_codes": ["CLARIFICATION_CLOSED_OPEN_INPUT"]
+  },
+  "good_output": {
+    "state": "ACTIVE_ALIGNMENT",
+    "declares_input_closed": false,
+    "appended_item_ids": ["RBF-004"],
+    "expected_failure_codes": []
+  }
+}

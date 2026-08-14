@@ -1,0 +1,18 @@
+{
+  "id": "RBF-FIX-020",
+  "failure_mode": "ai_induction_as_source",
+  "description": "An AI-generated grouping is presented as if the user stated the upper-level conclusion.",
+  "source_item_ids": ["RBF-001", "RBF-002", "RBF-003"],
+  "bad_output": {
+    "induced_point": "The user has decided to launch a voice-first product.",
+    "provenance": "user_source",
+    "supporting_item_ids": ["RBF-001", "RBF-002", "RBF-003"],
+    "expected_failure_codes": ["AI_INDUCTION_AS_SOURCE"]
+  },
+  "good_output": {
+    "induced_point": "Possible organizing interpretation: these items may support a voice-first product direction.",
+    "provenance": "ai_organization",
+    "supporting_item_ids": ["RBF-001", "RBF-002", "RBF-003"],
+    "expected_failure_codes": []
+  }
+}

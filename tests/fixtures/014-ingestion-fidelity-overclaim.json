@@ -1,0 +1,20 @@
+{
+  "id": "RBF-FIX-014",
+  "failure_mode": "ingestion_fidelity_overclaim",
+  "description": "Without a trustworthy baseline, a full-source scan cannot be called an exact diff.",
+  "exact_diff_available": false,
+  "allowed_fidelity": ["full_source_scan", "user_reported", "reconstructed", "inferred"],
+  "bad_output": {
+    "ingestion_fidelity": "exact_diff",
+    "ingestion_evidence": [],
+    "ingestion_confidence": "high",
+    "expected_failure_codes": ["INGESTION_FIDELITY_OVERCLAIM"]
+  },
+  "good_output": {
+    "ingestion_fidelity": "full_source_scan",
+    "ingestion_evidence": ["read:whole-document", "git-status:untracked-target"],
+    "ingestion_confidence": "medium",
+    "known_limitations": ["Cannot prove which spans were added in this turn."],
+    "expected_failure_codes": []
+  }
+}
