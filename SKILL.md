@@ -205,6 +205,11 @@ schema mechanically when plain language is easier to inspect.
   new batch without declaring completion.
 - If a user confirms an older batch and adds new material in one message, mark
   only that older scope confirmed and create the next batch for the addition.
+- When a user corrects work already underway, preserve the earlier source,
+  append the correction, and link it with `corrects` or `supersedes`. Mark only
+  **dependent provisional output** as `needs_revision` or `superseded`; keep
+  independent output active. Then re-evaluate the blocking predicates and
+  revise or wait from the corrected understanding.
 - A clarification during `INPUT_OPEN` refines the active working understanding;
   it does not silently close the batch.
 - Preserve open items across receipt revisions until the user resolves them or

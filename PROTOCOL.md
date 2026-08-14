@@ -193,6 +193,18 @@ candidate interpretation.
 AI-generated grouping or induction must be labeled as organization or
 interpretation, never presented as if the user stated it verbatim.
 
+### Correction during provisional continuation
+
+A user correction may interrupt an answer or draft that followed a readback.
+Preserve the earlier expression, append the correction, and link it with
+`corrects` or `supersedes`. Trace which provisional claims depend on the
+corrected item: mark only **dependent provisional output** as `needs_revision`
+or `superseded`, while leaving independent output active. Then
+re-evaluate the blocking predicates against the corrected working
+understanding. Continue with a revision when no new blocker exists; otherwise
+wait at the newly applicable gate. A correction does not silently reopen
+unrelated confirmed scope.
+
 ## 8. Adaptive readback presentation
 
 The user may set a turn-level or session-level preference. The AI may select a

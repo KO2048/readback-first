@@ -37,6 +37,9 @@ def main() -> int:
             "READBACK_SHOWN",
             "response_route",
             "proceed_with_provisional_response",
+            "dependent provisional output",
+            "needs_revision",
+            "re-evaluate the blocking predicates",
             "WAITING_FOR_RECEPTION_CONFIRMATION",
             "confirmation_depth",
             "reception_coverage",
@@ -60,6 +63,9 @@ def main() -> int:
         "response_route",
         "proceed_with_provisional_response",
         "in-chat provisional",
+        "dependent provisional output",
+        "needs_revision",
+        "re-evaluate the blocking predicates",
         "reception_coverage",
     ):
         require(skill, needle, "SKILL.md", failures)

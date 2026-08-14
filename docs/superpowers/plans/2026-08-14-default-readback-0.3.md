@@ -51,10 +51,10 @@
 
 **Interfaces:** append correction → link `corrects`/`supersedes` → mark only dependent provisional output `needs_revision` or `superseded` → re-evaluate blockers → continue or wait.
 
-- [ ] Run a fresh-agent multi-turn scenario against the old Skill and record the exact stale-output failure.
-- [ ] Add fixture `028`; run fixture validation and observe RED.
-- [ ] Add the minimal rule and protocol/Skill behavior.
-- [ ] Re-run the same fresh-agent scenario with the new Skill and verify the affected output is revised without reopening unrelated scope.
+- [x] Run a fresh-agent multi-turn scenario against the pre-slice Skill. The observed behavior already passed: it preserved source, linked corrections, invalidated only dependent draft points, and continued without reopening unrelated scope. Do not fabricate a runtime RED.
+- [x] Add fixture `028`; run fixture validation and observe RED from the previously unknown invariant.
+- [x] Add the minimal rule and explicit protocol/Skill contract for the already-observed behavior.
+- [x] Preserve the fresh-agent transcript as the conditional GREEN evidence for this slice; no second behavior-changing run was necessary.
 - [ ] Run all validators and commit the green slice.
 
 ### Task 3: Recommendation-first uncertainty without menus / 推荐优先且无菜单的不确定处理

@@ -310,6 +310,39 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
         if not required.issubset(honored):
             codes.add("PROCEED_REQUIRED_GATE_BYPASS")
 
+    elif kind == "interrupt_correction_stale_output":
+        preserved = set(output.get("preserved_source_item_ids", []))
+        required_source = set(case["original_item_ids"]) | {case["correction_item_id"]}
+        links = {
+            (link.get("from"), link.get("relation"), link.get("to"))
+            for link in output.get("correction_links", [])
+        }
+        required_links = {
+            (case["correction_item_id"], "supersedes", item_id)
+            for item_id in case["corrected_item_ids"]
+        }
+        states = output.get("derived_output_states", {})
+        dependent_invalidated = all(
+            states.get(output_id) in {"needs_revision", "superseded"}
+            for output_id in case["dependent_output_ids"]
+        )
+        independent_preserved = all(
+            states.get(output_id) == "active"
+            for output_id in case["independent_output_ids"]
+        )
+        expected_route = (
+            "wait_at_required_gate"
+            if case["new_blockers"]
+            else "proceed_with_provisional_response"
+        )
+        invalid = not required_source.issubset(preserved)
+        invalid |= not required_links.issubset(links)
+        invalid |= not dependent_invalidated or not independent_preserved
+        invalid |= output.get("blockers_re_evaluated") is not True
+        invalid |= output.get("response_route") != expected_route
+        if invalid:
+            codes.add("INTERRUPT_CORRECTION_STALE_OUTPUT")
+
     else:
         raise ValueError(f"Unknown failure mode: {kind}")
 
