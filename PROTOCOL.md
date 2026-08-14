@@ -105,14 +105,17 @@ not a claim of confirmation. Continuing does not change reception state from
 
 Blocking reception confirmation is required when any of the following applies:
 
-- the user is still speaking, adding, correcting, or explicitly marks the input
-  `in_progress`;
+- the user is still speaking or explicitly marks the input `in_progress`;
 - the available source is inadequate for the requested transformation;
 - a material ambiguity changes the next safe response or action;
 - the user explicitly requests confirm-first, readback-only, or reception
   completeness checking;
 - a persistent canonical artifact, formal handoff, or propagation requires
   confirmed reception coverage.
+
+A closed addition or correction is not a blocker by itself. Append it, update
+its relations, and re-evaluate the predicates against the revised working
+understanding.
 
 Host safety and action authorization remain a separate blocker. When the next
 step is a file write, external message, system call, commit, push, publish,
@@ -319,7 +322,31 @@ Three evidence levels must remain distinct:
 Passing protocol fixtures alone does not prove that a model will follow the
 Skill at runtime.
 
-## 13. Migration from 0.1
+## 13. Migration
+
+### Migration from 0.2 to 0.3
+
+- Make visible readback the default for meaningful input when the Skill is
+  loaded; adaptation changes presentation, not whether readback occurs.
+- After `READBACK_SHOWN`, normally use
+  `response_route: proceed_with_provisional_response` for closed,
+  source-adequate, non-consequential in-chat work. Do not treat continuation as
+  reception confirmation.
+- Replace the absolute "retention or conversion always waits" rule with precise
+  predicates: in-chat provisional conversion may continue, while persistent
+  canonical retention, formal handoff, and propagation may still require
+  confirmed coverage.
+- Allow corrections to interrupt provisional work, preserve source lineage,
+  and invalidate only dependent output before re-evaluating blockers.
+- Choose presentation silently by default. Remove standing view footers and
+  parameter menus; use recommendation-first clarification only when uncertainty
+  materially changes the result.
+- Treat `overview` as navigation, not sufficient confirmation of material
+  `reception_coverage`.
+- Keep automatic default delivery as a host-integration responsibility; the
+  reference Skill alone cannot prove turn-by-turn activation.
+
+### Migration from 0.1 to 0.2
 
 - Replace `WAITING_FOR_CONFIRMATION` with
   `WAITING_FOR_RECEPTION_CONFIRMATION`.

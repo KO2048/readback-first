@@ -1,41 +1,35 @@
 # Readback First
 
-**The confirmation layer between human expression and AI action.**
+**See what AI is about to use—before it keeps going.**
 
-> Speak freely. Confirm what AI will use.
+> Speak freely. AI reads it back, then normally continues.
 
-[中文](README.zh-CN.md) · [Example](examples/before-after.md) ·
-[Behavior fixtures](tests/README.md) · Apache-2.0
+Readback First is a protocol and reference Agent Skill that makes **default readback**
+visible before an AI relies on a user's expression. It shows the AI's visible
+working understanding, continues when the next step is safe, and lets the user
+interrupt and correct it at any time.
+
+**Delivery boundary:** When loaded by a compatible host, the Skill treats
+readback as the default behavior. Automatically loading it on every meaningful
+turn still requires host integration.
+
+[中文](README.zh-CN.md) · [Same-source example](examples/before-after.md) ·
+[Protocol 0.3](PROTOCOL.md) · [33 deterministic fixtures](tests/README.md) ·
+Apache-2.0
 
 ## The idea, in one scene
 
-At a restaurant, the server does not send a complicated order straight to the
+At a restaurant, the server reads a changed order back before sending it to the
 kitchen:
 
-> “Two burgers instead of the steaks, one fries, two drinks, one mushroom
-> soup, and one corn soup. About eight minutes. Is that correct?”
+> “Two burgers instead of the steaks; one fries, two drinks, one mushroom soup,
+> and one corn soup. About eight minutes. Is that right?”
 
-The customer confirms. Then the kitchen starts.
-
-Working with AI should be similar. Before answering or acting, the AI should
-show the **working understanding it is preparing to rely on** so the user can
-check and correct it.
-
-That is Readback First.
-
-## Why
-
-People should not need to become prompt engineers before they can think out
-loud.
-
-Long messages, voice transcripts, corrections, uncertain ideas, references
-like “the previous version,” and last-minute constraints are normal human
-expression. An AI can produce a polished, plausible response while silently
-dropping a qualifier, merging two ideas, accepting a candidate as a decision,
-or acting on the wrong interpretation.
-
-The problem is not only what the user said. It is whether the user and AI are
-aligned on what the AI is about to use.
+The readback makes the working order visible before a consequential action.
+Readback First applies the same idea to AI: **show what will be used before
+answering or acting**. For an ordinary in-chat response, the AI can continue
+after the readback and the user can interrupt. For consequential actions, the
+host's normal confirmation and authorization gates still apply.
 
 ## Same input, different outcome
 
@@ -46,32 +40,58 @@ Keep Friday for the internal beta. Don't email customers.
 Pricing is still undecided."
 
 Without Readback First:
-"I'll update the public launch to Monday, keep the Friday beta,
+"I'll move the public launch to Monday, keep the Friday beta,
 pause customer email, and add a pricing review."
 
 With Readback First:
-- Public launch → keep unconfirmed; Monday change was withdrawn
-- Internal beta → Friday
-- Customer email → do not send
-- Pricing → unresolved, not a decided review
+- Public launch: keep open; the Monday change was withdrawn
+- Internal beta: Friday
+- Customer email: do not send
+- Pricing: unresolved, not a decided review
+
+Then the AI continues with a provisional plan. If the user corrects one item,
+only dependent provisional output is revised.
 ```
 
 See the complete
-[original → plausible failure → readback → correction → confirmed input](examples/before-after.md).
+[original → plausible failure → readback → provisional response → correction → revision](examples/before-after.md).
+
+## Why it exists
+
+People should not need to become prompt engineers before they can think out
+loud.
+
+Long messages, voice transcripts, corrections, uncertain ideas, references
+like “the previous version,” and last-minute constraints are normal human
+expression. An AI can produce a polished, plausible response while dropping a
+qualifier, merging two ideas, accepting a candidate as a decision, or acting on
+the wrong interpretation.
+
+The problem is not only what the user said. It is whether the user can inspect
+what the AI says it is preparing to use.
 
 ## What the Skill does
 
 Readback First:
 
-- preserves the source before transforming it;
-- reconstructs facts, requests, reasons, constraints, corrections, questions,
-  and unfinished content;
-- exposes ambiguity, possible omission, and low-confidence terms;
-- keeps correction and supersession links;
-- lets the user confirm reception coverage before sensitive synthesis;
-- separates semantic confirmation from factual verification and action
-  authorization;
-- uses a lightweight path for simple, closed requests.
+- reads back meaningful input by default before a substantive response;
+- preserves facts, requests, reasons, qualifiers, corrections, questions, and
+  unfinished content instead of replacing them with a summary;
+- normally continues after readback for closed, source-adequate, in-chat work;
+- lets user corrections interrupt provisional work and invalidate only
+  dependent output;
+- chooses readback density and organization without showing a standing mode
+  menu;
+- handles low-impact uncertainty with a visible working assumption and uses a
+  recommendation-first question only when ambiguity materially changes the
+  result;
+- separates reception state, decision state, factual truth, and action
+  authorization.
+
+It waits when the input is still open, the source is inadequate, a material
+ambiguity blocks the next safe step, the user asks for confirm-first/readback-
+only behavior, formal propagation requires confirmed coverage, or the host
+requires safety/action authorization.
 
 It is not:
 
@@ -79,7 +99,7 @@ It is not:
 - a speech-to-text engine;
 - a generic summarizer;
 - proof that user claims are factually true;
-- permission for an agent to write, send, purchase, push, or publish.
+- permission for an agent to write, send, purchase, commit, push, or publish.
 
 ## Install
 
@@ -102,81 +122,90 @@ Restart Codex after installation.
 
 ### Other Agent Skills-compatible runtimes
 
-Clone the repository into the runtime's skills directory. The Skill uses the
-portable `SKILL.md` format; runtime-specific discovery and invocation may vary.
+Clone the repository into the runtime's skills directory. The reference Skill
+uses the portable `SKILL.md` format, but discovery, invocation, and enforcement
+vary by runtime.
 
 ## Quick start
-
-Invoke it explicitly:
 
 ```text
 Use $readback-first.
 
-I am going to describe a product change freely. Preserve corrections,
-constraints, unresolved points, and anything you may have missed.
-Do not act until the input is aligned.
+I am going to describe a product change freely. Read back what you are
+preparing to use, then continue unless a named blocker applies. I will
+interrupt if the readback is wrong. Do not perform external actions.
 ```
 
 Or ask naturally:
 
 ```text
-Read this back before you answer.
+Read this back, then keep going unless you need a material clarification.
 ```
 
-For a simple closed request, the Skill uses a one-line readback and continues.
-For unfinished or retention-bound input, it can stop at
-`WAITING_FOR_CONFIRMATION`.
+A simple settled request gets a one-line readback and same-turn answer. A long
+or voice-like input gets a more inspectable readback, followed by a provisional
+response when safe. A direct-answer request may shorten or omit visible
+readback, but never bypasses safety or action authority.
+
+### Important host boundary
+
+The reference Skill specifies behavior **when the host loads it**. Making it run
+automatically on every meaningful turn requires compatible **host integration**;
+installing `SKILL.md` alone cannot prove default delivery across every runtime.
 
 ## Protocol
 
 ```text
 free expression
-  → source preservation
-  → visible working understanding
-  → ambiguity / omission / correction links
-  → user correction or confirmation
-  → confirmed input
-  → risk-appropriate authorization
-  → answer or action
+  → visible working understanding (readback shown)
+  → provisional response OR named blocking gate
+  → user interruption, correction, or scoped confirmation when needed
+  → risk-appropriate authorization for consequential action
+  → answer, revision, or action
 ```
 
-The key boundary:
+The key boundaries:
 
 ```text
-semantic reception confirmation
-  ≠ factual truth confirmation
-  ≠ authorization to act
+readback shown ≠ reception confirmed
+semantic reception confirmation ≠ factual truth confirmation
+semantic reception confirmation ≠ authorization to act
 ```
 
-## Tests
-
-The repository ships deterministic fixtures for the failure modes that
-motivated the Skill:
+## Tests and evidence
 
 ```bash
 python3 tests/validate_fixtures.py
+python3 tests/validate_contract.py
 ```
 
-They cover unauthorized compression, premature closure, correction overwrite,
-candidate promotion, qualifier omission, invented intent, summary-only
-confirmation, unresolved-item loss, confirmation overreach, direct-answer
-authority bypass, and overblocking.
+The repository includes **33 deterministic fixtures** for compression,
+premature closure, correction lineage, qualifier loss, invented intent,
+confirmation overreach, default-readback omission, proceed/wait routing,
+interrupting corrections, mode-menu fatigue, uncertainty handling, and action-
+authority bypass.
+
+These fixtures validate named protocol invariants against hand-authored JSON.
+They do not run a model or prove cross-runtime reliability. Broader product
+claims require fixed prompts, raw runtime outputs, repeated runs, and declared
+model/host versions.
 
 ## Status
 
-`v0.1.0` is the protocol/Skill release.
+Protocol 0.3 is a **public candidate** and is **not a tagged stable release**.
+The protocol, Skill contract, and fixtures are implemented in this candidate;
+broader runtime evidence and host integrations are still being validated.
 
-The current release does not include voice recognition, a desktop input method,
-plugins, external actions, or a hosted service. Voice input is an important
-future application, not a capability claimed by this version.
+This project does not include voice recognition, a desktop input method,
+plugins, external actions, or a hosted service. Voice input is an important use
+case, not a capability claimed by this repository.
 
 ## Roadmap
 
-- Strengthen same-source evaluation cases.
-- Test the Skill across compatible agent runtimes.
-- Explore a visual Readback Receipt for voice and long-form input.
-- Evaluate input-method adapters only after the confirmation interaction is
-  proven useful.
+- Publish reproducible same-source runtime evaluations.
+- Test verified compatibility across agent runtimes.
+- Design a visual Readback Receipt for voice and long-form input.
+- Evaluate input-method adapters only after the interaction proves useful.
 
 ## Contributing
 
@@ -184,11 +213,12 @@ Useful contributions include:
 
 - minimal examples where an AI produced a reasonable but wrong interpretation;
 - fixtures for corrections, qualifiers, ambiguity, and continuing input;
-- runtime installation verification;
-- clearer language that preserves protocol boundaries.
+- runtime installation and behavior verification;
+- clearer language that preserves protocol and authority boundaries.
 
-If this solves a problem you have experienced, try it on a real freeform input,
-share the before/after, and star the repository to follow the next iteration.
+Try it on one real freeform input. If the readback reveals a mismatch—or misses
+one—share the same-source case. Star the repository to follow new evaluations,
+runtime adapters, and interaction experiments.
 
 ## License
 

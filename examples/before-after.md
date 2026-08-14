@@ -44,53 +44,69 @@ Received
   source_state: active
   reception_state: shown
   action_authority: not_requested
-- RBF-006: Pricing probably needs another pass; no decision yet.
+- RBF-006: Pricing may need more work; no decision yet.
   source_state: active
   reception_state: shown
   decision_state: open
-- RBF-007: Prepare support, but the required preparation is not defined yet.
-  source_state: in_progress
+- RBF-007: Prepare support, but the required preparation is not defined.
+  source_state: active
   reception_state: shown
   decision_state: open
 
 Relations
 - RBF-003 supersedes RBF-002.
 
-Possible omission
+Source limit
 - The current public launch date was not restated.
 
-State: WAITING_FOR_RECEPTION_CONFIRMATION
-
-Readback view: standard · full · semantic trace · natural organization
+State: READBACK_SHOWN
+response_route: proceed_with_provisional_response
 ```
 
-## User correction
-
-> Correct. The public date stays unconfirmed. For support, only draft a
-> checklist; don't schedule training.
-
-## Confirmed input
+The AI does not label the readback confirmed. Because the source is closed and
+the next step is an in-chat draft, it continues with a provisional response:
 
 ```text
-- Revise the launch plan.
-- Keep the internal beta on Friday.
-- Leave the public launch date unconfirmed.
-- Do not email customers.
-- Keep pricing as an unresolved item.
-- Draft a support-readiness checklist; do not schedule training.
+Provisional launch-plan revision
+
+- DRAFT-01: Internal beta remains Friday.
+- DRAFT-02: Public launch date remains open; do not set Monday.
+- DRAFT-03: Do not send customer email.
+- DRAFT-04: Keep pricing as an unresolved item; do not schedule a review yet.
+- DRAFT-05: Keep support preparation open until its meaning is defined.
 ```
 
-Confirmation record:
+## User interrupt and correction
 
-```yaml
-confirmation_depth: detailed
-confirmation_target: reception_coverage
-confirmation_strength: corrects
-confirmation_scope: [RBF-001, RBF-003, RBF-004, RBF-005, RBF-006, RBF-007]
-confirmation_evidence: >
-  Correct. The public date stays unconfirmed. For support, only draft a
-  checklist; don't schedule training.
+> The public date staying open is correct. For support, only draft a readiness
+> checklist; do not schedule training. Keep everything else unchanged.
+
+## Correction lineage and scoped revision
+
+```text
+Readback update
+
+- Preserve RBF-007: the original support requirement was undefined.
+- RBF-008 extends RBF-007: draft a support-readiness checklist only.
+- RBF-009 extends RBF-008 with an action boundary: do not schedule support
+  training.
+- DRAFT-05 depends on RBF-007 and is now needs_revision.
+- DRAFT-01 through DRAFT-04 remain active.
+
+Reception update
+- The user accepted the public-date item in the nearest clear scope.
+- The user corrected the support item.
+- No file write, message, publication, or other action was authorized.
+
+response_route: proceed_with_provisional_response
 ```
 
-Only after this alignment should the AI draft the revised plan. Editing files,
-sending messages, or publishing still requires separate authorization.
+The revised provisional output changes only the dependent line:
+
+```text
+- DRAFT-05-R1: Draft a support-readiness checklist; do not schedule training.
+```
+
+The earlier source remains traceable. The correction does not silently confirm
+every item, and continuing the in-chat draft does not authorize editing files,
+sending messages, or publishing.

@@ -14,17 +14,26 @@ def require(text: str, needle: str, source: str, failures: list[str]) -> None:
         failures.append(f"{source}: missing {needle!r}")
 
 
+def read_required(path: Path, source: str, failures: list[str]) -> str:
+    if not path.exists():
+        failures.append(f"{source}: missing required file")
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
 def main() -> int:
     failures: list[str] = []
     protocol_path = ROOT / "PROTOCOL.md"
     skill_path = ROOT / "SKILL.md"
     example_path = ROOT / "examples" / "before-after.md"
     metadata_path = ROOT / "agents" / "openai.yaml"
+    readme_path = ROOT / "README.md"
+    readme_zh_path = ROOT / "README.zh-CN.md"
+    changelog_path = ROOT / "CHANGELOG.md"
+    tests_readme_path = ROOT / "tests" / "README.md"
 
-    if not protocol_path.exists():
-        failures.append("PROTOCOL.md: missing normative protocol")
-    else:
-        protocol = protocol_path.read_text(encoding="utf-8")
+    protocol = read_required(protocol_path, "PROTOCOL.md", failures)
+    if protocol:
         for needle in (
             "Protocol Version: 0.3",
             "Readback is the core",
@@ -50,10 +59,11 @@ def main() -> int:
             "reception_coverage",
             "minto_pyramid",
             "Current-session boundary",
+            "Migration from 0.2 to 0.3",
         ):
             require(protocol, needle, "PROTOCOL.md", failures)
 
-    skill = skill_path.read_text(encoding="utf-8")
+    skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
         "Protocol version: 0.3",
         "Default readback",
@@ -80,8 +90,12 @@ def main() -> int:
     ):
         require(skill, needle, "SKILL.md", failures)
 
-    example = example_path.read_text(encoding="utf-8")
-    metadata = metadata_path.read_text(encoding="utf-8")
+    example = read_required(example_path, "examples/before-after.md", failures)
+    metadata = read_required(metadata_path, "agents/openai.yaml", failures)
+    readme = read_required(readme_path, "README.md", failures)
+    readme_zh = read_required(readme_zh_path, "README.zh-CN.md", failures)
+    changelog = read_required(changelog_path, "CHANGELOG.md", failures)
+    tests_readme = read_required(tests_readme_path, "tests/README.md", failures)
 
     forbidden = {
         "SKILL.md": (
@@ -95,10 +109,16 @@ def main() -> int:
         ),
         "PROTOCOL.md": (
             (protocol, "must state the selected presentation"),
+            (protocol, "still speaking, adding, correcting"),
         ),
         "examples/before-after.md": (
             (example, "[confirmed request]"),
             (example, "[confirmed correction]"),
+            (example, " constrains "),
+        ),
+        "README.md": (
+            (readme, "Confirm what AI will use"),
+            (readme, "WAITING_FOR_CONFIRMATION"),
         ),
     }
     for source, checks in forbidden.items():
@@ -108,10 +128,48 @@ def main() -> int:
 
     for needle in (
         "visible working understanding",
+        "default readback",
+        "normally continue",
         "confirmation",
         "authorization",
     ):
         require(metadata.lower(), needle, "agents/openai.yaml", failures)
+
+    for needle in (
+        "Protocol 0.3",
+        "default readback",
+        "host integration",
+        "33 deterministic fixtures",
+        "not a tagged stable release",
+        "When loaded by a compatible host",
+    ):
+        require(readme, needle, "README.md", failures)
+
+    for needle in (
+        "协议 0.3",
+        "默认回讲",
+        "宿主集成",
+        "33 个确定性 fixtures",
+        "不是已打 tag 的稳定版本",
+        "被兼容宿主加载后",
+    ):
+        require(readme_zh, needle, "README.zh-CN.md", failures)
+
+    for needle in (
+        "proceed_with_provisional_response",
+        "needs_revision",
+        "reception_state: shown",
+    ):
+        require(example, needle, "examples/before-after.md", failures)
+
+    require(changelog, "0.3.0 (candidate)", "CHANGELOG.md", failures)
+    require(
+        changelog,
+        "0.2.0 (unreleased candidate)",
+        "CHANGELOG.md",
+        failures,
+    )
+    require(tests_readme, "33 deterministic fixtures", "tests/README.md", failures)
 
     if failures:
         print("CONTRACT VALIDATION FAILED")

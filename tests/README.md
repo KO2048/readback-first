@@ -1,6 +1,7 @@
 # Protocol fixtures
 
-The 24 deterministic fixtures encode named Readback First protocol invariants.
+The **33 deterministic fixtures** encode named Readback First protocol
+invariants.
 Each fixture contains a deliberately bad output and a compliant output. The
 runner checks that the bad output triggers the expected failure code and the
 good output does not.
@@ -27,6 +28,14 @@ The set covers:
 - ingestion-fidelity and source-trace overclaim;
 - source-to-synthesis trace gaps;
 - invalid delta baselines.
+- missing default readback and overblocked proceed-after-readback;
+- required-gate bypass after a proceed request;
+- interrupting corrections that leave dependent provisional output stale;
+- low-impact ambiguity that is over-questioned and material ambiguity that is
+  silently assumed;
+- unnecessary presentation menus and session preferences that remove required
+  coverage;
+- overview-only confirmation substituted for material reception coverage.
 
 ## Evidence boundary
 
