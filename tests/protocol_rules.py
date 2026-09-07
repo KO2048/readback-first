@@ -431,6 +431,9 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
                 codes.add("READBACK_ONLY_BYPASS")
         elif case.get("closed_advisory") and not output.get("substantive_answer", "").strip():
             codes.add("RECEIPT_ONLY_ENDING")
+        for link in output.get("diagram_links", []):
+            if not link.get("source_evidence") and not link.get("inference_labeled"):
+                codes.add("UNSUPPORTED_DIAGRAM_RELATION")
 
     else:
         raise ValueError(f"Unknown failure mode: {kind}")

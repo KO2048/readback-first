@@ -1,6 +1,6 @@
 # Readback First Protocol
 
-**Protocol Version: 0.5**
+**Protocol Version: 0.6**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
@@ -382,3 +382,12 @@ requested answer, judgment or authorized work, unless a named blocker or explici
 readback-only applies. Follow SKILL.md Reader-facing response. Unresolved items
 survive authorized revisions/handoffs with provenance and resolution evidence;
 do not claim unavailable durable storage.
+
+## 16. Migration from 0.5 to 0.6
+
+Select prose, tables and Mermaid types by the relationship being inspected.
+Multiple connected sections and diagrams are allowed. Preserve shared object
+identity, cross-section dependencies, qualifiers and uncertainties. Label inferred
+links; never invent dates, cardinalities, causal links or state transitions.
+Use readable fallback when rendering is unavailable. Follow SKILL.md Multiple
+semantic views. A diagram is not proof of source coverage or user confirmation.

@@ -1,0 +1,26 @@
+{
+  "id": "RBF-FIX-037",
+  "failure_mode": "reader_delivery",
+  "bad_output": {
+    "text": "关系图",
+    "diagram_links": [
+      {
+        "source_evidence": null,
+        "inference_labeled": false
+      }
+    ],
+    "expected_failure_codes": [
+      "UNSUPPORTED_DIAGRAM_RELATION"
+    ]
+  },
+  "good_output": {
+    "text": "关系图：以下为 AI 示意。",
+    "diagram_links": [
+      {
+        "source_evidence": null,
+        "inference_labeled": true
+      }
+    ],
+    "expected_failure_codes": []
+  }
+}
