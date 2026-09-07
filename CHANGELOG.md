@@ -2,6 +2,13 @@
 
 Candidate history below is not a stable release log. 来源与实测限制见各版说明。
 
+## 0.7.0 (candidate)
+
+- Provide a mandatory every-turn host adapter, including reload and missing-dependency handling.
+- Keep installation, activation and measured runtime behavior separately evidenced.
+
+[Evidence and migration](docs/releases/0.7.0.md). Runtime validation pending.
+
 ## 0.6.0 (candidate)
 
 - Choose separate semantic views, tables and Mermaid types from content.

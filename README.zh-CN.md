@@ -1,18 +1,18 @@
 # Readback First
 
-**0.6.0 candidate — 多视图表达**
+**0.7.0 candidate — 每轮强制应用**
 
 先让用户看清 AI 接收到什么，再进行实质回应。回讲保留原意、限定、修正与未决项；
 回讲不等于事实核验或行动授权。
 
-[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.6.0.md) · [版本路线](docs/release-sequence.md)
+[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.7.0.md) · [版本路线](docs/release-sequence.md)
 
 ## 本版解决什么
 
-多视图表达。本版基于前一候选逐步演进，不把后续版本能力算作已经完成。
+每轮强制应用。本版基于前一候选逐步演进，不把后续版本能力算作已经完成。
 
-- Choose separate semantic views, tables and Mermaid types from content.
-- Keep inferred links labeled and qualifiers visible; use readable renderer fallbacks.
+- Provide a mandatory every-turn host adapter, including reload and missing-dependency handling.
+- Keep installation, activation and measured runtime behavior separately evidenced.
 
 ## 回讲之后，继续回答
 
@@ -25,7 +25,7 @@
 
 ## 安装与证据
 
-从本候选分支 `codex/release-v06-visuals` 安装仓库根目录中的 Skill，并按宿主要求重新加载。
+从本候选分支 `codex/release-v07-always-on` 安装仓库根目录中的 Skill，并按宿主要求重新加载。
 不要将默认 main 安装误认为安装了本候选。仅安装不证明每轮自动应用。
 
 本版有 **39 个确定性 fixtures**。检查：
@@ -50,3 +50,5 @@ flowchart LR
 
 Use different diagrams for different relationships; inferred links need labels.
 根据不同关系分别选图；推测关系必须标识。See examples/before-after.md.
+
+[Mandatory every-turn adapter / 每轮强制入口](docs/always-on.md)

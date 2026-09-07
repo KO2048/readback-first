@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.6**
+**Protocol version: 0.7**
 
 ## Purpose
 
@@ -305,3 +305,10 @@ Before responding or acting, verify:
 9. Is a simple, settled request still easy to answer?
 10. Did I block normal continuation even though an in-chat provisional response
     was safe and the source was adequate?
+
+## Mandatory host profile
+
+For mandatory every-turn deployment, follow [the host adapter](docs/always-on.md).
+Apply the loaded protocol on every user turn; repeated disk reads are not the
+definition of activation. Report missing dependencies and retain host authority.
+This branch supplies the profile but does not attest installation or live use.
