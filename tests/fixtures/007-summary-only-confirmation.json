@@ -11,13 +11,13 @@
     ]
   },
   "good_output": {
-    "confirmation_target": "source_coverage",
+    "confirmation_target": "reception_coverage",
     "coverage_item_ids": [
-      "HR-0001",
-      "HR-0002",
-      "HR-0003"
+      "RBF-0001",
+      "RBF-0002",
+      "RBF-0003"
     ],
-    "rendered_text": "请核对 HR-0001 至 HR-0003 的接收、限定和关系是否完整。",
+    "rendered_text": "请核对 RBF-0001 至 RBF-0003 的接收、限定和关系是否完整。",
     "expected_failure_codes": []
   }
 }

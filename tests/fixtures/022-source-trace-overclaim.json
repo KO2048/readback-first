@@ -1,0 +1,18 @@
+{
+  "id": "RBF-FIX-022",
+  "failure_mode": "source_trace_overclaim",
+  "description": "An output claims exact source trace when only semantic source access is available.",
+  "maximum_source_fidelity": "semantic",
+  "bad_output": {
+    "source_trace": "exact",
+    "exact_source_spans_available": false,
+    "known_limitations": [],
+    "expected_failure_codes": ["SOURCE_TRACE_OVERCLAIM"]
+  },
+  "good_output": {
+    "source_trace": "semantic",
+    "exact_source_spans_available": false,
+    "known_limitations": ["Exact source spans are unavailable in this host."],
+    "expected_failure_codes": []
+  }
+}

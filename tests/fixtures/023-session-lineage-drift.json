@@ -1,0 +1,19 @@
+{
+  "id": "RBF-FIX-023",
+  "failure_mode": "session_lineage_drift",
+  "description": "Current-session lineage is silently replaced with an unverifiable cross-session baseline.",
+  "current_session_id": "S-002",
+  "current_batch_ids": ["B-004", "B-005"],
+  "bad_output": {
+    "session_id": "S-001",
+    "carried_batch_ids": ["B-001", "B-002", "B-003"],
+    "cross_session_memory_verified": false,
+    "expected_failure_codes": ["SESSION_LINEAGE_DRIFT"]
+  },
+  "good_output": {
+    "session_id": "S-002",
+    "carried_batch_ids": ["B-004", "B-005"],
+    "cross_session_memory_verified": false,
+    "expected_failure_codes": []
+  }
+}

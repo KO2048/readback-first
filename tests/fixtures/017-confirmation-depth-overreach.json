@@ -1,0 +1,21 @@
+{
+  "id": "RBF-FIX-017",
+  "failure_mode": "confirmation_depth_overreach",
+  "description": "An overview confirmation is inflated into traced confirmation over a wider scope.",
+  "maximum_supported_depth": "overview",
+  "evidence_item_ids": ["RBF-001", "RBF-002"],
+  "bad_output": {
+    "confirmation_depth": "traced",
+    "confirmation_target": "reception_coverage",
+    "accepted_item_ids": ["RBF-001", "RBF-002", "RBF-003"],
+    "source_trace_available": false,
+    "expected_failure_codes": ["CONFIRMATION_DEPTH_OVERREACH"]
+  },
+  "good_output": {
+    "confirmation_depth": "overview",
+    "confirmation_target": "reception_coverage",
+    "accepted_item_ids": ["RBF-001", "RBF-002"],
+    "source_trace_available": false,
+    "expected_failure_codes": []
+  }
+}

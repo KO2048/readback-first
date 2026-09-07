@@ -1,0 +1,45 @@
+{
+  "id": "RBF-FIX-015",
+  "failure_mode": "source_synthesis_trace_gap",
+  "description": "A synthesis merges source items without retaining merged lineage or the disposition of an unpropagated candidate.",
+  "source_item_ids": ["SRC-01", "SRC-02", "SRC-03", "SRC-04"],
+  "bad_output": {
+    "trace_rows": [
+      {
+        "trace_id": "TR-01",
+        "source_item_ids": ["SRC-01"],
+        "transformation": "merged",
+        "synthesis_target": "SYN-01"
+      },
+      {
+        "trace_id": "TR-02",
+        "source_item_ids": ["SRC-03"],
+        "transformation": "preserved",
+        "synthesis_target": "SYN-02"
+      }
+    ],
+    "unpropagated_source_item_ids": [],
+    "authorized_exclusions": [],
+    "expected_failure_codes": ["SOURCE_SYNTHESIS_TRACE_GAP"]
+  },
+  "good_output": {
+    "trace_rows": [
+      {
+        "trace_id": "TR-01",
+        "source_item_ids": ["SRC-01", "SRC-02"],
+        "transformation": "merged_with_lineage",
+        "synthesis_target": "SYN-01"
+      },
+      {
+        "trace_id": "TR-02",
+        "source_item_ids": ["SRC-03"],
+        "transformation": "preserved",
+        "synthesis_target": "SYN-02"
+      }
+    ],
+    "unpropagated_source_item_ids": ["SRC-04"],
+    "unpropagated_reasons": {"SRC-04": "candidate; not authorized for propagation"},
+    "authorized_exclusions": [],
+    "expected_failure_codes": []
+  }
+}
