@@ -2,6 +2,13 @@
 
 Candidate history below is not a stable release log. 来源与实测限制见各版说明。
 
+## 0.4.0 (candidate)
+
+- Wait for continuation when input is unfinished, not for approval.
+- Separate clarification, reception confirmation and readback-only; preserve path ambiguity.
+
+[Evidence and migration](docs/releases/0.4.0.md). Runtime validation pending.
+
 ## 0.3.0 (candidate)
 
 - Apply readback by default when loaded, then normally continue.

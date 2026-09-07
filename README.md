@@ -1,27 +1,27 @@
 # Readback First
 
-**0.3.0 candidate — Default readback and useful continuation**
+**0.4.0 candidate — Separate input, clarification and confirmation waits**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.3.0.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.4.0.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
-- Apply readback by default when loaded, then normally continue.
-- Invalidate only output depending on a correction; avoid unnecessary confirmation loops.
+- Wait for continuation when input is unfinished, not for approval.
+- Separate clarification, reception confirmation and readback-only; preserve path ambiguity.
 
 ## Install this candidate
 
-Install the repository-root Skill from branch `codex/release-v03-continuation`, then reload as required
+Install the repository-root Skill from branch `codex/release-v04-waiting`, then reload as required
 by the host. Installing from default main will not select this candidate.
 Installation alone does not establish mandatory every-turn activation.
 
 ## Evidence and status
 
-**33 deterministic fixtures** and a contract consistency check are provided:
+**34 deterministic fixtures** and a contract consistency check are provided:
 
 ```bash
 python3 tests/validate_contract.py

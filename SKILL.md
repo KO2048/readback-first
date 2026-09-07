@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.3**
+**Protocol version: 0.4**
 
 ## Purpose
 
@@ -50,7 +50,7 @@ candidate into a decision, authorize synthesis, or authorize external action.
 | --- | --- |
 | Simple, closed, low-risk | Give a one-line readback and answer. A direct-answer request may omit the visible readback. |
 | Long or freeform, clearly closed, source-adequate in-chat advisory or drafting | Show a structured readback, then normally continue with an in-chat provisional response. Keep reception `shown`, never silently promote it to `confirmed`. |
-| Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
+| Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and use `wait_for_input` to invite continuation, not confirmation. |
 | Persistent canonical retention, formal handoff or propagation, or explicit completeness check | Show a detailed or traced readback and stop at `WAITING_FOR_RECEPTION_CONFIRMATION` when confirmed reception coverage is required. An in-chat provisional conversion may proceed. |
 | Corrective input | Preserve both versions and link what corrects or supersedes what. |
 | Material ambiguity | Show the interpretations and ask the smallest question that changes the working understanding. |
@@ -197,15 +197,39 @@ Ambiguities or possible unparsed material
 Open or unfinished
 - ...
 
-State: READBACK_SHOWN | WAITING_FOR_RECEPTION_CONFIRMATION |
+State: READBACK_SHOWN | WAITING_FOR_INPUT | WAITING_FOR_RECEPTION_CONFIRMATION |
   RECEPTION_CONFIRMED | READY_FOR_PROVISIONAL_RESPONSE
 
 response_route: proceed_with_provisional_response |
+  wait_for_input | wait_for_clarification | readback_only |
   wait_for_reception_confirmation | host_authorization_required
 ```
 
 For a simple closed request, compress this to one line. Do not expose internal
 schema mechanically when plain language is easier to inspect.
+
+## Precise waiting and continuation
+
+Use `response_route` internally; explain them to the user in ordinary language:
+
+- `wait_for_input`: an explicit unfinished utterance; preserve what arrived and
+  invite continuation, without a premature implementation questionnaire.
+- `wait_for_clarification`: missing source or material semantic ambiguity;
+  preserve alternatives and ask only what changes the dependent next step.
+- `wait_for_reception_confirmation`: explicit confirm-first/completeness check
+  or a required scoped coverage confirmation for formal propagation.
+- `readback_only`: the user asked for only a readback; do not turn that into an
+  unsolicited question or further work.
+- `host_authorization_required`: actual host authorization is missing.
+- `proceed_with_provisional_response`: no blocker; continue while reception
+  stays shown unless explicit scoped confirmation was supplied.
+
+Inspect input completion before asking downstream design questions. Report
+"the user stated" separately from "my interpretation" and "verified fact".
+Never turn an ambiguous path such as “同级 dist” into a confirmed sibling path.
+Keep unresolved items and correction lineage across any available document
+versions or authorized handoff. Require provenance and resolution evidence to
+mark an item resolved; do not claim durable storage that did not occur.
 
 ## Incremental continuation
 
