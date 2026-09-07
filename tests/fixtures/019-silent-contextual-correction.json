@@ -1,0 +1,21 @@
+{
+  "id": "RBF-FIX-019",
+  "failure_mode": "silent_contextual_correction",
+  "description": "A contextual correction changes a date and downstream schedule without showing it as a candidate.",
+  "source_text": "Ship it on Thursday, or maybe the transcription meant Tuesday.",
+  "material_change_fields": ["date", "schedule"],
+  "bad_output": {
+    "working_understanding": "Ship it on Tuesday.",
+    "contextual_correction_visible": false,
+    "correction_basis": null,
+    "downstream_impact": null,
+    "expected_failure_codes": ["SILENT_CONTEXTUAL_CORRECTION"]
+  },
+  "good_output": {
+    "working_understanding": "Candidate interpretation: Tuesday, not Thursday.",
+    "contextual_correction_visible": true,
+    "correction_basis": "The speaker explicitly raised Tuesday as an alternative transcription.",
+    "downstream_impact": "The release schedule changes by two days.",
+    "expected_failure_codes": []
+  }
+}

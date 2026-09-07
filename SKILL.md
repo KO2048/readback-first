@@ -1,189 +1,228 @@
 ---
 name: readback-first
-description: Use when a user provides freeform, dictated, long, continuing, corrective, ambiguous, or retention-bound input and needs to verify what the AI is preparing to answer or act on before synthesis, insertion, or execution.
+description: Use when a user provides freeform, dictated, long, continuing, corrective, ambiguous, or retention-bound input and needs to inspect what the AI is preparing to answer or act on before synthesis or execution.
 ---
 
 # Readback First
 
-## Overview
+**Protocol version: 0.2**
 
-Readback First aligns a user's expression with the AI's visible working
-understanding before the AI answers or acts.
+## Purpose
 
-> Speak freely. Confirm what AI will use.
+Align the user's expression with the AI's visible working understanding before
+the AI relies on it.
 
-The readback shows the interpretation the AI is preparing to rely on. It does
-not expose hidden reasoning, prove factual truth, or authorize external action.
+> Speak freely. Check what AI will use.
 
-## Core distinction
+Readback is the core. It lets the user inspect and correct the meaning the AI
+says it is preparing to use. It is not hidden reasoning, factual verification,
+speech recognition, a generic summary, or permission to act.
 
-| Readback | Summary |
+Read `PROTOCOL.md` for the normative contract. When this Skill and the protocol
+conflict, the protocol controls.
+
+## Non-negotiable distinctions
+
+**Readback shown is not reception confirmed.** Showing a readback proves only
+that a visible working understanding was presented. Mark it confirmed only when
+the user supplies confirmation evidence for an explicit target and scope.
+
+Keep these state axes independent:
+
+```yaml
+source_state: active | in_progress | superseded
+reception_state: unreviewed | shown | confirmed | corrected | rejected
+decision_state: candidate | open | decided | resolved
+action_authority: not_requested | requested | authorized | rejected
+```
+
+Reception confirmation does not prove the user's claims are true, promote a
+candidate into a decision, authorize synthesis, or authorize external action.
+
+## Choose the lightest safe path
+
+| Input situation | Required behavior |
 | --- | --- |
-| Optimizes for coverage and correction | Optimizes for compression |
-| Preserves facts, constraints, reasons, corrections, and open items | Merges, ranks, and omits detail |
-| Shows ambiguity and possible omission | Usually presents a clean result |
-| Happens before answering or acting | Happens only when requested or authorized |
+| Simple, closed, low-risk | Give a one-line readback and answer. A direct-answer request may omit the visible readback. |
+| Long or freeform, clearly closed, low-risk advisory | Show a structured readback. A scoped provisional response may follow, but label reception `shown`, never `confirmed`. |
+| Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
+| Retention, conversion, formal handoff, or explicit completeness check | Show a detailed or traced readback and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
+| Corrective input | Preserve both versions and link what corrects or supersedes what. |
+| Material ambiguity | Show the interpretations and ask the smallest question that changes the working understanding. |
+| High-risk action | Read back scope and intent, then obtain action-specific authorization separately. |
 
-Never replace reception confirmation with a shorter summary.
+Length alone does not force a blocking gate. Consequence, openness, retention,
+and explicit confirmation requests do. Confirmation is batch-scoped; do not
+restart an entire conversation when the user confirms one batch and adds a new
+one.
 
-## Choose the lightest safe mode
+## Build the readback
 
-| Input state | Required behavior |
-| --- | --- |
-| Simple, closed, low risk | Use a one-line readback, then answer. |
-| Long or freeform but closed | Show a structured readback, then answer unless the user asked to confirm first. |
-| Continuing, unfinished, or explicitly retention-bound | Preserve and expand the current batch, then stop at `WAITING_FOR_CONFIRMATION`. |
-| Corrective | Preserve both versions and link what corrects or supersedes what. |
-| High-risk action | Read back scope and intent, then obtain the action-specific authorization separately. |
-| Explicit `direct answer` or equivalent | Shorten or omit the visible readback, but keep authority and safety gates. |
+For complex input:
 
-Length alone does not require a blocking confirmation. Do not create an
-infinite confirmation loop: confirmation is scoped to the current batch.
+1. Preserve source order and append new input. Never silently overwrite prior
+   expression.
+2. Identify independently checkable meaning units: facts, opinions, requests,
+   reasons, examples, counterexamples, constraints, alternatives, corrections,
+   questions, and unfinished items.
+3. Preserve negation, quantities, timing, conditions, exceptions, degree,
+   uncertainty, and authority boundaries.
+4. Give session-stable IDs when they improve correction and traceability.
+5. Show corrections with `corrects`, `supersedes`, `contradicts`, `depends_on`,
+   or `extends` relations.
+6. Report ambiguous spans, low-confidence wording, possible unparsed material,
+   unsupported pronouns, and unfinished content.
+7. Never invent an intention to make the result look complete.
 
-## Protocol
+Use bounded evidence fields when coverage matters:
 
-For complex, open, corrective, or retention-bound input:
+```yaml
+source_fidelity: exact | semantic | unavailable
+coverage_state: mapped_with_known_limits | uncertain | unmapped | not_assessable
+```
 
-1. **Preserve the source**
-   - Keep the original batch and its order.
-   - Append new input; do not overwrite earlier input.
-2. **Reconstruct with high coverage**
-   - Capture facts, opinions, requests, reasons, examples, counterexamples,
-     constraints, alternatives, corrections, questions, and unfinished parts.
-   - Do not select a few "key points" as a substitute.
-3. **Create an atomic ledger**
-   - Give independently checkable items stable identifiers.
-   - Record meaning, type, status, qualifiers, context, provenance, and links.
-4. **Report uncertainty**
-   - List ambiguous spans, possible omissions, low-confidence terms,
-     unfinished spans, and unmapped source material.
-   - Do not silently complete the user's intent.
-5. **Link corrections**
-   - Preserve the earlier and later expressions.
-   - Use `corrects`, `supersedes`, `contradicts`, or `depends_on`.
-6. **Confirm reception**
-   - Ask the user to check source coverage, qualifiers, and relationships.
-   - Do not ask them to confirm only a compressed summary.
-7. **Synthesize only when allowed**
-   - Confirmation of reception does not automatically authorize summarizing,
-     merging, prioritizing, deciding, or publishing.
-8. **Keep action authority separate**
-   - Semantic confirmation does not authorize files, messages, purchases,
-     external calls, commits, pushes, publishing, or other consequential acts.
+Do not claim complete coverage from generated IDs, shortness, confidence, or a
+clean-looking structure. When the source is available for formal retention,
+check the readback against an externally identified meaning-unit inventory.
 
-## Structured readback contract
+## Actively align after the readback
 
-Use only the sections that add information:
+After presenting the substantive readback, actively surface only issues that
+could change what the AI will use:
+
+- possible contextual corrections to names, entities, negation, quantities,
+  dates, conditions, or authority;
+- two or more plausible interpretations;
+- contradictions or supersession that need a relation;
+- important source material that is still unmapped;
+- open decisions that must not be presented as settled;
+- the smallest missing fact required for the next safe step.
+
+Use a collaborative checking tone, not an interrogation. Do not ask questions
+whose answers would not change the working understanding or the next gate.
+Material contextual corrections remain candidates until the user accepts them.
+Punctuation, filler removal, and meaning-preserving ASR cleanup may be silent.
+
+## Adapt how the readback is organized
+
+Choose a reasonable presentation from context and allow the user to adjust it:
+
+```yaml
+organization_method: natural | minto_pyramid
+readback_view:
+  density: compact | standard
+  focus: full | delta
+  source_trace: off | semantic | exact
+  preference_scope: turn | session
+```
+
+`compact` removes repeated wording, not material meaning. `delta` is allowed
+only from a locatable, reception-confirmed, same-scope baseline; formal
+retention or handoff recompiles the full current view.
+
+Use `minto_pyramid` only when it makes complex material easier to inspect. It
+means grouping ideas of the same kind, deriving each upper point from the ideas
+below it, keeping vertical support visible, and ordering sibling ideas with a
+defensible horizontal logic. It is a method for improving a readback, not the
+core of Readback First and not shorthand for a layered format. Never let the
+organization hide source details, exceptions, corrections, or open items.
+
+State the chosen presentation **after** the substantive readback, for example:
+
+```text
+Readback view: standard · full · semantic trace · natural organization
+You can ask for compact/standard, full/delta, natural/Minto, or exact trace.
+```
+
+## Confirmation contract
+
+When confirmation is required or supplied, record:
+
+```yaml
+confirmation_depth: overview | detailed | traced
+confirmation_target: reception_coverage | interpretation |
+  product_decision | action_authority
+confirmation_strength: acknowledges | accepts | corrects | rejects | partial
+confirmation_scope: [batch IDs, item IDs, sections, or named actions]
+confirmation_evidence: user's exact confirming span
+```
+
+A bare "yes" applies only to the nearest clear target and scope. Allow partial
+acceptance and item-level correction.
+
+Use `overview` for low-risk advisory discussion, `detailed` for material items
+and qualifiers, and `traced` for formal retention or handoff when source trace
+is available. Do not require traced confirmation when the source is not
+available; report the fidelity limit instead.
+
+## Output pattern
+
+Use only sections that add information:
 
 ```text
 Readback
 
 Received
-- RB-001 [status]: ...
-- RB-002 [status]: ...
+- RBF-0001
+  working_understanding: ...
+  source_state: active
+  reception_state: shown
+  decision_state: open
+  qualifiers: ...
 
 Corrections and relations
-- RB-003 corrects RB-001: ...
+- RBF-0003 supersedes RBF-0002: ...
 
-Constraints and qualifiers
-- ...
-
-Ambiguities or possible omissions
+Ambiguities or possible unparsed material
 - ...
 
 Open or unfinished
 - ...
 
-State: WAITING_FOR_CONFIRMATION | READY_TO_RESPOND
+State: READBACK_SHOWN | WAITING_FOR_RECEPTION_CONFIRMATION |
+  RECEPTION_CONFIRMED | READY_FOR_PROVISIONAL_RESPONSE
+
+Readback view: standard · full · semantic trace · natural organization
+Adjust: compact/standard · full/delta · natural/Minto · off/semantic/exact trace
 ```
 
-Recommended statuses:
+For a simple closed request, compress this to one line. Do not expose internal
+schema mechanically when plain language is easier to inspect.
 
-- `in_progress`
-- `candidate`
-- `needs_review`
-- `confirmed`
-- `superseded`
-- `resolved`
+## Incremental continuation
 
-If the user confirms an older batch and adds new material in the same message,
-advance the confirmed batch and append the new material as a new batch. Do not
-restart the entire conversation.
+- While the user is still speaking, keep `INPUT_OPEN`; append and read back the
+  new batch without declaring completion.
+- If a user confirms an older batch and adds new material in one message, mark
+  only that older scope confirmed and create the next batch for the addition.
+- A clarification during `INPUT_OPEN` refines the active working understanding;
+  it does not silently close the batch.
+- Preserve open items across receipt revisions until the user resolves them or
+  explicit evidence shows their disposition.
+- Use only current-session context. Never claim durable or cross-session memory
+  unless the host provides and verifies it.
 
-## Confirmation semantics
+## Authority boundary
 
-Bind confirmation to an explicit target and scope:
+Semantic alignment and action authorization are different gates. A confirmed
+readback cannot by itself authorize file edits, messages, external calls,
+commits, pushes, publishing, purchases, or other consequential acts. Follow the
+host system's normal permission and safety process.
 
-```text
-confirmation_target: reception_coverage | interpretation |
-  product_decision | action_authority
-confirmation_strength: acknowledges | accepts | corrects | rejects | partial
-confirmation_scope: batch IDs, item IDs, sections, or actions
-confirmation_evidence: the user's exact confirming span
-```
-
-A bare "yes" inherits only the nearest clear confirmation target. If that
-target contains several claims, allow partial acceptance and correction.
-
-## What Readback First is not
-
-- Not a chain-of-thought viewer.
-- Not a speech-to-text engine.
-- Not a generic cleanup or summarization prompt.
-- Not proof that the user's claims are factually true.
-- Not approval for an agent to act.
-- Not a requirement to block every simple request.
-
-## One representative example
-
-User:
-
-> Use the previous launch plan, but remove the Friday release. Keep the beta
-> invite, and don't email customers yet. I may change the pricing section
-> later. Can you prepare it?
-
-Readback:
-
-```text
-Received
-- RB-001 [candidate]: Reuse the previous launch plan.
-- RB-002 [confirmed request]: Remove the Friday release.
-- RB-003 [confirmed request]: Keep the beta invite.
-- RB-004 [constraint]: Do not email customers yet.
-- RB-005 [in_progress]: Pricing may change later; no new pricing decision yet.
-
-Ambiguity
-- "Prepare it" could mean draft the revised plan or modify an existing file.
-
-State: READY_TO_RESPOND
-```
-
-Then ask the smallest necessary question or provide a draft. Do not edit a file
-or send an email without separate authorization.
-
-See `examples/before-after.md` for a complete same-source comparison.
-
-## Common failures
-
-| Failure | Required correction |
-| --- | --- |
-| Compressing 1,000 information points into 10 | Show item-level coverage; allow long output. |
-| Closing while the user is still speaking | Mark the batch `in_progress` and wait. |
-| Replacing old text with a correction | Preserve both and add a correction link. |
-| Treating a candidate as a decision | Keep `candidate` or `needs_review`. |
-| Dropping qualifiers | Keep conditions, exceptions, negation, and timing. |
-| Inventing intent | Mark ambiguity and ask or preserve alternatives. |
-| Treating reception as authorization | Run the separate action gate. |
-| Blocking a clear one-line request | Use the simple direct path. |
+A request for a direct answer can shorten readback. It cannot bypass privacy,
+security, action authority, or other high-risk gates.
 
 ## Final check
 
 Before responding or acting, verify:
 
-1. Can the user see what the AI is preparing to rely on?
-2. Are facts, constraints, reasons, corrections, and unresolved items covered?
-3. Are ambiguity and possible omission visible?
-4. Is the confirmation scoped to the right batch and target?
-5. Is synthesis separately authorized when needed?
-6. Is external action separately authorized?
-7. Is a simple request still simple?
+1. Can the user inspect what the AI says it is preparing to use?
+2. Are material meaning units and qualifiers visible rather than compressed
+   away?
+3. Are correction and supersession relations preserved?
+4. Are ambiguity, possible unparsed material, and unfinished items visible?
+5. Is `shown` distinguished from `confirmed`?
+6. Is the confirmation target, depth, scope, and evidence explicit?
+7. Are decision status and action authority still independent?
+8. Is the chosen organization serving the readback rather than replacing it?
+9. Is a simple, settled request still easy to answer?

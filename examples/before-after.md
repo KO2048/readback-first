@@ -26,22 +26,42 @@ This sounds reasonable, but it silently:
 Readback
 
 Received
-- RB-001 [confirmed request]: Revise the launch plan.
-- RB-002 [superseded]: Move the public launch from Friday to Monday.
-- RB-003 [confirmed correction]: Do not change the public launch date yet.
-- RB-004 [confirmed request]: Keep the internal beta on Friday.
-- RB-005 [constraint]: Do not email customers.
-- RB-006 [needs_review]: Pricing probably needs another pass; no decision yet.
-- RB-007 [in_progress]: Prepare support, but the required preparation is not
-  defined yet.
+- RBF-001: Revise the launch plan.
+  source_state: active
+  reception_state: shown
+  decision_state: open
+- RBF-002: Move the public launch from Friday to Monday.
+  source_state: superseded
+  reception_state: shown
+- RBF-003: Do not change the public launch date yet.
+  source_state: active
+  reception_state: shown
+  decision_state: open
+- RBF-004: Keep the internal beta on Friday.
+  source_state: active
+  reception_state: shown
+- RBF-005: Do not email customers.
+  source_state: active
+  reception_state: shown
+  action_authority: not_requested
+- RBF-006: Pricing probably needs another pass; no decision yet.
+  source_state: active
+  reception_state: shown
+  decision_state: open
+- RBF-007: Prepare support, but the required preparation is not defined yet.
+  source_state: in_progress
+  reception_state: shown
+  decision_state: open
 
 Relations
-- RB-003 supersedes RB-002.
+- RBF-003 supersedes RBF-002.
 
 Possible omission
 - The current public launch date was not restated.
 
-State: WAITING_FOR_CONFIRMATION
+State: WAITING_FOR_RECEPTION_CONFIRMATION
+
+Readback view: standard · full · semantic trace · natural organization
 ```
 
 ## User correction
@@ -58,6 +78,18 @@ State: WAITING_FOR_CONFIRMATION
 - Do not email customers.
 - Keep pricing as an unresolved item.
 - Draft a support-readiness checklist; do not schedule training.
+```
+
+Confirmation record:
+
+```yaml
+confirmation_depth: detailed
+confirmation_target: reception_coverage
+confirmation_strength: corrects
+confirmation_scope: [RBF-001, RBF-003, RBF-004, RBF-005, RBF-006, RBF-007]
+confirmation_evidence: >
+  Correct. The public date stays unconfirmed. For support, only draft a
+  checklist; don't schedule training.
 ```
 
 Only after this alignment should the AI draft the revised plan. Editing files,

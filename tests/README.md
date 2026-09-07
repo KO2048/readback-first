@@ -1,27 +1,8 @@
-# Behavior fixtures
+# Evidence for 0.2.0
 
-These deterministic fixtures preserve the RED baseline that motivated
-Readback First. Each case contains a known-bad output and a compliant output.
+24 deterministic fixtures validate named semantic invariants on authored
+good/bad records. Some delivery cases use narrow text checks and reviewer-assigned
+annotations. Passing them is not a model evaluation or proof of faithful reception.
 
-Run:
-
-```bash
-python3 tests/validate_fixtures.py
-```
-
-The public set covers:
-
-- unauthorized compression;
-- premature closure during continuing input;
-- correction overwrite;
-- candidate promotion;
-- qualifier omission;
-- invented intent;
-- summary-only confirmation;
-- direct-answer authority bypass;
-- unresolved-item disappearance;
-- confirmation-scope overreach;
-- overblocking a clear closed request.
-
-The fixtures validate protocol invariants. They are not a claim that every
-model will produce the same wording.
+Run python3 tests/validate_contract.py and python3 tests/validate_fixtures.py.
+See runtime-matrix.md for observed behavior still requiring evaluation.

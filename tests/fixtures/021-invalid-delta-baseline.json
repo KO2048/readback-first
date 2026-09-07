@@ -1,0 +1,28 @@
+{
+  "id": "RBF-FIX-021",
+  "failure_mode": "invalid_delta_baseline",
+  "description": "A delta readback is generated from an unconfirmed or mismatched baseline.",
+  "required_baseline": {
+    "session_id": "S-001",
+    "baseline_revision": "R3",
+    "confirmation_scope": "B-001:B-003"
+  },
+  "bad_output": {
+    "focus": "delta",
+    "session_id": "S-001",
+    "baseline_revision": "R2",
+    "confirmation_scope": "B-001:B-002",
+    "baseline_reception_confirmed": false,
+    "unchanged_items_traceable": false,
+    "expected_failure_codes": ["INVALID_DELTA_BASELINE"]
+  },
+  "good_output": {
+    "focus": "delta",
+    "session_id": "S-001",
+    "baseline_revision": "R3",
+    "confirmation_scope": "B-001:B-003",
+    "baseline_reception_confirmed": true,
+    "unchanged_items_traceable": true,
+    "expected_failure_codes": []
+  }
+}

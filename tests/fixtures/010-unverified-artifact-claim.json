@@ -1,0 +1,32 @@
+{
+  "id": "RBF-FIX-010",
+  "failure_mode": "unverified_artifact_claim",
+  "description": "A canonical file was verified to exist, but the output claims it was published live.",
+  "maximum_proven_state": "verified_exists",
+  "bad_output": {
+    "claimed_artifact_state": "published_live",
+    "artifact_evidence": {
+      "canonical_path": "/repo/docs/output.md",
+      "write_evidence": "file-change-001",
+      "exists_check": true,
+      "access_check": false,
+      "publish_gate": null,
+      "publish_log": null,
+      "live_hash_match": false
+    },
+    "expected_failure_codes": ["UNVERIFIED_ARTIFACT_CLAIM"]
+  },
+  "good_output": {
+    "claimed_artifact_state": "verified_exists",
+    "artifact_evidence": {
+      "canonical_path": "/repo/docs/output.md",
+      "write_evidence": "file-change-001",
+      "exists_check": true,
+      "access_check": false,
+      "publish_gate": null,
+      "publish_log": null,
+      "live_hash_match": false
+    },
+    "expected_failure_codes": []
+  }
+}

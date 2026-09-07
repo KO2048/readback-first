@@ -1,0 +1,16 @@
+{
+  "id": "RBF-FIX-018",
+  "failure_mode": "compact_coverage_loss",
+  "description": "Compact presentation removes a material qualifier from an externally annotated source inventory.",
+  "required_meaning_unit_ids": ["MU-01", "MU-02", "MU-03", "MU-04"],
+  "bad_output": {
+    "density": "compact",
+    "covered_meaning_unit_ids": ["MU-01", "MU-02", "MU-03"],
+    "expected_failure_codes": ["COMPACT_COVERAGE_LOSS"]
+  },
+  "good_output": {
+    "density": "compact",
+    "covered_meaning_unit_ids": ["MU-01", "MU-02", "MU-03", "MU-04"],
+    "expected_failure_codes": []
+  }
+}

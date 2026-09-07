@@ -1,0 +1,20 @@
+{
+  "id": "RBF-FIX-013",
+  "failure_mode": "locator_scope_collapse",
+  "description": "A copied line locator is incorrectly treated as the semantic scope of a full-document request.",
+  "locator": "/docs/spec.md:298",
+  "explicit_semantic_scope": null,
+  "required_scope": "full_document",
+  "bad_output": {
+    "semantic_scope": "from_line_298",
+    "scope_basis": "locator",
+    "scanned_full_source": false,
+    "expected_failure_codes": ["LOCATOR_SCOPE_COLLAPSE"]
+  },
+  "good_output": {
+    "semantic_scope": "full_document",
+    "scope_basis": "full_source_scan",
+    "scanned_full_source": true,
+    "expected_failure_codes": []
+  }
+}

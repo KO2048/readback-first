@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "status": "candidate",
+  "theme": "Separate source, reception, decision and authority",
+  "theme_zh": "来源与确认分离",
+  "base_version": "0.1.0",
+  "branch": "codex/release-v02-semantics",
+  "source_commit": "d89353bce7f72f6f91840a2b9d2f49290096c56f",
+  "source_kind": "historical-candidate",
+  "plan_version": "plan-v3",
+  "fixture_count": 24,
+  "checks": "contract, fixtures, diff-check passed",
+  "runtime": "pending",
+  "published": false
+}
