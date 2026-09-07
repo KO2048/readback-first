@@ -1,0 +1,22 @@
+{
+  "id": "RBF-FIX-035",
+  "failure_mode": "reader_delivery",
+  "input_open": true,
+  "bad_output": {
+    "text": "请确认。",
+    "response_route": "wait_for_reception_confirmation",
+    "downstream_questions": [
+      "Python or Node?"
+    ],
+    "expected_failure_codes": [
+      "WRONG_WAIT_REASON",
+      "PREMATURE_QUESTIONNAIRE"
+    ]
+  },
+  "good_output": {
+    "text": "你还没说完，我先等你补充。",
+    "response_route": "wait_for_input",
+    "downstream_questions": [],
+    "expected_failure_codes": []
+  }
+}

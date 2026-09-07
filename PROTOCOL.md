@@ -1,6 +1,6 @@
 # Readback First Protocol
 
-**Protocol Version: 0.3**
+**Protocol Version: 0.4**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
@@ -95,6 +95,7 @@ INPUT_OPEN
   -> optional ACTIVE_ALIGNMENT
   -> response_route:
        proceed_with_provisional_response |
+       wait_for_input | wait_for_clarification | readback_only |
        wait_for_reception_confirmation |
        host_authorization_required
 ```
@@ -103,15 +104,18 @@ INPUT_OPEN
 not a claim of confirmation. Continuing does not change reception state from
 `shown` to `confirmed`.
 
-Blocking reception confirmation is required when any of the following applies:
+Waiting reasons are distinct. Select the route that matches the actual blocker:
 
-- the user is still speaking or explicitly marks the input `in_progress`;
-- the available source is inadequate for the requested transformation;
-- a material ambiguity changes the next safe response or action;
-- the user explicitly requests confirm-first, readback-only, or reception
-  completeness checking;
-- a persistent canonical artifact, formal handoff, or propagation requires
-  confirmed reception coverage.
+- `wait_for_input`: explicitly unfinished input; invite continuation, not approval.
+- `wait_for_clarification`: inadequate source or material semantic ambiguity.
+- `wait_for_reception_confirmation`: explicit confirm-first/completeness checking
+  or scoped coverage confirmation required for formal propagation.
+- `readback_only`: explicit instruction to deliver only the receipt.
+
+Do not print route enums as the default user interface. Do not make an unfinished
+utterance trigger a design questionnaire. A long but closed request does not by
+itself require waiting. If multiple blockers exist, retain them separately and
+address only the currently relevant one; clearing one does not clear the others.
 
 A closed addition or correction is not a blocker by itself. Append it, update
 its relations, and re-evaluate the predicates against the revised working
@@ -120,7 +124,8 @@ understanding.
 Host safety and action authorization remain a separate blocker. When the next
 step is a file write, external message, system call, commit, push, publish,
 purchase, or another consequential act, use `host_authorization_required` and
-the host's normal gate even if reception was confirmed.
+the host's normal gate if authorization is missing, even if reception was confirmed.
+Previously granted authorization remains valid; do not ask for it again.
 
 A simple, closed, low-risk question may receive a one-line readback followed by
 an answer. A longer but clearly closed, low-risk advisory request may receive a
@@ -358,3 +363,12 @@ Skill at runtime.
   provisional response, not completed user confirmation.
 - Treat Minto Pyramid Principle organization as an optional method for complex
   readback, not as Readback First's core or as a generic "layered structure."
+
+## 14. Migration from 0.3 to 0.4
+
+Waiting for unfinished input uses wait_for_input; material missing source or
+ambiguity uses wait_for_clarification; scoped reception review uses
+wait_for_reception_confirmation. readback_only is a separate explicit stop.
+The matching SKILL.md section is normative. Preserve existing source and
+confirmation distinctions; a user statement is not verified fact. Do not invent
+an ambiguous directory relationship. Do not request already granted authority.

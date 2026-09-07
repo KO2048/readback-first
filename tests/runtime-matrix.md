@@ -1,4 +1,4 @@
-# 0.3.0 runtime evaluation — pending
+# 0.4.0 runtime evaluation — pending
 
 Compare this candidate with its preceding version under the same host, model,
 prompt, session isolation and declared settings. Record actual Skill and host-rule
@@ -6,7 +6,7 @@ hashes, loading trace, raw responses and failures. Use source meaning-unit revie
 not keyword matching, for semantic coverage. Authored examples are references,
 not runtime results; older historical experiments are not a pass for this split.
 
-Target of this round: Default readback and useful continuation.
+Target of this round: Separate input, clarification and confirmation waits.
 
 | Check | Status |
 | --- | --- |

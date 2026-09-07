@@ -22,7 +22,7 @@
     "downstream_difference_visible": true,
     "recommendation": "Use A unless the user intended the materially different B.",
     "scoped_question_asked": true,
-    "response_route": "wait_for_reception_confirmation",
+    "response_route": "wait_for_clarification",
     "expected_failure_codes": []
   }
 }

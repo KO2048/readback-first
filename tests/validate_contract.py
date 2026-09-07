@@ -35,7 +35,7 @@ def main() -> int:
     protocol = read_required(protocol_path, "PROTOCOL.md", failures)
     if protocol:
         for needle in (
-            "Protocol Version: 0.3",
+            "Protocol Version: 0.4",
             "Readback is the core",
             "Default readback",
             "Visible working understanding",
@@ -65,7 +65,7 @@ def main() -> int:
 
     skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
-        "Protocol version: 0.3",
+        "Protocol version: 0.4",
         "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",
@@ -149,7 +149,7 @@ def main() -> int:
         "CHANGELOG.md",
         failures,
     )
-    require(tests_readme, "33 deterministic fixtures", "tests/README.md", failures)
+    require(tests_readme, "34 deterministic fixtures", "tests/README.md", failures)
 
     import json
     meta = json.loads((ROOT / "release.json").read_text())
@@ -164,6 +164,8 @@ def main() -> int:
     note = ROOT / "docs/releases" / (meta["version"] + ".md")
     if not note.exists():
         failures.append("missing version-specific iteration record")
+    for needle in ("wait_for_input", "wait_for_clarification", "readback_only"):
+        require(skill, needle, "SKILL.md", failures)
 
     if failures:
         print("CONTRACT VALIDATION FAILED")
