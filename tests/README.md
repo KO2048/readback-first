@@ -1,6 +1,6 @@
-# Evidence for 0.4.0
+# Evidence for 0.5.0
 
-34 deterministic fixtures validate named semantic invariants on authored
+38 deterministic fixtures validate named semantic invariants on authored
 good/bad records. Some delivery cases use narrow text checks and reviewer-assigned
 annotations. Passing them is not a model evaluation or proof of faithful reception.
 

@@ -1,6 +1,6 @@
 # Readback First Protocol
 
-**Protocol Version: 0.4**
+**Protocol Version: 0.5**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
@@ -372,3 +372,13 @@ wait_for_reception_confirmation. readback_only is a separate explicit stop.
 The matching SKILL.md section is normative. Preserve existing source and
 confirmation distinctions; a user statement is not verified fact. Do not invent
 an ambiguous directory relationship. Do not request already granted authority.
+
+## 15. Migration from 0.4 to 0.5
+
+Use natural rendered Markdown in the user's language, in the final answer
+body. IDs and state enums are trace data, not default prose. Never wrap ordinary
+readback in a text code fence. Once the input is closed, continue with the
+requested answer, judgment or authorized work, unless a named blocker or explicit
+readback-only applies. Follow SKILL.md Reader-facing response. Unresolved items
+survive authorized revisions/handoffs with provenance and resolution evidence;
+do not claim unavailable durable storage.

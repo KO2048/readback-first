@@ -12,7 +12,7 @@ release history. Each stage records its problem, source, delta and evidence.
 | [0.2.0](releases/0.2.0.md) | 来源与确认分离 | candidate in this history / 本分支已包含候选 |
 | [0.3.0](releases/0.3.0.md) | 回讲后继续回应 | candidate in this history / 本分支已包含候选 |
 | [0.4.0](releases/0.4.0.md) | 准确等待 | candidate in this history / 本分支已包含候选 |
-| 0.5.0 | 自然正文 | planned / 后续候选 |
+| [0.5.0](releases/0.5.0.md) | 自然正文 | candidate in this history / 本分支已包含候选 |
 | 0.6.0 | 多视图表达 | planned / 后续候选 |
 | 0.7.0 | 每轮强制应用 | planned / 后续候选 |
 

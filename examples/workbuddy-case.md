@@ -47,10 +47,20 @@ State: WAITING_FOR_CONFIRMATION
 5. Output requested as “同级的 dist”; reference directory remains ambiguous.
 6. “哦对了——” explicitly leaves input unfinished.
 
-## This version's acceptance target
+## Authored reference response — not a runtime result
 
-The supplied input remains unfinished. Expected route: `wait_for_input`.
-Preserve “同级 dist” without asserting a sibling-directory relationship. Do not
-ask an implementation questionnaire or claim draft policy alone controls output.
-Natural presentation is addressed separately in v0.5; this version changes the
-waiting semantics only. Runtime reproduction remains pending.
+回讲：你想做一个小工具，把同一目录里的两百多个 Markdown 文件批量转成 HTML，
+其中一部分还是没写完的草稿。输出希望放在你说的“同级 dist”目录。
+
+草稿如何处理，以及“同级”相对于哪个目录，目前还未明确，我先保留这两点。
+你说到“哦对了——”，补充还没结束；接着说，我会把后面的内容一起接上。
+
+## Required corrections
+
+- Preserve every meaning unit; do not declare a sibling-directory interpretation confirmed.
+- Use natural Chinese Markdown, not a default machine-record fence.
+- Wait for input, not reception confirmation; avoid premature implementation questions.
+- Do not claim draft policy is the only factor affecting results.
+- Do not generalize this unfinished-input exception into a receipt-only default.
+- After a clearly closed follow-up, answer or perform authorized work; do not
+  reopen confirmation solely because the prior turn was unfinished.

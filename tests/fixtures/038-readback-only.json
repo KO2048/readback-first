@@ -1,0 +1,17 @@
+{
+  "id": "RBF-FIX-038",
+  "failure_mode": "reader_delivery",
+  "readback_only": true,
+  "bad_output": {
+    "text": "回讲：只回讲。",
+    "substantive_answer": "我建议现在实施。",
+    "expected_failure_codes": [
+      "READBACK_ONLY_BYPASS"
+    ]
+  },
+  "good_output": {
+    "text": "回讲：你只要回讲，暂不处理。",
+    "substantive_answer": "",
+    "expected_failure_codes": []
+  }
+}
