@@ -1,0 +1,19 @@
+{
+  "id": "RBF-FIX-025",
+  "failure_mode": "missing_default_readback",
+  "description": "Ordinary meaningful input receives a substantive answer without the protocol-default visible readback.",
+  "meaningful_input": true,
+  "explicit_direct_answer": false,
+  "bad_output": {
+    "readback_shown": false,
+    "substantive_response_started": true,
+    "readback_before_response": false,
+    "expected_failure_codes": ["MISSING_DEFAULT_READBACK"]
+  },
+  "good_output": {
+    "readback_shown": true,
+    "substantive_response_started": true,
+    "readback_before_response": true,
+    "expected_failure_codes": []
+  }
+}

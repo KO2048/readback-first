@@ -1,23 +1,24 @@
 # Readback First Protocol
 
-**Protocol Version: 0.2**
+**Protocol Version: 0.3**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
 ## 1. Central contract
 
-**Readback is the core.** Before an AI relies on a user's expression to answer
-or act, it makes its **Visible working understanding** inspectable. The user can
-then correct that working understanding and, where the task requires it,
-confirm a specifically scoped input.
+**Readback is the core. Default readback is the normal route.** Before an AI
+relies on a user's expression to answer or act, it makes its **Visible working understanding**
+inspectable. The user can interrupt and correct that working
+understanding at any time. When no named blocker applies, the AI continues from
+the readback instead of turning it into a mandatory confirmation popup.
 
 ```text
 user expression
   -> visible working understanding
-  -> user correction or scoped confirmation
-  -> confirmed input where required
-  -> risk-appropriate authorization
-  -> answer or action
+  -> proceed with a provisional response, or wait at a named gate
+  -> user correction or scoped confirmation when required
+  -> risk-appropriate authorization for consequential action
+  -> answer, revision, or action
 ```
 
 The protocol aligns user expression with what the AI says it is preparing to
@@ -84,36 +85,51 @@ authority on its own.
 
 ## 4. Lifecycle and gates
 
-The reference lifecycle is:
+Reception state and response routing are independent. The reference lifecycle
+is:
 
 ```text
 INPUT_OPEN
   -> RECEPTION_DRAFT
   -> READBACK_SHOWN
   -> optional ACTIVE_ALIGNMENT
-  -> WAITING_FOR_RECEPTION_CONFIRMATION
-  -> RECEPTION_CONFIRMED
-  -> separately authorized synthesis or action
+  -> response_route:
+       proceed_with_provisional_response |
+       wait_for_reception_confirmation |
+       host_authorization_required
 ```
 
 `READBACK_SHOWN` means the user has been shown the working understanding. It is
-not a claim of confirmation.
+not a claim of confirmation. Continuing does not change reception state from
+`shown` to `confirmed`.
 
 Blocking reception confirmation is required when any of the following applies:
 
-- the user is still speaking, adding, correcting, or explicitly marks the
-  input `in_progress`;
-- the user asks to verify reception completeness before continuing;
-- the task converts, retains, hands off, or formally propagates the source;
-- a material ambiguity could change a high-impact answer or action;
-- the user explicitly requests a confirmation stop.
+- the user is still speaking or explicitly marks the input `in_progress`;
+- the available source is inadequate for the requested transformation;
+- a material ambiguity changes the next safe response or action;
+- the user explicitly requests confirm-first, readback-only, or reception
+  completeness checking;
+- a persistent canonical artifact, formal handoff, or propagation requires
+  confirmed reception coverage.
+
+A closed addition or correction is not a blocker by itself. Append it, update
+its relations, and re-evaluate the predicates against the revised working
+understanding.
+
+Host safety and action authorization remain a separate blocker. When the next
+step is a file write, external message, system call, commit, push, publish,
+purchase, or another consequential act, use `host_authorization_required` and
+the host's normal gate even if reception was confirmed.
 
 A simple, closed, low-risk question may receive a one-line readback followed by
 an answer. A longer but clearly closed, low-risk advisory request may receive a
-structured readback followed by a **provisional response**. In both cases the
-reception state remains `shown`, not `confirmed`, unless the user actually
-confirms it. The response must not erase open items or pretend alignment was
-completed.
+structured readback followed by an **in-chat provisional response**. A closed,
+source-adequate in-chat analysis or draft also proceeds after readback,
+especially when the user explicitly asks the AI to continue after showing the
+readback. In all of these cases the reception state remains `shown`, not
+`confirmed`, unless the user actually confirms it. The response must not erase
+open items or pretend alignment was completed.
 
 If the user confirms one batch and adds another, advance only the confirmed
 batch and append the new batch. Do not restart the entire conversation or make
@@ -180,11 +196,24 @@ candidate interpretation.
 AI-generated grouping or induction must be labeled as organization or
 interpretation, never presented as if the user stated it verbatim.
 
+### Correction during provisional continuation
+
+A user correction may interrupt an answer or draft that followed a readback.
+Preserve the earlier expression, append the correction, and link it with
+`corrects` or `supersedes`. Trace which provisional claims depend on the
+corrected item: mark only **dependent provisional output** as `needs_revision`
+or `superseded`, while leaving independent output active. Then
+re-evaluate the blocking predicates against the corrected working
+understanding. Continue with a revision when no new blocker exists; otherwise
+wait at the newly applicable gate. A correction does not silently reopen
+unrelated confirmed scope.
+
 ## 8. Adaptive readback presentation
 
-The user may set a turn-level or session-level preference. The AI may select a
-reasonable default from context, but must state the selected presentation
-after the substantive readback and allow adjustment.
+**Silent adaptation** is the default. The AI selects a reasonable presentation
+from the content, task, consequence, and current-session preference without
+showing a parameter footer or asking the user to configure a mode. A user may
+still request a different density, organization, focus, or source trace.
 
 ```yaml
 organization_method: natural | minto_pyramid
@@ -198,7 +227,32 @@ readback_view:
 `compact` may reduce repeated wording, never material coverage. `delta` is
 allowed only when the prior baseline is locatable, reception-confirmed for the
 relevant scope, and unchanged source items remain traceable. Formal retention
-or handoff recompiles the full current view.
+or handoff recompiles the full current view. A session preference changes
+presentation, not required coverage; re-evaluate coverage when the task changes.
+
+Evaluate uncertainty in this order:
+
+1. Is the user still speaking or is the input complete?
+2. Is the available source adequate for the requested result?
+3. Is there semantic ambiguity that could change the result?
+4. Is there genuine output-form uncertainty that changes coverage, task nature,
+   or risk?
+
+For **low-impact uncertainty** that is reversible and has a contextually
+dominant interpretation, show the working assumption and the alternative's
+effect, then continue. Do not make the user answer a question that would not
+change the next safe step.
+
+For **material uncertainty**, use a **recommendation-first** sequence after the
+substantive readback: identify the uncertain point, show the current judgment
+and its basis, explain the downstream difference, recommend a route, and ask
+only the smallest scoped question needed before proceeding. Do not silently
+choose between materially different interpretations.
+
+Output-form uncertainty normally belongs to the AI: choose and proceed. Ask
+only when different forms would materially change source coverage, task
+meaning, downstream use, or risk. Never replace that judgment with a standing
+menu of presentation parameters.
 
 ### Optional Minto Pyramid Principle method
 
@@ -226,8 +280,9 @@ confirmation_scope: [batch IDs, item IDs, sections, or named actions]
 confirmation_evidence: user's exact confirming span
 ```
 
-- `overview` confirms the displayed high-level working understanding and may
-  support low-risk advisory discussion.
+- `overview` acknowledges a high-level orientation and may support low-risk
+  advisory discussion. **Overview is navigation**, not sufficient evidence for
+  `reception_coverage` of material source units.
 - `detailed` confirms the material items and qualifiers in the named scope.
 - `traced` confirms a source-linked view appropriate for formal retention,
   conversion, or handoff when the source is available.
@@ -267,7 +322,31 @@ Three evidence levels must remain distinct:
 Passing protocol fixtures alone does not prove that a model will follow the
 Skill at runtime.
 
-## 13. Migration from 0.1
+## 13. Migration
+
+### Migration from 0.2 to 0.3
+
+- Make visible readback the default for meaningful input when the Skill is
+  loaded; adaptation changes presentation, not whether readback occurs.
+- After `READBACK_SHOWN`, normally use
+  `response_route: proceed_with_provisional_response` for closed,
+  source-adequate, non-consequential in-chat work. Do not treat continuation as
+  reception confirmation.
+- Replace the absolute "retention or conversion always waits" rule with precise
+  predicates: in-chat provisional conversion may continue, while persistent
+  canonical retention, formal handoff, and propagation may still require
+  confirmed coverage.
+- Allow corrections to interrupt provisional work, preserve source lineage,
+  and invalidate only dependent output before re-evaluating blockers.
+- Choose presentation silently by default. Remove standing view footers and
+  parameter menus; use recommendation-first clarification only when uncertainty
+  materially changes the result.
+- Treat `overview` as navigation, not sufficient confirmation of material
+  `reception_coverage`.
+- Keep automatic default delivery as a host-integration responsibility; the
+  reference Skill alone cannot prove turn-by-turn activation.
+
+### Migration from 0.1 to 0.2
 
 - Replace `WAITING_FOR_CONFIRMATION` with
   `WAITING_FOR_RECEPTION_CONFIRMATION`.

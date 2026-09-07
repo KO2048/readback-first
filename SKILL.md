@@ -1,22 +1,27 @@
 ---
 name: readback-first
-description: Use when a user provides freeform, dictated, long, continuing, corrective, ambiguous, or retention-bound input and needs to inspect what the AI is preparing to answer or act on before synthesis or execution.
+description: Use by default when relying on a user's expression to answer or act. Show what the AI is preparing to use, adapt the readback to the input, normally continue after it, and keep confirmation and action authorization as separate gates.
 ---
 
 # Readback First
 
-**Protocol version: 0.2**
+**Protocol version: 0.3**
 
 ## Purpose
 
 Align the user's expression with the AI's visible working understanding before
-the AI relies on it.
+the AI relies on it. **Default readback** is the normal route; it is not an
+optional mode reserved for long or ambiguous input.
 
 > Speak freely. Check what AI will use.
 
 Readback is the core. It lets the user inspect and correct the meaning the AI
 says it is preparing to use. It is not hidden reasoning, factual verification,
 speech recognition, a generic summary, or permission to act.
+
+After showing the readback, normally continue from that visible working
+understanding. The user may interrupt and correct it at any time. Do not turn
+readback into a mandatory confirmation popup when no named blocker applies.
 
 Read `PROTOCOL.md` for the normative contract. When this Skill and the protocol
 conflict, the protocol controls.
@@ -44,17 +49,19 @@ candidate into a decision, authorize synthesis, or authorize external action.
 | Input situation | Required behavior |
 | --- | --- |
 | Simple, closed, low-risk | Give a one-line readback and answer. A direct-answer request may omit the visible readback. |
-| Long or freeform, clearly closed, low-risk advisory | Show a structured readback. A scoped provisional response may follow, but label reception `shown`, never `confirmed`. |
+| Long or freeform, clearly closed, source-adequate in-chat advisory or drafting | Show a structured readback, then normally continue with an in-chat provisional response. Keep reception `shown`, never silently promote it to `confirmed`. |
 | Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
-| Retention, conversion, formal handoff, or explicit completeness check | Show a detailed or traced readback and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
+| Persistent canonical retention, formal handoff or propagation, or explicit completeness check | Show a detailed or traced readback and stop at `WAITING_FOR_RECEPTION_CONFIRMATION` when confirmed reception coverage is required. An in-chat provisional conversion may proceed. |
 | Corrective input | Preserve both versions and link what corrects or supersedes what. |
 | Material ambiguity | Show the interpretations and ask the smallest question that changes the working understanding. |
 | High-risk action | Read back scope and intent, then obtain action-specific authorization separately. |
 
-Length alone does not force a blocking gate. Consequence, openness, retention,
-and explicit confirmation requests do. Confirmation is batch-scoped; do not
-restart an entire conversation when the user confirms one batch and adds a new
-one.
+Length alone does not force a blocking gate. Wait only when input is still open,
+the source is inadequate, material ambiguity changes the next safe step, the
+user explicitly requests confirm-first/readback-only, persistent propagation
+requires confirmed reception coverage, or the host requires safety/action
+authorization. Confirmation is batch-scoped; do not restart an entire
+conversation when the user confirms one batch and adds a new one.
 
 ## Build the readback
 
@@ -103,9 +110,20 @@ whose answers would not change the working understanding or the next gate.
 Material contextual corrections remain candidates until the user accepts them.
 Punctuation, filler removal, and meaning-preserving ASR cleanup may be silent.
 
+Check uncertainty in this order: input completion, source adequacy, semantic
+ambiguity, then output-form uncertainty. For **low-impact uncertainty** that is
+reversible and has a dominant contextual interpretation, state the working
+assumption and what the alternative would change, then continue. For
+**material uncertainty**, use a **recommendation-first** sequence after the
+substantive readback: name the uncertainty, give the current judgment and
+basis, explain the downstream difference, recommend a route, and ask only the
+smallest question needed. Do not silently choose a materially different result.
+
 ## Adapt how the readback is organized
 
-Choose a reasonable presentation from context and allow the user to adjust it:
+**Silent adaptation** is the default. Choose a reasonable presentation from
+context and let the user adjust it when they ask. Do not routinely expose mode
+names, parameters, a selected-view footer, or a configuration menu:
 
 ```yaml
 organization_method: natural | minto_pyramid
@@ -120,19 +138,17 @@ readback_view:
 only from a locatable, reception-confirmed, same-scope baseline; formal
 retention or handoff recompiles the full current view.
 
+A session preference may change presentation, not required coverage. Re-evaluate
+coverage when the task changes. Output-form uncertainty normally belongs to the
+AI: choose and continue. Ask only when different forms materially change
+coverage, task meaning, downstream use, or risk.
+
 Use `minto_pyramid` only when it makes complex material easier to inspect. It
 means grouping ideas of the same kind, deriving each upper point from the ideas
 below it, keeping vertical support visible, and ordering sibling ideas with a
 defensible horizontal logic. It is a method for improving a readback, not the
 core of Readback First and not shorthand for a layered format. Never let the
 organization hide source details, exceptions, corrections, or open items.
-
-State the chosen presentation **after** the substantive readback, for example:
-
-```text
-Readback view: standard · full · semantic trace · natural organization
-You can ask for compact/standard, full/delta, natural/Minto, or exact trace.
-```
 
 ## Confirmation contract
 
@@ -150,10 +166,12 @@ confirmation_evidence: user's exact confirming span
 A bare "yes" applies only to the nearest clear target and scope. Allow partial
 acceptance and item-level correction.
 
-Use `overview` for low-risk advisory discussion, `detailed` for material items
-and qualifiers, and `traced` for formal retention or handoff when source trace
-is available. Do not require traced confirmation when the source is not
-available; report the fidelity limit instead.
+Use `overview` for low-risk orientation, `detailed` for material items and
+qualifiers, and `traced` for formal retention or handoff when source trace is
+available. **Overview is navigation**, not sufficient confirmation of
+`reception_coverage` for material source units. Do not require traced
+confirmation when the source is not available; report the fidelity limit
+instead.
 
 ## Output pattern
 
@@ -182,8 +200,8 @@ Open or unfinished
 State: READBACK_SHOWN | WAITING_FOR_RECEPTION_CONFIRMATION |
   RECEPTION_CONFIRMED | READY_FOR_PROVISIONAL_RESPONSE
 
-Readback view: standard · full · semantic trace · natural organization
-Adjust: compact/standard · full/delta · natural/Minto · off/semantic/exact trace
+response_route: proceed_with_provisional_response |
+  wait_for_reception_confirmation | host_authorization_required
 ```
 
 For a simple closed request, compress this to one line. Do not expose internal
@@ -195,6 +213,11 @@ schema mechanically when plain language is easier to inspect.
   new batch without declaring completion.
 - If a user confirms an older batch and adds new material in one message, mark
   only that older scope confirmed and create the next batch for the addition.
+- When a user corrects work already underway, preserve the earlier source,
+  append the correction, and link it with `corrects` or `supersedes`. Mark only
+  **dependent provisional output** as `needs_revision` or `superseded`; keep
+  independent output active. Then re-evaluate the blocking predicates and
+  revise or wait from the corrected understanding.
 - A clarification during `INPUT_OPEN` refines the active working understanding;
   it does not silently close the batch.
 - Preserve open items across receipt revisions until the user resolves them or
@@ -226,3 +249,5 @@ Before responding or acting, verify:
 7. Are decision status and action authority still independent?
 8. Is the chosen organization serving the readback rather than replacing it?
 9. Is a simple, settled request still easy to answer?
+10. Did I block normal continuation even though an in-chat provisional response
+    was safe and the source was adequate?

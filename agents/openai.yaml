@@ -1,4 +1,4 @@
 interface:
   display_name: "Readback First"
-  short_description: "Align user expression with AI visible working understanding"
-  default_prompt: "Use $readback-first to show the visible working understanding you are preparing to rely on, actively surface material ambiguity and corrections, ask for scoped confirmation when required, and keep confirmation separate from decision status and action authorization."
+  short_description: "Read back, then continue when no named blocker applies"
+  default_prompt: "Use $readback-first for default readback: show the visible working understanding you are preparing to rely on, normally continue when no named blocker applies, let user corrections interrupt dependent provisional output, use recommendation-first clarification only for material uncertainty, and keep reception confirmation separate from decision status and action authorization. Automatic turn-by-turn delivery still depends on host integration."

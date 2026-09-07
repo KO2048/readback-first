@@ -1,0 +1,24 @@
+{
+  "id": "RBF-FIX-032",
+  "failure_mode": "session_preference_coverage_bypass",
+  "description": "A prior compact-presentation preference is incorrectly allowed to remove material coverage from a later formal-retention readback.",
+  "session_preference": "compact",
+  "current_task": "formal_retention",
+  "required_meaning_unit_ids": ["RBF-0001", "RBF-0002", "RBF-0003", "RBF-0004"],
+  "bad_output": {
+    "presentation_density": "compact",
+    "covered_meaning_unit_ids": ["RBF-0001", "RBF-0003"],
+    "coverage_requirement_re_evaluated": false,
+    "preference_override_reason": null,
+    "mode_menu_offered": true,
+    "expected_failure_codes": ["SESSION_PREFERENCE_COVERAGE_BYPASS"]
+  },
+  "good_output": {
+    "presentation_density": "compact",
+    "covered_meaning_unit_ids": ["RBF-0001", "RBF-0002", "RBF-0003", "RBF-0004"],
+    "coverage_requirement_re_evaluated": true,
+    "preference_override_reason": "Formal retention requires full material coverage even when presentation remains compact.",
+    "mode_menu_offered": false,
+    "expected_failure_codes": []
+  }
+}

@@ -276,6 +276,142 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
             if invalid:
                 codes.add("CLARIFICATION_CLOSED_OPEN_INPUT")
 
+    elif kind == "missing_default_readback":
+        if (
+            case["meaningful_input"]
+            and not case["explicit_direct_answer"]
+            and output.get("substantive_response_started")
+            and (
+                not output.get("readback_shown")
+                or not output.get("readback_before_response")
+            )
+        ):
+            codes.add("MISSING_DEFAULT_READBACK")
+
+    elif kind == "explicit_proceed_overblocked":
+        eligible_to_proceed = (
+            case["input_state"] == "closed"
+            and case["source_adequate"]
+            and not case["material_ambiguity"]
+            and not case["explicit_confirm_first"]
+            and case["explicit_proceed_after_readback"]
+            and case["task_effect"] == "in_chat_provisional_draft"
+            and not case["external_action"]
+        )
+        if (
+            eligible_to_proceed
+            and output.get("response_route") != "proceed_with_provisional_response"
+        ):
+            codes.add("EXPLICIT_PROCEED_OVERBLOCKED")
+
+    elif kind == "proceed_required_gate_bypass":
+        required = set(case["required_gate_reasons"])
+        honored = set(output.get("honored_gate_reasons", []))
+        if (
+            not required.issubset(honored)
+            or output.get("response_route") != case["expected_response_route"]
+        ):
+            codes.add("PROCEED_REQUIRED_GATE_BYPASS")
+
+    elif kind == "interrupt_correction_stale_output":
+        preserved = set(output.get("preserved_source_item_ids", []))
+        required_source = set(case["original_item_ids"]) | {case["correction_item_id"]}
+        links = {
+            (link.get("from"), link.get("relation"), link.get("to"))
+            for link in output.get("correction_links", [])
+        }
+        required_links = {
+            (case["correction_item_id"], "supersedes", item_id)
+            for item_id in case["corrected_item_ids"]
+        }
+        states = output.get("derived_output_states", {})
+        dependent_invalidated = all(
+            states.get(output_id) in {"needs_revision", "superseded"}
+            for output_id in case["dependent_output_ids"]
+        )
+        independent_preserved = all(
+            states.get(output_id) == "active"
+            for output_id in case["independent_output_ids"]
+        )
+        if "host_action_authorization" in case["new_blockers"]:
+            expected_route = "host_authorization_required"
+        elif case["new_blockers"]:
+            expected_route = "wait_for_reception_confirmation"
+        else:
+            expected_route = "proceed_with_provisional_response"
+        invalid = not required_source.issubset(preserved)
+        invalid |= not required_links.issubset(links)
+        invalid |= not dependent_invalidated or not independent_preserved
+        invalid |= output.get("blockers_re_evaluated") is not True
+        invalid |= output.get("response_route") != expected_route
+        if invalid:
+            codes.add("INTERRUPT_CORRECTION_STALE_OUTPUT")
+
+    elif kind == "low_impact_ambiguity_overquestioned":
+        should_continue = (
+            case["ambiguity_impact"] == "low"
+            and case["reversible"]
+            and case["dominant_interpretation_available"]
+        )
+        invalid = should_continue and (
+            output.get("blocking_question_asked") is True
+            or output.get("response_route") != "proceed_with_provisional_response"
+            or not output.get("working_assumption")
+            or output.get("alternative_impact_visible") is not True
+        )
+        if invalid:
+            codes.add("LOW_IMPACT_AMBIGUITY_OVERQUESTIONED")
+
+    elif kind == "material_ambiguity_not_exposed":
+        material = (
+            case["ambiguity_impact"] == "material"
+            and case["plausible_interpretation_count"] >= 2
+            and case["result_changes"]
+        )
+        invalid = material and (
+            output.get("uncertainty_visible") is not True
+            or not output.get("current_judgment")
+            or not output.get("judgment_basis")
+            or output.get("downstream_difference_visible") is not True
+            or not output.get("recommendation")
+            or output.get("scoped_question_asked") is not True
+            or output.get("response_route") != "wait_for_reception_confirmation"
+        )
+        if invalid:
+            codes.add("MATERIAL_AMBIGUITY_NOT_EXPOSED")
+
+    elif kind == "unnecessary_output_format_question":
+        if not case["material_output_form_uncertainty"] and (
+            output.get("presentation_parameters_exposed") is True
+            or output.get("mode_menu_offered") is True
+            or output.get("format_question_asked") is True
+            or output.get("response_route") == "wait_for_reception_confirmation"
+        ):
+            codes.add("UNNECESSARY_OUTPUT_FORMAT_QUESTION")
+
+    elif kind == "session_preference_coverage_bypass":
+        required = set(case["required_meaning_unit_ids"])
+        covered = set(output.get("covered_meaning_unit_ids", []))
+        formal_retention = case["current_task"] == "formal_retention"
+        invalid = formal_retention and (
+            not required.issubset(covered)
+            or output.get("coverage_requirement_re_evaluated") is not True
+            or not output.get("preference_override_reason")
+            or output.get("mode_menu_offered") is True
+        )
+        if invalid:
+            codes.add("SESSION_PREFERENCE_COVERAGE_BYPASS")
+
+    elif kind == "overview_as_reception_coverage":
+        required = set(case["material_meaning_unit_ids"])
+        visible = set(output.get("material_coverage_item_ids", []))
+        if case["confirmation_target"] == "reception_coverage" and (
+            output.get("confirmation_depth") == "overview"
+            or not required.issubset(visible)
+            or output.get("overview_used_as_navigation") is not True
+        ):
+            codes.add("OVERVIEW_AS_RECEPTION_COVERAGE")
+
     else:
         raise ValueError(f"Unknown failure mode: {kind}")
 
