@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.5**
+**Protocol version: 0.6**
 
 ## Purpose
 
@@ -209,6 +209,34 @@ Example — closed advisory request:
 See [complete examples](examples/before-after.md) and the
 [WorkBuddy case](examples/workbuddy-case.md). These are authored reference
 responses, not evidence of a model run.
+
+## Multiple semantic views
+
+Choose form from the relationship the user needs to inspect, not a fixed diagram
+quota. Split multi-topic input into connected sections; use prose for intent and
+qualifiers, tables for comparisons, and separate Mermaid diagrams for different
+relationships. Keep shared object names and cross-section dependencies stable.
+
+| Meaning to inspect | Suitable form |
+| --- | --- |
+| Simple fact, nuance, rationale, unfinished wording | Natural prose |
+| Parallel alternatives or attributes | Markdown table |
+| Steps, decisions, prerequisites | `flowchart` |
+| Participants and ordered interactions | `sequenceDiagram` |
+| States and transition conditions | `stateDiagram-v2` |
+| Concept hierarchy | `mindmap` |
+| Events and corrections over time | `timeline` |
+| Known schedule and dependencies | `gantt` |
+| Entities and their relationships | `erDiagram` |
+| Technical classes and their structure | `classDiagram` |
+
+Use a real mermaid fence when the host can render it, not an ASCII substitute or
+one giant diagram containing every topic. If unsupported, use a readable table
+or prose and describe the limitation. Do not claim render verification without
+observing it. Do not invent dates, cardinalities, causes, ownership, or ordering
+to populate a diagram. Label inferred or unresolved links; preserve source
+qualifiers nearby. A diagram is an inspection view, not coverage proof or user
+confirmation. For simple input, no diagram is normally needed.
 
 ## Precise waiting and continuation
 

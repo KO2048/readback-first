@@ -2,6 +2,13 @@
 
 Candidate history below is not a stable release log. 来源与实测限制见各版说明。
 
+## 0.6.0 (candidate)
+
+- Choose separate semantic views, tables and Mermaid types from content.
+- Keep inferred links labeled and qualifiers visible; use readable renderer fallbacks.
+
+[Evidence and migration](docs/releases/0.6.0.md). Runtime validation pending.
+
 ## 0.5.0 (candidate)
 
 - Deliver natural Markdown in the user’s language instead of machine-record templates.

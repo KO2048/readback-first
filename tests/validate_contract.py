@@ -35,7 +35,7 @@ def main() -> int:
     protocol = read_required(protocol_path, "PROTOCOL.md", failures)
     if protocol:
         for needle in (
-            "Protocol Version: 0.5",
+            "Protocol Version: 0.6",
             "Readback is the core",
             "Default readback",
             "Visible working understanding",
@@ -65,7 +65,7 @@ def main() -> int:
 
     skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
-        "Protocol version: 0.5",
+        "Protocol version: 0.6",
         "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",
@@ -149,7 +149,7 @@ def main() -> int:
         "CHANGELOG.md",
         failures,
     )
-    require(tests_readme, "38 deterministic fixtures", "tests/README.md", failures)
+    require(tests_readme, "39 deterministic fixtures", "tests/README.md", failures)
 
     import json
     meta = json.loads((ROOT / "release.json").read_text())
@@ -167,6 +167,8 @@ def main() -> int:
     for needle in ("wait_for_input", "wait_for_clarification", "readback_only"):
         require(skill, needle, "SKILL.md", failures)
     for needle in ("Reader-facing response", "user's language", "substantive"):
+        require(skill, needle, "SKILL.md", failures)
+    for needle in ("Multiple semantic views", "sequenceDiagram", "stateDiagram-v2"):
         require(skill, needle, "SKILL.md", failures)
 
     if failures:
