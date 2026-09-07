@@ -1,6 +1,6 @@
 # Protocol fixtures
 
-The **33 deterministic fixtures** encode named Readback First protocol
+The **39 deterministic fixtures** encode named Readback First protocol
 invariants.
 Each fixture contains a deliberately bad output and a compliant output. The
 runner checks that the bad output triggers the expected failure code and the
@@ -51,3 +51,9 @@ fixture; its generated range is not semantic-coverage proof.
 Observed runtime behavior belongs in `evals/`, with the source prompt, runtime
 and model metadata, raw output, repeated runs, rubric, and known failures kept
 together.
+
+The six 0.4 delivery fixtures distinguish machine-record leakage, unfinished-input
+routing, receipt-only endings, unsupported diagram links, readback-only boundaries
+and explicit record exports. Text checks catch narrow visible patterns; structured
+answer/link annotations are fixture evidence, not automatic semantic assessment.
+See runtime-matrix.md for required human review and observed host runs.

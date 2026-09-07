@@ -7,6 +7,7 @@ from typing import Any
 
 ALLOWED_OPEN_STATES = {
     "INPUT_OPEN",
+    "WAITING_FOR_INPUT",
     "RECEPTION_DRAFT",
     "ACTIVE_ALIGNMENT",
     "WAITING_FOR_RECEPTION_CONFIRMATION",
@@ -375,7 +376,7 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
             or output.get("downstream_difference_visible") is not True
             or not output.get("recommendation")
             or output.get("scoped_question_asked") is not True
-            or output.get("response_route") != "wait_for_reception_confirmation"
+            or output.get("response_route") != "wait_for_clarification"
         )
         if invalid:
             codes.add("MATERIAL_AMBIGUITY_NOT_EXPOSED")
@@ -411,6 +412,28 @@ def evaluate(case: dict[str, Any], output: dict[str, Any]) -> set[str]:
             or output.get("overview_used_as_navigation") is not True
         ):
             codes.add("OVERVIEW_AS_RECEPTION_COVERAGE")
+
+    elif kind == "reader_delivery":
+        import re
+        text = output.get("text", "")
+        if not case.get("machine_export_requested"):
+            if re.search(r"```(?:text|yaml|json)?\n(?:Readback|Received|回讲|source_state)", text):
+                codes.add("MACHINE_RECORD_AS_RESPONSE")
+            if re.search(r"(?:State:|response_route:|\[confirmed fact\])", text):
+                codes.add("INTERNAL_STATE_LEAK")
+        if case.get("input_open"):
+            if output.get("response_route") != "wait_for_input":
+                codes.add("WRONG_WAIT_REASON")
+            if output.get("downstream_questions"):
+                codes.add("PREMATURE_QUESTIONNAIRE")
+        elif case.get("readback_only"):
+            if output.get("substantive_answer"):
+                codes.add("READBACK_ONLY_BYPASS")
+        elif case.get("closed_advisory") and not output.get("substantive_answer", "").strip():
+            codes.add("RECEIPT_ONLY_ENDING")
+        for link in output.get("diagram_links", []):
+            if not link.get("source_evidence") and not link.get("inference_labeled"):
+                codes.add("UNSUPPORTED_DIAGRAM_RELATION")
 
     else:
         raise ValueError(f"Unknown failure mode: {kind}")

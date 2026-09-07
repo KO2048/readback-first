@@ -1,0 +1,18 @@
+{
+  "id": "RBF-FIX-039",
+  "failure_mode": "reader_delivery",
+  "machine_export_requested": true,
+  "closed_advisory": true,
+  "bad_output": {
+    "text": "```text\nReadback\n```",
+    "substantive_answer": "",
+    "expected_failure_codes": [
+      "RECEIPT_ONLY_ENDING"
+    ]
+  },
+  "good_output": {
+    "text": "```text\nReadback\n```",
+    "substantive_answer": "Requested structured export supplied.",
+    "expected_failure_codes": []
+  }
+}

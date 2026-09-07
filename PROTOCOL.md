@@ -1,6 +1,6 @@
 # Readback First Protocol
 
-**Protocol Version: 0.3**
+**Protocol Version: 0.4**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
@@ -95,6 +95,7 @@ INPUT_OPEN
   -> optional ACTIVE_ALIGNMENT
   -> response_route:
        proceed_with_provisional_response |
+       wait_for_input | wait_for_clarification | readback_only |
        wait_for_reception_confirmation |
        host_authorization_required
 ```
@@ -103,15 +104,18 @@ INPUT_OPEN
 not a claim of confirmation. Continuing does not change reception state from
 `shown` to `confirmed`.
 
-Blocking reception confirmation is required when any of the following applies:
+Waiting reasons are distinct. Select the route that matches the actual blocker:
 
-- the user is still speaking or explicitly marks the input `in_progress`;
-- the available source is inadequate for the requested transformation;
-- a material ambiguity changes the next safe response or action;
-- the user explicitly requests confirm-first, readback-only, or reception
-  completeness checking;
-- a persistent canonical artifact, formal handoff, or propagation requires
-  confirmed reception coverage.
+- `wait_for_input`: explicitly unfinished input; invite continuation, not approval.
+- `wait_for_clarification`: inadequate source or material semantic ambiguity.
+- `wait_for_reception_confirmation`: explicit confirm-first/completeness checking
+  or scoped coverage confirmation required for formal propagation.
+- `readback_only`: explicit instruction to deliver only the receipt.
+
+Do not print route enums as the default user interface. Do not make an unfinished
+utterance trigger a design questionnaire. A long but closed request does not by
+itself require waiting. If multiple blockers exist, retain them separately and
+address only the currently relevant one; clearing one does not clear the others.
 
 A closed addition or correction is not a blocker by itself. Append it, update
 its relations, and re-evaluate the predicates against the revised working
@@ -120,7 +124,8 @@ understanding.
 Host safety and action authorization remain a separate blocker. When the next
 step is a file write, external message, system call, commit, push, publish,
 purchase, or another consequential act, use `host_authorization_required` and
-the host's normal gate even if reception was confirmed.
+the host's normal gate if authorization is missing, even if reception was confirmed.
+Previously granted authorization remains valid; do not ask for it again.
 
 A simple, closed, low-risk question may receive a one-line readback followed by
 an answer. A longer but clearly closed, low-risk advisory request may receive a
@@ -358,3 +363,37 @@ Skill at runtime.
   provisional response, not completed user confirmation.
 - Treat Minto Pyramid Principle organization as an optional method for complex
   readback, not as Readback First's core or as a generic "layered structure."
+
+## 14. Reader-facing delivery and substantive continuation (0.4)
+
+The normative delivery rules in SKILL.md sections "Reader-facing response",
+"Multiple semantic views", and "Precise waiting and continuation" implement this
+contract: natural rendered Markdown in the user's language, visible in the final
+answer body; trace schemas are not default response templates. IDs are optional
+inspection aids. Explicit structured exports may use machine records.
+
+Once input is closed, continue with the requested answer, reasoned judgment,
+recommendation, draft, or authorized action. Receipt-only endings are appropriate
+only for an explicit readback-only instruction, unfinished input, or an applicable
+blocker. Do not replace the response with a questionnaire or an offer to start.
+Keep user statements, AI interpretation, and verified evidence distinguishable.
+
+A response may contain multiple semantic sections and Mermaid types. Select
+views by meaning; preserve cross-section identity, qualifiers, uncertainty,
+provenance, and correction links. Unsupported renderers require readable
+fallbacks. No diagram may invent relationships or claim complete coverage.
+
+Unresolved items must survive revisions and authorized handoffs with provenance,
+status, and correction links. Resolve only with resolution evidence and preserve
+the resolution chain. This requirement does not imply unavailable durable memory.
+
+### Migration from 0.3 to 0.4
+
+- Replace the default machine-record example with natural complete responses.
+- Split waiting for input and clarification from reception confirmation.
+- Make useful continuation explicit; keep readback-only and actual blockers.
+- Add content-driven multi-section, multi-diagram presentation.
+- Preserve existing 0.3 source, reception, decision, and authority distinctions.
+- Apply on every user turn through the host integration in docs/always-on.md;
+  activation is mandatory in that profile, while presentation remains adaptive.
+- Keep candidate status until real runtime and rendering evidence are recorded.

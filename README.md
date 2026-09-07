@@ -14,7 +14,7 @@ readback as the default behavior. Automatically loading it on every meaningful
 turn still requires host integration.
 
 [中文](README.zh-CN.md) · [Same-source example](examples/before-after.md) ·
-[Protocol 0.3](PROTOCOL.md) · [33 deterministic fixtures](tests/README.md) ·
+[Protocol 0.4](PROTOCOL.md) · [39 deterministic fixtures](tests/README.md) ·
 Apache-2.0
 
 ## The idea, in one scene
@@ -33,28 +33,29 @@ host's normal confirmation and authorization gates still apply.
 
 ## Same input, different outcome
 
-```text
-User:
-"Move the launch to Monday—wait, don't change the public date yet.
-Keep Friday for the internal beta. Don't email customers.
-Pricing is still undecided."
+**User:** “I want to move readback from global rules into a Skill, but keep it
+mandatory on every turn. Is that feasible? Do not change anything yet.”
 
-Without Readback First:
-"I'll move the public launch to Monday, keep the Friday beta,
-pause customer email, and add a pricing review."
+**Weak response:** “Received: migrate readback. Please confirm before I analyze.”
 
-With Readback First:
-- Public launch: keep open; the Monday change was withdrawn
-- Internal beta: Friday
-- Customer email: do not send
-- Pricing: unresolved, not a decided review
+**Better response:**
 
-Then the AI continues with a provisional plan. If the user corrects one item,
-only dependent provisional output is revised.
-```
+Readback: You want a Skill to own the detailed protocol while keeping mandatory
+every-turn application. This turn is discussion only.
 
-See the complete
-[original → plausible failure → readback → provisional response → correction → revision](examples/before-after.md).
+Yes. The always-loaded host instructions can require the Skill, while the Skill
+owns reception, presentation and continuation. I recommend comparing real
+responses before replacing the detailed rules, so corrections, unresolved items
+and authorization boundaries survive the migration.
+
+| Layer | Responsibility |
+| --- | --- |
+| Global entry | Apply the Skill on every user turn |
+| Skill | Read back, choose suitable views, then respond |
+| Host authority | Govern consequential action |
+
+See [complete response examples](examples/before-after.md) and the
+[user-supplied WorkBuddy case](examples/workbuddy-case.md).
 
 ## Why it exists
 
@@ -155,22 +156,18 @@ installing `SKILL.md` alone cannot prove default delivery across every runtime.
 
 ## Protocol
 
-```text
-free expression
-  → visible working understanding (readback shown)
-  → provisional response OR named blocking gate
-  → user interruption, correction, or scoped confirmation when needed
-  → risk-appropriate authorization for consequential action
-  → answer, revision, or action
+```mermaid
+flowchart TD
+    A[User expression] --> B[Visible working understanding]
+    B --> C{Named blocker?}
+    C -->|No| D[Useful response or authorized work]
+    C -->|Yes| E[Explain the specific wait reason]
+    D --> F[User correction]
+    F --> B
 ```
 
-The key boundaries:
-
-```text
-readback shown ≠ reception confirmed
-semantic reception confirmation ≠ factual truth confirmation
-semantic reception confirmation ≠ authorization to act
-```
+Readback shown is not reception confirmed. Reception confirmation is neither
+factual verification nor action authorization.
 
 ## Tests and evidence
 
@@ -179,7 +176,7 @@ python3 tests/validate_fixtures.py
 python3 tests/validate_contract.py
 ```
 
-The repository includes **33 deterministic fixtures** for compression,
+The repository includes **39 deterministic fixtures** for compression,
 premature closure, correction lineage, qualifier loss, invented intent,
 confirmation overreach, default-readback omission, proceed/wait routing,
 interrupting corrections, mode-menu fatigue, uncertainty handling, and action-
@@ -192,7 +189,7 @@ model/host versions.
 
 ## Status
 
-Protocol 0.3 is a **public candidate** and is **not a tagged stable release**.
+Protocol 0.4 is a **public candidate** and is **not a tagged stable release**.
 The protocol, Skill contract, and fixtures are implemented in this candidate;
 broader runtime evidence and host integrations are still being validated.
 
@@ -223,3 +220,21 @@ runtime adapters, and interaction experiments.
 ## License
 
 Apache License 2.0.
+
+## 0.4 candidate / 候选迭代
+
+Natural readback is followed by a useful answer when no blocker applies. Keep
+source, interpretation and evidence separate. Use multiple content-driven views
+instead of a machine-record template or a compulsory single diagram.
+
+回讲使用自然正文；输入已收束且无阻塞时继续给出判断、理由与建议或执行已授权任务。
+按内容分段，选择文字、表格和不同 Mermaid 类型；等待续述、澄清、确认分别处理。
+
+- [Complete responses / 完整回应](examples/before-after.md)
+- [WorkBuddy supplied case / 用户提供的实测案例](examples/workbuddy-case.md)
+- [Mandatory every-turn integration / 每轮强制应用](docs/always-on.md)
+- [Evaluation matrix / 效果验证](tests/runtime-matrix.md)
+
+Runtime replication and renderer verification remain pending. This candidate
+does not yet replace the user's global rules or claim equivalent model behavior.
+实测复现与渲染验证仍待完成，尚未替换全局规则，不能声称已复现同等效果。

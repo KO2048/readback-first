@@ -35,7 +35,7 @@ def main() -> int:
     protocol = read_required(protocol_path, "PROTOCOL.md", failures)
     if protocol:
         for needle in (
-            "Protocol Version: 0.3",
+            "Protocol Version: 0.4",
             "Readback is the core",
             "Default readback",
             "Visible working understanding",
@@ -65,7 +65,7 @@ def main() -> int:
 
     skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
-        "Protocol version: 0.3",
+        "Protocol version: 0.4",
         "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",
@@ -136,20 +136,20 @@ def main() -> int:
         require(metadata.lower(), needle, "agents/openai.yaml", failures)
 
     for needle in (
-        "Protocol 0.3",
+        "Protocol 0.4",
         "default readback",
         "host integration",
-        "33 deterministic fixtures",
+        "39 deterministic fixtures",
         "not a tagged stable release",
         "When loaded by a compatible host",
     ):
         require(readme, needle, "README.md", failures)
 
     for needle in (
-        "协议 0.3",
+        "协议 0.4",
         "默认回讲",
         "宿主集成",
-        "33 个确定性 fixtures",
+        "39 个确定性 fixtures",
         "不是已打 tag 的稳定版本",
         "被兼容宿主加载后",
     ):
@@ -169,7 +169,12 @@ def main() -> int:
         "CHANGELOG.md",
         failures,
     )
-    require(tests_readme, "33 deterministic fixtures", "tests/README.md", failures)
+    require(tests_readme, "39 deterministic fixtures", "tests/README.md", failures)
+
+    for needle in ("Reader-facing response", "Multiple semantic views", "wait_for_input", "wait_for_clarification", "readback_only", "mermaid", "substantive", "user's language"):
+        require(skill, needle, "SKILL.md", failures)
+    for name in ("docs/always-on.md", "examples/workbuddy-case.md", "tests/runtime-matrix.md"):
+        read_required(ROOT / name, name, failures)
 
     if failures:
         print("CONTRACT VALIDATION FAILED")

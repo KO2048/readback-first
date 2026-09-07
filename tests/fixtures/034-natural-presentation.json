@@ -1,0 +1,16 @@
+{
+  "id": "RBF-FIX-034",
+  "failure_mode": "reader_delivery",
+  "closed_advisory": false,
+  "bad_output": {
+    "text": "```text\nReadback\nReceived\n- [confirmed fact]: ...\nState: READY\n```",
+    "expected_failure_codes": [
+      "MACHINE_RECORD_AS_RESPONSE",
+      "INTERNAL_STATE_LEAK"
+    ]
+  },
+  "good_output": {
+    "text": "回讲：你希望改善格式。",
+    "expected_failure_codes": []
+  }
+}

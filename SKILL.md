@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.3**
+**Protocol version: 0.4**
 
 ## Purpose
 
@@ -50,7 +50,7 @@ candidate into a decision, authorize synthesis, or authorize external action.
 | --- | --- |
 | Simple, closed, low-risk | Give a one-line readback and answer. A direct-answer request may omit the visible readback. |
 | Long or freeform, clearly closed, source-adequate in-chat advisory or drafting | Show a structured readback, then normally continue with an in-chat provisional response. Keep reception `shown`, never silently promote it to `confirmed`. |
-| Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and stop at `WAITING_FOR_RECEPTION_CONFIRMATION`. |
+| Continuing, unfinished, or explicitly open | Append the current batch, mark it `in_progress`, show the readback, and wait for continuation with `wait_for_input` (not confirmation). |
 | Persistent canonical retention, formal handoff or propagation, or explicit completeness check | Show a detailed or traced readback and stop at `WAITING_FOR_RECEPTION_CONFIRMATION` when confirmed reception coverage is required. An in-chat provisional conversion may proceed. |
 | Corrective input | Preserve both versions and link what corrects or supersedes what. |
 | Material ambiguity | Show the interpretations and ask the smallest question that changes the working understanding. |
@@ -173,39 +173,93 @@ available. **Overview is navigation**, not sufficient confirmation of
 confirmation when the source is not available; report the fidelity limit
 instead.
 
-## Output pattern
+## Reader-facing response
 
-Use only sections that add information:
+Present the readback in the user's language as ordinary rendered Markdown in
+the final answer body, before substantive advice or action. Tool traces,
+collapsed status, and private reasoning alone do not satisfy visible readback.
+For tool work, a short progress receipt may precede tools; the final answer must
+still retain enough readback to stand alone. Never reveal private reasoning.
 
-```text
-Readback
+Do not wrap ordinary reception in a `text` code fence or mechanically print
+English field names, IDs, state enums, or a fixed template. Schemas below and in
+PROTOCOL.md are bookkeeping, not the default user interface. Show IDs only when
+needed for source tracing or precise corrections; use natural status wording.
+An explicit request for an exportable machine record can override presentation.
 
-Received
-- RBF-0001
-  working_understanding: ...
-  source_state: active
-  reception_state: shown
-  decision_state: open
-  qualifiers: ...
+Readback is the beginning of a useful response. Once input is closed and no
+named blocker applies, answer the actual question: give judgment, basis,
+tradeoffs, a recommendation, or carry out the already authorized task. Do not
+end with a receipt, a menu of design questions, or an offer to help with work
+already requested. Do not invent extra recommendations for a simple fact.
+Existing action authorization remains valid; this Skill adds no repeat approval.
+Only block the dependent part of work when a missing answer materially matters.
+For explicitly unfinished input or readback-only, respect that boundary.
 
-Corrections and relations
-- RBF-0003 supersedes RBF-0002: ...
+Example — closed advisory request:
 
-Ambiguities or possible unparsed material
-- ...
+> 我觉得这个 Skill 的回讲格式生硬，而且回讲完就停了。你怎么看？
 
-Open or unfinished
-- ...
+回讲：你指出两个问题：回讲像协议记录，且没有继续回答实际问题。
 
-State: READBACK_SHOWN | WAITING_FOR_RECEPTION_CONFIRMATION |
-  RECEPTION_CONFIRMED | READY_FOR_PROVISIONAL_RESPONSE
+我同意，这分别是呈现和回应完整性的问题。建议把普通回讲改成自然
+正文，并用完整的“回讲＋判断＋理由”示例替换日志式模板。先修这两项，
+再检查是否需要图；仅增加 Mermaid 不能解决回应中途结束的问题。
 
-response_route: proceed_with_provisional_response |
-  wait_for_reception_confirmation | host_authorization_required
-```
+See [complete examples](examples/before-after.md) and the
+[WorkBuddy case](examples/workbuddy-case.md). These are authored reference
+responses, not evidence of a model run.
 
-For a simple closed request, compress this to one line. Do not expose internal
-schema mechanically when plain language is easier to inspect.
+## Multiple semantic views
+
+Choose form from the relationship the user needs to inspect, not a fixed diagram
+quota. Split multi-topic input into connected sections; use prose for intent and
+qualifiers, tables for comparisons, and separate Mermaid diagrams for different
+relationships. Keep shared object names and cross-section dependencies stable.
+
+| Meaning to inspect | Suitable form |
+| --- | --- |
+| Simple fact, nuance, rationale, unfinished wording | Natural prose |
+| Parallel alternatives or attributes | Markdown table |
+| Steps, decisions, prerequisites | `flowchart` |
+| Participants and ordered interactions | `sequenceDiagram` |
+| States and transition conditions | `stateDiagram-v2` |
+| Concept hierarchy | `mindmap` |
+| Events and corrections over time | `timeline` |
+| Known schedule and dependencies | `gantt` |
+| Entities and their relationships | `erDiagram` |
+| Technical classes and their structure | `classDiagram` |
+
+Use a real mermaid fence when the host can render it, not an ASCII substitute or
+one giant diagram containing every topic. If unsupported, use a readable table
+or prose and describe the limitation. Do not claim render verification without
+observing it. Do not invent dates, cardinalities, causes, ownership, or ordering
+to populate a diagram. Label inferred or unresolved links; preserve source
+qualifiers nearby. A diagram is an inspection view, not coverage proof or user
+confirmation. For simple input, no diagram is normally needed.
+
+## Precise waiting and continuation
+
+Use `response_route` internally; explain them to the user in ordinary language:
+
+- `wait_for_input`: an explicit unfinished utterance; preserve what arrived and
+  invite continuation, without a premature implementation questionnaire.
+- `wait_for_clarification`: missing source or material semantic ambiguity;
+  preserve alternatives and ask only what changes the dependent next step.
+- `wait_for_reception_confirmation`: explicit confirm-first/completeness check
+  or a required scoped coverage confirmation for formal propagation.
+- `readback_only`: the user asked for only a readback; do not turn that into an
+  unsolicited question or further work.
+- `host_authorization_required`: actual host authorization is missing.
+- `proceed_with_provisional_response`: no blocker; continue while reception
+  stays shown unless explicit scoped confirmation was supplied.
+
+Inspect input completion before asking downstream design questions. Report
+"the user stated" separately from "my interpretation" and "verified fact".
+Never turn an ambiguous path such as “同级 dist” into a confirmed sibling path.
+Keep unresolved items and correction lineage across any available document
+versions or authorized handoff. Require provenance and resolution evidence to
+mark an item resolved; do not claim durable storage that did not occur.
 
 ## Incremental continuation
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 (candidate)
+
+- inherit the unpublished 0.3 candidate without discarding traceability;
+- prioritize natural final-body responses and substantive continuation;
+- separate input continuation, clarification, reception confirmation and readback-only;
+- support semantic sections and multiple Mermaid types without invented relationships;
+- add the supplied WorkBuddy case and a mandatory every-turn host adapter;
+- retain candidate status pending controlled runtime and rendering evaluation.
+
+
 ## 0.3.0 (candidate)
 
 - make visible readback the protocol default when the Skill is loaded;

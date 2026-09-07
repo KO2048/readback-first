@@ -12,7 +12,7 @@ Readback First 是一套协议和参考 Agent Skill：让 AI 在依据用户表�
 有意义的 turn 都自动加载，仍需要宿主集成。
 
 [English](README.md) · [同源完整案例](examples/before-after.md) ·
-[协议 0.3](PROTOCOL.md) · [33 个确定性 fixtures](tests/README.md) ·
+[协议 0.4](PROTOCOL.md) · [39 个确定性 fixtures](tests/README.md) ·
 Apache-2.0
 
 ## 理想中，我们和 AI 的对话，应该很像我们去餐厅点餐
@@ -42,28 +42,25 @@ Apache-2.0
 
 ## 同一份输入，两种结果
 
-```text
-用户：
-“把发布改到周一——等等，公开日期先别改。
-周五只保留内部 Beta。不要给客户发邮件。
-价格还没有决定。”
+**用户：**“我想把回讲能力从治理文档迁入 Skill，但每次仍要自动使用。你认为可行吗？先别修改。”
 
-没有 Readback First：
-“我会把公开发布改到周一，保留周五 Beta，
-暂停客户邮件，并增加价格复核。”
+**不充分的回应：**“已收到：迁移回讲。请确认后我再分析。”
 
-有 Readback First：
-- 公开发布时间：保持未定；周一的修改已经撤回
-- 内部 Beta：周五
-- 客户邮件：不要发送
-- 价格：仍未决定，不能擅自变成“安排价格复核”
+**更好的回应：**
 
-AI 随后可以继续给出临时方案。用户纠正其中一项时，只修订依赖该项的
-临时内容，不把整份工作推倒重来。
-```
+回讲：你希望由 Skill 承载详细回讲逻辑，同时保留每次自动应用；这次只讨论可行性，不修改。
 
-查看完整的
-[原始输入 → 合理但错误的处理 → 回讲 → 临时回答 → 用户纠正 → 局部修订](examples/before-after.md)。
+可行。全局入口可以强制应用 Skill，Skill 再根据内容选择回讲深度与回应方式。
+这样能集中维护协议，但迁移时要保留原有的修正链、未决项和授权边界。
+我建议先以现有真实对话比较新旧效果，通过后再替换详细规则。
+
+| 层次 | 职责 |
+| --- | --- |
+| 全局入口 | 每条用户输入强制应用 Skill |
+| Skill | 接收、表达、继续回应、必要澄清 |
+| 宿主权限 | 判断实际操作是否已获授权 |
+
+查看[完整回应示例](examples/before-after.md)与[用户提供的 WorkBuddy 实测案例](examples/workbuddy-case.md)。
 
 ## 为什么需要它？
 
@@ -149,22 +146,17 @@ Use $readback-first.
 
 ## 核心流程
 
-```text
-自由表达
-  → AI 可见工作理解（已回讲）
-  → 临时回答，或进入具名阻断门禁
-  → 用户按需打断、纠正或范围化确认
-  → 有后果的行动再取得与风险匹配的授权
-  → 回答、修订或行动
+```mermaid
+flowchart TD
+    A[用户输入] --> B[呈现可核对的理解]
+    B --> C{是否存在明确阻塞？}
+    C -->|没有| D[继续实质回应或已授权工作]
+    C -->|存在| E[说明具体等待原因]
+    D --> F[用户纠正]
+    F --> B
 ```
 
-必须保留的边界：
-
-```text
-已回讲 ≠ 已确认接收
-语义接收确认 ≠ 事实真实性确认
-语义接收确认 ≠ Agent 行动授权
-```
+已回讲不等于已确认接收；语义接收确认不等于事实核验，也不等于行动授权。
 
 ## 测试与证据
 
@@ -173,7 +165,7 @@ python3 tests/validate_fixtures.py
 python3 tests/validate_contract.py
 ```
 
-仓库包含 **33 个确定性 fixtures**，覆盖未授权压缩、中途封口、修正覆盖、
+仓库包含 **39 个确定性 fixtures**，覆盖未授权压缩、中途封口、修正覆盖、
 限定语遗漏、擅自补全意图、确认越权、默认回讲缺失、继续/停等路由、
 打断式纠正、模式菜单疲劳、不确定处理和直答绕过行动授权。
 
@@ -183,7 +175,7 @@ python3 tests/validate_contract.py
 
 ## 当前状态
 
-协议 0.3 是 **public candidate**，**不是已打 tag 的稳定版本**。本候选已
+协议 0.4 是 **public candidate**，**不是已打 tag 的稳定版本**。本候选已
 实现协议、Skill 契约和 fixtures；更广泛的运行时证据与宿主集成仍待验证。
 
 本项目不包含语音识别、桌面输入法、插件、外部行动或在线服务。语音输入
@@ -212,3 +204,21 @@ python3 tests/validate_contract.py
 ## License
 
 Apache License 2.0。
+
+## 0.4 candidate / 候选迭代
+
+Natural readback is followed by a useful answer when no blocker applies. Keep
+source, interpretation and evidence separate. Use multiple content-driven views
+instead of a machine-record template or a compulsory single diagram.
+
+回讲使用自然正文；输入已收束且无阻塞时继续给出判断、理由与建议或执行已授权任务。
+按内容分段，选择文字、表格和不同 Mermaid 类型；等待续述、澄清、确认分别处理。
+
+- [Complete responses / 完整回应](examples/before-after.md)
+- [WorkBuddy supplied case / 用户提供的实测案例](examples/workbuddy-case.md)
+- [Mandatory every-turn integration / 每轮强制应用](docs/always-on.md)
+- [Evaluation matrix / 效果验证](tests/runtime-matrix.md)
+
+Runtime replication and renderer verification remain pending. This candidate
+does not yet replace the user's global rules or claim equivalent model behavior.
+实测复现与渲染验证仍待完成，尚未替换全局规则，不能声称已复现同等效果。
