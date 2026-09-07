@@ -1,0 +1,28 @@
+{
+  "id": "RBF-FIX-030",
+  "failure_mode": "material_ambiguity_not_exposed",
+  "description": "Two plausible interpretations would materially change the result, but the AI silently chooses one and continues.",
+  "ambiguity_impact": "material",
+  "plausible_interpretation_count": 2,
+  "result_changes": true,
+  "bad_output": {
+    "uncertainty_visible": false,
+    "current_judgment": null,
+    "judgment_basis": null,
+    "downstream_difference_visible": false,
+    "recommendation": null,
+    "scoped_question_asked": false,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": ["MATERIAL_AMBIGUITY_NOT_EXPOSED"]
+  },
+  "good_output": {
+    "uncertainty_visible": true,
+    "current_judgment": "Interpretation A is more likely from the current context.",
+    "judgment_basis": "The user's immediately preceding correction points to A.",
+    "downstream_difference_visible": true,
+    "recommendation": "Use A unless the user intended the materially different B.",
+    "scoped_question_asked": true,
+    "response_route": "wait_for_reception_confirmation",
+    "expected_failure_codes": []
+  }
+}

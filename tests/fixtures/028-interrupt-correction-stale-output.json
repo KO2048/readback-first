@@ -1,0 +1,41 @@
+{
+  "id": "RBF-FIX-028",
+  "failure_mode": "interrupt_correction_stale_output",
+  "description": "A correction is preserved but dependent provisional output is left active, or unrelated output is invalidated with it.",
+  "original_item_ids": ["RBF-0001", "RBF-0002", "RBF-0003"],
+  "correction_item_id": "RBF-0005",
+  "corrected_item_ids": ["RBF-0001", "RBF-0003"],
+  "dependent_output_ids": ["DRAFT-01", "DRAFT-03"],
+  "independent_output_ids": ["DRAFT-02"],
+  "new_blockers": [],
+  "bad_output": {
+    "preserved_source_item_ids": ["RBF-0001", "RBF-0002", "RBF-0003", "RBF-0005"],
+    "correction_links": [
+      {"from": "RBF-0005", "relation": "supersedes", "to": "RBF-0001"},
+      {"from": "RBF-0005", "relation": "supersedes", "to": "RBF-0003"}
+    ],
+    "derived_output_states": {
+      "DRAFT-01": "active",
+      "DRAFT-02": "active",
+      "DRAFT-03": "active"
+    },
+    "blockers_re_evaluated": false,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": ["INTERRUPT_CORRECTION_STALE_OUTPUT"]
+  },
+  "good_output": {
+    "preserved_source_item_ids": ["RBF-0001", "RBF-0002", "RBF-0003", "RBF-0005"],
+    "correction_links": [
+      {"from": "RBF-0005", "relation": "supersedes", "to": "RBF-0001"},
+      {"from": "RBF-0005", "relation": "supersedes", "to": "RBF-0003"}
+    ],
+    "derived_output_states": {
+      "DRAFT-01": "superseded",
+      "DRAFT-02": "active",
+      "DRAFT-03": "needs_revision"
+    },
+    "blockers_re_evaluated": true,
+    "response_route": "proceed_with_provisional_response",
+    "expected_failure_codes": []
+  }
+}
