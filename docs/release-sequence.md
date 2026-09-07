@@ -1,11 +1,11 @@
 # Public iteration sequence / 公开迭代顺序
 
-Latest public version: **v0.7.0**. Install from `main`, or pin the v0.7.0 release.
+Latest public version: **v0.7.1**. Install from `main`, or pin the v0.7.1 release.
 The intermediate versions below were merged separately as iteration milestones;
 this publication does not invent earlier releases or tag every milestone.
 
 用户直接从 main 安装最新版；中间版本保留独立合并、问题、改动与验证记录。
-本次仅发布 v0.7.0 tag，不把候选拆分伪装成过去发生过的多次发布。
+首次公开发布仅发布 v0.7.0 tag，不把候选拆分伪装成过去发生过的多次发布。
 
 | Version | Theme | Record | Status |
 | --- | --- | --- | --- |
@@ -24,3 +24,8 @@ in the release notes; they do not require users to install an older implementati
 
 每次传播说明真实问题、改动、证据与限制，不以版本号增长替代效果证明。
 The original umbrella PR #1 remains a closed historical source.
+
+## 0.7.1 patch
+
+[图文语义一致性修复](releases/0.7.1.md)由三轮配对观察中的实际歧义驱动。
+一次针对性重放通过，不声称全面对齐；原治理层继续保留。
