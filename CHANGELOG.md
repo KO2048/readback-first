@@ -1,8 +1,12 @@
 # Changelog
 
-Candidate history below is not a stable release log. 来源与实测限制见各版说明。
+v0.7.0 is the latest public release. Earlier entries record separately merged
+iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
 
-## 0.7.0 (candidate)
+## 0.7.0 (release)
+
+- Publish the complete iteration sequence on default main with latest-version installation instructions.
+- Preserve PR #2–#7 as separate reviewed/merged iteration records; only v0.7.0 is tagged in this publication.
 
 - Provide a mandatory every-turn host adapter, including reload and missing-dependency handling.
 - Keep installation, activation and measured runtime behavior separately evidenced.

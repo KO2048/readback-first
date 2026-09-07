@@ -2,7 +2,7 @@
 
 **Protocol Version: 0.7**
 
-**Status:** public candidate; implementation and runtime evidence are still being validated
+**Status:** 0.7.0 protocol release. Deterministic checks pass; cross-model behavior and host rendering remain under evaluation.
 
 ## 1. Central contract
 
