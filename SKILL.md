@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.4**
+**Protocol version: 0.5**
 
 ## Purpose
 
@@ -173,40 +173,42 @@ available. **Overview is navigation**, not sufficient confirmation of
 confirmation when the source is not available; report the fidelity limit
 instead.
 
-## Output pattern
+## Reader-facing response
 
-Use only sections that add information:
+Present the readback in the user's language as ordinary rendered Markdown in
+the final answer body, before substantive advice or action. Tool traces,
+collapsed status, and private reasoning alone do not satisfy visible readback.
+For tool work, a short progress receipt may precede tools; the final answer must
+still retain enough readback to stand alone. Never reveal private reasoning.
 
-```text
-Readback
+Do not wrap ordinary reception in a `text` code fence or mechanically print
+English field names, IDs, state enums, or a fixed template. Schemas below and in
+PROTOCOL.md are bookkeeping, not the default user interface. Show IDs only when
+needed for source tracing or precise corrections; use natural status wording.
+An explicit request for an exportable machine record can override presentation.
 
-Received
-- RBF-0001
-  working_understanding: ...
-  source_state: active
-  reception_state: shown
-  decision_state: open
-  qualifiers: ...
+Readback is the beginning of a useful response. Once input is closed and no
+named blocker applies, answer the actual question: give judgment, basis,
+tradeoffs, a recommendation, or carry out the already authorized task. Do not
+end with a receipt, a menu of design questions, or an offer to help with work
+already requested. Do not invent extra recommendations for a simple fact.
+Existing action authorization remains valid; this Skill adds no repeat approval.
+Only block the dependent part of work when a missing answer materially matters.
+For explicitly unfinished input or readback-only, respect that boundary.
 
-Corrections and relations
-- RBF-0003 supersedes RBF-0002: ...
+Example — closed advisory request:
 
-Ambiguities or possible unparsed material
-- ...
+> 我觉得这个 Skill 的回讲格式生硬，而且回讲完就停了。你怎么看？
 
-Open or unfinished
-- ...
+回讲：你指出两个问题：回讲像协议记录，且没有继续回答实际问题。
 
-State: READBACK_SHOWN | WAITING_FOR_INPUT | WAITING_FOR_RECEPTION_CONFIRMATION |
-  RECEPTION_CONFIRMED | READY_FOR_PROVISIONAL_RESPONSE
+我同意，这分别是呈现和回应完整性的问题。建议把普通回讲改成自然
+正文，并用完整的“回讲＋判断＋理由”示例替换日志式模板。先修这两项，
+再考虑更复杂的表达方式；只改形式不能解决回应中途结束的问题。
 
-response_route: proceed_with_provisional_response |
-  wait_for_input | wait_for_clarification | readback_only |
-  wait_for_reception_confirmation | host_authorization_required
-```
-
-For a simple closed request, compress this to one line. Do not expose internal
-schema mechanically when plain language is easier to inspect.
+See [complete examples](examples/before-after.md) and the
+[WorkBuddy case](examples/workbuddy-case.md). These are authored reference
+responses, not evidence of a model run.
 
 ## Precise waiting and continuation
 

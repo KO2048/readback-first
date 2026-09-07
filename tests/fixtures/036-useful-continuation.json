@@ -1,0 +1,17 @@
+{
+  "id": "RBF-FIX-036",
+  "failure_mode": "reader_delivery",
+  "closed_advisory": true,
+  "bad_output": {
+    "text": "回讲：你要改善 Skill。",
+    "substantive_answer": "",
+    "expected_failure_codes": [
+      "RECEIPT_ONLY_ENDING"
+    ]
+  },
+  "good_output": {
+    "text": "回讲：你要改善 Skill。",
+    "substantive_answer": "建议先修正自然呈现和继续回应，依据是你提供的完整失败案例。",
+    "expected_failure_codes": []
+  }
+}
