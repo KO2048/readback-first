@@ -1,0 +1,21 @@
+{
+  "baseline": "v0.7.0",
+  "date": "2026-09-07",
+  "design": "two continuous read-only conversations; three turns each",
+  "isolation": "not independently verified",
+  "exact_model_build": "not captured",
+  "rendering": "not verified",
+  "raw_sha256": {
+    "round-1-a.md": "dacae53680d13f80c909aa3e28965b0c341f32c0a98ebf89fc33fa3cbc59df5f",
+    "round-1-b.md": "35043fe5358a6e7b6c619533530e3c1bfebfb076ce7041d4a5616816ec3cc824",
+    "round-1-input.md": "dd9121bdf93a8cbe0da6f654d7ea6571ebb3617550fd0e9d660b76af766984a9",
+    "round-2-a.md": "2614402b045d12bd887e3a7e1e327e2fd9fc465d53172666616b10072f466d3d",
+    "round-2-b.md": "2f9bd0b600c6ccd45063edc2dd4e8e060239ddd3702ee784ea0ddec9eb13270b",
+    "round-2-input.md": "f7959aa6ba741fd0cb95200470a74d670aa5a3a2a413bc31a47d00ee5aabdb40",
+    "round-3-a.md": "332dc6518d92101702d95a5aef39df96df146362c7c4769a4872c0018126c0a9",
+    "round-3-b.md": "56213c8cf99e1d3ede3824520feee95744448cebc98a38f877107cb09e10f494",
+    "round-3-input.md": "6806f00c1e8a88a58e9a65c80869584aa70c9cb26f7c9eac43524836b72531f9",
+    "round-3-patch-replay.md": "152deaaf30dd40332d3a241bba43614e0c890c1dd7d1c59daa77957f9b54fd4b"
+  },
+  "patch_replay": "one fresh agent; same user inputs; no previous assistant outputs"
+}

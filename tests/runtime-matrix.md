@@ -1,20 +1,19 @@
-# 0.7.0 runtime evaluation — pending
+# Runtime evaluation — bounded observations
 
-Compare this candidate with its preceding version under the same host, model,
-prompt, session isolation and declared settings. Record actual Skill and host-rule
-hashes, loading trace, raw responses and failures. Use source meaning-unit review,
-not keyword matching, for semantic coverage. Authored examples are references,
-not runtime results; older historical experiments are not a pass for this split.
-
-Target of this round: Mandatory every-turn host integration.
+[Three-round raw evidence and review](../docs/evaluation/three-round/report.md)
+records two continuous read-only probes, three turns each, using v0.7.0.
+It identifies a diagram ambiguity and motivates the v0.7.1 patch.
 
 | Check | Status |
 | --- | --- |
-| Target behavior on a fixed real input | pending |
-| Existing corrections, qualifiers and action boundaries | pending |
-| Unnecessary questions and useful continuation | pending |
-| WorkBuddy / Codex loading verification | pending |
-| Rendering, where this version uses diagrams | pending / conditional |
+| Constructed input reception and correction | Observed in three paired turns; narrow qualitative result |
+| Useful continuation and textual authority boundaries | Observed; read-only probe constraint limits generalization |
+| Diagram semantic consistency | Baseline ambiguity recorded; targeted semantic replay passed; not broad parity |
+| Ordinary tool-action safety | Not established |
+| Every-turn activation / context reload / missing Skill | Pending |
+| WorkBuddy-specific loading | Pending |
+| Actual Mermaid rendering | Not verified |
+| Broad governance parity | Not established |
 
-No launch dates or quality improvements are claimed before evidence. Keep failed
-runs and test on a fresh context without competing legacy instructions.
+39 deterministic fixtures remain authored contract checks, not runtime proof.
+See the raw evidence for failures and limitations before reusing any claim.

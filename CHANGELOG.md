@@ -1,7 +1,16 @@
 # Changelog
 
-v0.7.0 is the latest public release. Earlier entries record separately merged
+v0.7.1 is the latest public release. Earlier entries record separately merged
 iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
+
+## 0.7.1 (release)
+
+- Require each diagram to preserve prose evidence, uncertainty and authorization conditions.
+- Separate relationship meaning from processing order; do not require different Mermaid types.
+- Preserve three actual paired rounds, including the diagram ambiguity in round 3.
+- Broader parity, automatic loading and renderer validation remain unverified.
+
+[Evidence and migration](docs/releases/0.7.1.md).
 
 ## 0.7.0 (release)
 

@@ -238,6 +238,20 @@ to populate a diagram. Label inferred or unresolved links; preserve source
 qualifiers nearby. A diagram is an inspection view, not coverage proof or user
 confirmation. For simple input, no diagram is normally needed.
 
+### Diagram semantic consistency
+
+Check each node and arrow against the surrounding prose before responding.
+A relationship view must label how concepts relate (source, hypothesis, support,
+refutation, unresolved), rather than merely repeating the processing sequence.
+A separate workflow view may show order and decision gates; using the same
+Mermaid type for both is fine when the inspection questions differ.
+
+Do not join sufficient, refuted and insufficient evidence into one unconditional
+edge toward a supported conclusion. Show distinct outcomes or label the gate;
+insufficient evidence retains the issue as unresolved. A tentative placeholder
+does not become an approved rule through a node label or arrow. Explain proposals
+as proposals. This is a semantic check, not a claim that rendering was verified.
+
 ## Precise waiting and continuation
 
 Use `response_route` internally; explain them to the user in ordinary language:

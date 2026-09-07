@@ -399,3 +399,12 @@ user turn. Loading the entry Skill precedes the initial receipt; other autonomou
 work follows the receipt. Reuse loaded instructions, reload on version/context
 changes, and report missing dependencies. This is a required integration contract,
 not a claim of installation or measured runtime reliability.
+
+## 18. Patch 0.7.1: diagram semantic consistency
+
+Apply the Diagram semantic consistency check in SKILL.md. Each visual view must
+preserve the same evidence, uncertainty and authority boundaries as the prose.
+Relationship links describe relations; workflow links describe sequence or
+conditional transitions. Unresolved evidence cannot silently flow into a
+supported conclusion. Check this separately in every diagram, even when a
+different diagram in the same response already represents the condition.
