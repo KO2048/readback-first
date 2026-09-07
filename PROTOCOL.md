@@ -1,6 +1,6 @@
 # Readback First Protocol
 
-**Protocol Version: 0.6**
+**Protocol Version: 0.7**
 
 **Status:** public candidate; implementation and runtime evidence are still being validated
 
@@ -391,3 +391,11 @@ identity, cross-section dependencies, qualifiers and uncertainties. Label inferr
 links; never invent dates, cardinalities, causal links or state transitions.
 Use readable fallback when rendering is unavailable. Follow SKILL.md Multiple
 semantic views. A diagram is not proof of source coverage or user confirmation.
+
+## 17. Migration from 0.6 to 0.7
+
+The mandatory host profile in docs/always-on.md requires application on every
+user turn. Loading the entry Skill precedes the initial receipt; other autonomous
+work follows the receipt. Reuse loaded instructions, reload on version/context
+changes, and report missing dependencies. This is a required integration contract,
+not a claim of installation or measured runtime reliability.

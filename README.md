@@ -1,17 +1,17 @@
 # Readback First
 
-**0.6.0 candidate — Multiple semantic views and Mermaid**
+**0.7.0 candidate — Mandatory every-turn host integration**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.6.0.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.7.0.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
-- Choose separate semantic views, tables and Mermaid types from content.
-- Keep inferred links labeled and qualifiers visible; use readable renderer fallbacks.
+- Provide a mandatory every-turn host adapter, including reload and missing-dependency handling.
+- Keep installation, activation and measured runtime behavior separately evidenced.
 
 ## Read back, then answer
 
@@ -26,7 +26,7 @@ source coverage and useful continuation survive the move.
 
 ## Install this candidate
 
-Install the repository-root Skill from branch `codex/release-v06-visuals`, then reload as required
+Install the repository-root Skill from branch `codex/release-v07-always-on`, then reload as required
 by the host. Installing from default main will not select this candidate.
 Installation alone does not establish mandatory every-turn activation.
 
@@ -55,3 +55,5 @@ flowchart LR
 
 Use different diagrams for different relationships; inferred links need labels.
 根据不同关系分别选图；推测关系必须标识。See examples/before-after.md.
+
+[Mandatory every-turn adapter / 每轮强制入口](docs/always-on.md)

@@ -35,7 +35,7 @@ def main() -> int:
     protocol = read_required(protocol_path, "PROTOCOL.md", failures)
     if protocol:
         for needle in (
-            "Protocol Version: 0.6",
+            "Protocol Version: 0.7",
             "Readback is the core",
             "Default readback",
             "Visible working understanding",
@@ -65,7 +65,7 @@ def main() -> int:
 
     skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
-        "Protocol version: 0.6",
+        "Protocol version: 0.7",
         "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",
@@ -170,6 +170,8 @@ def main() -> int:
         require(skill, needle, "SKILL.md", failures)
     for needle in ("Multiple semantic views", "sequenceDiagram", "stateDiagram-v2"):
         require(skill, needle, "SKILL.md", failures)
+    if not (ROOT / "docs/always-on.md").exists():
+        failures.append("missing mandatory host adapter")
 
     if failures:
         print("CONTRACT VALIDATION FAILED")

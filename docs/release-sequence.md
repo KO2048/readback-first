@@ -14,7 +14,7 @@ release history. Each stage records its problem, source, delta and evidence.
 | [0.4.0](releases/0.4.0.md) | 准确等待 | candidate in this history / 本分支已包含候选 |
 | [0.5.0](releases/0.5.0.md) | 自然正文 | candidate in this history / 本分支已包含候选 |
 | [0.6.0](releases/0.6.0.md) | 多视图表达 | candidate in this history / 本分支已包含候选 |
-| 0.7.0 | 每轮强制应用 | planned / 后续候选 |
+| [0.7.0](releases/0.7.0.md) | 每轮强制应用 | candidate in this history / 本分支已包含候选 |
 
 Review dependency: main → 0.2 → 0.3 → 0.4 → 0.5 → 0.6 → 0.7.
 The original umbrella remains provenance, not a competing merge route. Later PRs
