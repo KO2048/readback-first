@@ -1,15 +1,15 @@
 {
   "version": "0.7.0",
-  "status": "candidate",
+  "status": "release",
   "theme": "Mandatory every-turn host integration",
   "theme_zh": "每轮强制应用",
   "base_version": "0.6.0",
-  "branch": "codex/release-v07-always-on",
+  "branch": "main",
   "source_commit": "73ab556d6f24d69934a4f246e152af5a25ed2064",
   "source_kind": "umbrella-split",
-  "plan_version": "plan-v3",
+  "plan_version": "plan-v4",
   "fixture_count": 39,
   "checks": "contract, fixtures, diff-check passed",
   "runtime": "pending",
-  "published": false
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.7.0"
 }

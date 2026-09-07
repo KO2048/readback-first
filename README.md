@@ -1,6 +1,6 @@
 # Readback First
 
-**0.7.0 candidate — Mandatory every-turn host integration**
+**0.7.0 — Mandatory every-turn host integration**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
@@ -24,11 +24,30 @@ Yes. The host entry can require it while the Skill owns reception and expression
 I recommend comparing real replies before replacing old rules, so corrections,
 source coverage and useful continuation survive the move.
 
-## Install this candidate
+## Install the latest version
 
-Install the repository-root Skill from branch `codex/release-v07-always-on`, then reload as required
-by the host. Installing from default main will not select this candidate.
-Installation alone does not establish mandatory every-turn activation.
+The default `main` branch contains **v0.7.0**. Ask your agent:
+
+> Install the Skill at https://github.com/KO2048/readback-first from the repository
+> root on main, named readback-first. If already installed, preserve local changes
+> and update it to the latest main version.
+
+For a new Codex installation, the manual equivalent is:
+
+```bash
+git clone --branch main --depth 1 https://github.com/KO2048/readback-first.git ~/.codex/skills/readback-first
+```
+
+Do not run the clone over an existing directory. For a Git-based installation,
+review local changes before updating with `git pull --ff-only origin main` from
+that installation; other installations can be updated by the agent/installer.
+Reload the Skill or start a new session as your host requires. Check `release.json`
+for version `0.7.0`; installing this Skill does not itself update host rules.
+
+To apply it on **every user turn**, add the small required entry from
+[the always-on host profile](docs/always-on.md) to your host's always-loaded
+instructions. For reproducibility, [v0.7.0](https://github.com/KO2048/readback-first/releases/tag/v0.7.0)
+provides a pinned release snapshot.
 
 ## Evidence and status
 
@@ -40,8 +59,8 @@ python3 tests/validate_fixtures.py
 ```
 
 These checks do not run a model. Runtime behavior, loading and rendering evidence
-remain pending. This is not a tagged stable release and does not replace global
-rules. See the [evaluation matrix](tests/runtime-matrix.md).
+remain pending. This is a published 0.x protocol/Skill release, not a claim of
+cross-model reliability. It does not silently replace global rules. See the [evaluation matrix](tests/runtime-matrix.md).
 
 [Complete examples](examples/before-after.md) · [Changelog](CHANGELOG.md) · Apache-2.0
 

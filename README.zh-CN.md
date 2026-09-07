@@ -1,6 +1,6 @@
 # Readback First
 
-**0.7.0 candidate — 每轮强制应用**
+**0.7.0 — 每轮强制应用**
 
 先让用户看清 AI 接收到什么，再进行实质回应。回讲保留原意、限定、修正与未决项；
 回讲不等于事实核验或行动授权。
@@ -23,10 +23,28 @@
 可行。全局入口可以规定每轮应用，Skill 负责回讲的内容与表达。我建议先验证
 原意、修正和后续回应是否保留，再替换旧规则，避免只换了文件位置却损失效果。
 
-## 安装与证据
+## 安装最新版
 
-从本候选分支 `codex/release-v07-always-on` 安装仓库根目录中的 Skill，并按宿主要求重新加载。
-不要将默认 main 安装误认为安装了本候选。仅安装不证明每轮自动应用。
+默认 `main` 已包含 **v0.7.0**。可以直接对 Agent 说：
+
+> 从 https://github.com/KO2048/readback-first 的 main 分支安装仓库根目录中的 Skill，
+> 名称为 readback-first。如果已经安装，先保留本地改动，再更新到最新版。
+
+全新 Codex 安装也可以使用：
+
+```bash
+git clone --branch main --depth 1 https://github.com/KO2048/readback-first.git ~/.codex/skills/readback-first
+```
+
+已有目录不要直接覆盖。Git 安装先检查本地改动，再在安装目录执行
+`git pull --ff-only origin main`；其他安装方式交由 Agent／安装器更新。
+按宿主要求重新加载或新开会话，并检查 `release.json` 中的版本为 `0.7.0`。
+
+要求**每条输入都应用**时，将[强制宿主入口](docs/always-on.md)放入宿主始终加载的规则。
+安装 Skill 与配置这个入口分别完成；需要固定版本时使用
+[v0.7.0 发布快照](https://github.com/KO2048/readback-first/releases/tag/v0.7.0)。
+
+## 验证与限制
 
 本版有 **39 个确定性 fixtures**。检查：
 
@@ -35,8 +53,8 @@ python3 tests/validate_contract.py
 python3 tests/validate_fixtures.py
 ```
 
-这些检查不调用模型。实际回复质量、宿主加载和渲染仍待验证；本版不是已发布稳定版，
-没有替换你的全局规则。参见[验证矩阵](tests/runtime-matrix.md)。
+这些检查不调用模型。跨模型实际回复质量、宿主加载和渲染仍待验证。本版发布协议与 Skill 实现，
+不宣称跨模型可靠性已证明，也不会静默替换你的全局规则。参见[验证矩阵](tests/runtime-matrix.md)。
 
 [完整示例](examples/before-after.md) · [变更记录](CHANGELOG.md) · Apache-2.0
 
