@@ -156,6 +156,10 @@ def main() -> int:
     require(skill, "Protocol version: " + expected, "SKILL.md", failures)
     require(skill, "[release.json](release.json)", "SKILL.md", failures)
     require(protocol, "[release.json](release.json)", "PROTOCOL.md", failures)
+    require(skill, "First output: formal conversation receipt", "SKILL.md", failures)
+    require(protocol, "Harness-independent delivery requirement", "PROTOCOL.md", failures)
+    if "short progress receipt may precede tools" in skill:
+        failures.append("SKILL.md: optional pre-tool receipt is forbidden")
     actual_count = len(list((ROOT / "tests/fixtures").glob("*.json")))
     if actual_count != meta["fixture_count"]:
         failures.append("release.json: fixture count mismatch")

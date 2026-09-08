@@ -1,6 +1,6 @@
 # Public iteration sequence / 公开迭代顺序
 
-Latest public version: **v0.8.3**. Install from `main`, or pin the v0.8.3 release.
+Latest public version: **v0.9.0**. Install from `main`, or pin the v0.9.0 release.
 The intermediate versions below were merged separately as iteration milestones;
 this publication does not invent earlier releases or tag every milestone.
 
@@ -45,3 +45,7 @@ The original umbrella PR #1 remains a closed historical source.
 ## 0.8.3
 
 [跨主题更新与可核查对齐状态](releases/0.8.3.md)：示例与证据补丁，行为指令保持；不将未复现的问题伪称为已修复。
+
+## 0.9.0
+
+[正式对话优先回讲](releases/0.9.0.md)：补齐跨harness的入口、工具前强制顺序、显示映射与13项事件测试；宿主实测状态单独保留。

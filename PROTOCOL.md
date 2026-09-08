@@ -1,8 +1,32 @@
 # Readback First Protocol
 
-**Protocol Version: 0.8**
+**Protocol Version: 0.9**
 
-**Status:** Protocol contract 0.8. The installed package version, release status, and current evidence scope are in [release.json](release.json); this protocol coordinate is not the package version.
+**Status:** Protocol contract 0.9. The installed package version, release status, and current evidence scope are in [release.json](release.json); this protocol coordinate is not the package version.
+
+## 0. Harness-independent delivery requirement
+
+For every ordinary request, the first user-facing task content MUST be a
+substantive receipt in the formal conversation body before task tools or the
+substantive answer. The user must not need to open thinking, private reasoning,
+tool logs, progress panels or collapsed status to see it. This requirement applies
+to every harness; it is not satisfied by a skill-install record or a claim that
+readback happened internally. Ordinary prompts need no explicit readback cue.
+
+Before source inspection, receive the request, scope and known uncertainty;
+source findings follow inspection. Only the entry/protocol/version-metadata load
+needed to apply this Skill is exempt from the task-tool ordering requirement.
+A plan to inspect files is not a semantic receipt. A later final receipt does not
+repair task tools that ran before a formal receipt. Retain a self-contained receipt
+in the final answer as well. The existing explicit direct-answer exception remains.
+
+Surface verification belongs to the host adapter: map emitted message channels to
+what the user actually sees during and after tool work. A channel called commentary
+is eligible only with evidence that it is a normal persistent conversation message.
+Unknown display mapping is unverified, never a pass. If normal pre-tool delivery
+is unsupported, show the receipt and integration limitation in the normal answer
+and do not claim or silently perform compliant task execution. No new user
+confirmation gate is created. Apply SKILL.md First output and docs/always-on.md.
 
 ## 1. Central contract
 

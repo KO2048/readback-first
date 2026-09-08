@@ -6,7 +6,9 @@ Install the Skill, then place this small adapter in the host's always-loaded
 instructions. Installation alone is not evidence that the adapter is active.
 
 > For every user input, apply the installed readback-first Skill before
-> substantive response or action. Load its SKILL.md and normative PROTOCOL.md
+> substantive response or task tool. The first task content MUST be a substantive
+> receipt in the formal conversation body, visible without expanding thinking,
+> progress, status or tool panels. An action notice is not a receipt. Load its SKILL.md and normative PROTOCOL.md
 > before first use, and after version changes or context loss. Reuse the loaded
 > contract on subsequent turns; every-turn application does not require redundant
 > file reads. Make the user's meaning visibly checkable, then continue with the
@@ -21,7 +23,9 @@ instructions. Installation alone is not evidence that the adapter is active.
 
 > 每条用户输入都必须应用已安装的 readback-first，再进行实质回应或行动。
 > 首次使用、版本变化或上下文丢失后读取 SKILL.md 与 PROTOCOL.md；后续每轮
-> 应用已加载协议，不要求机械重复读文件。先让理解可核对，无阻塞则继续回应。
+> 应用已加载协议，不要求机械重复读文件。每轮首个任务内容必须在正式对话正文
+> 回讲用户请求、范围与已知未决项，再调用任务工具或回答。思考区、工具日志、
+> 折叠状态、仅进度区文字不算；“我先核对一下”不替代实质回讲。无阻塞则继续回应。
 > 直答、只回讲按 Skill 处理，保留宿主权限与已有授权。加载失败应明确报告，
 > 不得静默降为可选触发或声称已调用。替换验证通过前保留现有接收规则。
 
@@ -37,3 +41,27 @@ and a missing-Skill case. Test without competing legacy reception instructions,
 then compare against the legacy arm in a separate session. Never claim a static
 adapter proves turn-by-turn runtime compliance. This change supplies the adapter;
 it does not install it globally or attest WorkBuddy/Codex behavior.
+
+## Required delivery mapping / 正式消息映射
+
+The adapter must deliver the initial receipt as an ordinary conversation message,
+retain it visibly after tool work, and include necessary receipt content in the
+final answer. Rendering a model commentary event only as a progress panel fails
+this contract. Do not label it a formal message merely because the model emitted it.
+
+适配器必须让前置回讲成为正式对话消息，工具执行后仍可直接查看，最终正文也保留
+必要回讲。若只能输出折叠进度区，应先在正常答复里回讲并说明适配限制；不能暗中
+先执行任务或宣称符合。不要要求用户反复说“先回讲”来弥补入口缺失。
+
+| Host surface | Requirement | Evidence to retain |
+| --- | --- | --- |
+| Desktop / web chat | Normal assistant message before task tools, visible after completion | Rendered transcript or UI observation plus ordered events |
+| CLI / IDE | Persistent conversation output, distinct from reasoning/debug/status | Normal output and ordered tool events |
+| Agent wrapper / SDK | Route receipt to the end-user conversation before invoking task tools | Wrapper routing plus observed client display |
+| Unknown or unsupported | Unverified/unsupported; never claim a pass | Exact limitation; receipt in normal answer before task execution |
+
+These are requirements for all hosts, not claims that those hosts passed tests.
+Use ordinary prompts without “read back” hints. Test first turn, follow-up,
+context reload, task-tool use, final retention and explicit no-readback handling.
+Record package hash, loaded contract, event order and actual display mapping.
+Do not infer UI visibility from channel names or `readback_shown=true`.

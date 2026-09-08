@@ -1,15 +1,15 @@
 {
-  "version": "0.8.3",
+  "version": "0.9.0",
   "status": "release",
-  "theme": "Cross-topic revision and inspectable alignment status",
-  "theme_zh": "跨主题更新与可核查对齐状态",
-  "base_version": "0.8.2",
+  "theme": "Formal conversation readback before task execution",
+  "theme_zh": "所有harness正式对话优先回讲",
+  "base_version": "0.8.3",
   "branch": "main",
-  "source_commit": "f53f984e89e4843a7269b577628db2c632c2e6b2",
-  "source_kind": "evidence-and-examples",
-  "plan_version": "plan-v10",
+  "source_commit": "69caf043f4750a049ee2650b98ddeab5e0ac5d21",
+  "source_kind": "formal-delivery-contract",
+  "plan_version": "plan-v11",
   "fixture_count": 39,
-  "checks": "contract, fixtures, diff-check passed",
-  "runtime": "See versioned suite cognition-evidence; same-host sequential observations, not independent causal evidence",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.3"
+  "checks": "contract; 39 fixtures; 13 delivery trace tests; 7 evidence tests; versioned evidence integrity; diff",
+  "runtime": "Ordinary-request baseline event trace and candidate limitation exit observed; WorkBuddy UI candidate run not completed",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.9.0"
 }

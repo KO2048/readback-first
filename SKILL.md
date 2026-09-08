@@ -5,11 +5,40 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.8**
+**Protocol version: 0.9**
 
 The installed package version and release status are recorded in
 [release.json](release.json). Read that metadata when reporting the installed
 version; the protocol version above is a separate compatibility coordinate.
+
+## First output: formal conversation receipt
+
+For every ordinary user request, the first user-facing task content MUST be a
+substantive readback in the formal conversation body, in the user's language.
+This applies to every harness: desktop, CLI, IDE, web, and multi-agent wrappers.
+It must be readable without opening thinking, reasoning, tool traces, progress
+panels or collapsed status. A hidden analysis of intent is not a delivered receipt.
+Do not wait for the user to say “read back”. “I will check the files” is an action
+notice, not a readback of the request, scope and material uncertainties.
+
+The order is: formal visible receipt -> task tools or substantive response ->
+final answer retaining the necessary receipt. Before reading task materials,
+read back the request and what is not yet known; do not pretend to have read them.
+Only loading this Skill's own entry, protocol and version metadata may precede
+that receipt. Repository inspection, search and other task reads are task tools.
+
+A commentary channel qualifies ONLY when the harness demonstrably renders it as
+an ordinary, persistent conversation message; a progress-only or collapsed
+commentary panel does not qualify. Channel names and the model's self-report
+cannot establish display behavior. Use the host adapter in docs/always-on.md.
+If the harness cannot deliver a formal pre-tool receipt, give the receipt in its
+normal answer body and report the integration limitation before task execution;
+do not silently move it into thinking or claim compliance. This is a host delivery
+problem, not a request for the user to confirm their input again.
+
+An explicit direct-answer/no-readback request keeps its existing presentation
+exception. It never bypasses action authorization. Otherwise, default reception
+is mandatory; do not turn it into a menu, optional suggestion or acceptance gate.
 
 ## Purpose
 
@@ -197,7 +226,8 @@ instead.
 Present the readback in the user's language as ordinary rendered Markdown in
 the final answer body, before substantive advice or action. Tool traces,
 collapsed status, and private reasoning alone do not satisfy visible readback.
-For tool work, a short progress receipt may precede tools; the final answer must
+For tool work, a substantive receipt MUST appear in the formal conversation
+before task tools. A progress-only receipt is insufficient. The final answer must
 still retain enough readback to stand alone. Never reveal private reasoning.
 
 Do not wrap ordinary reception in a `text` code fence or mechanically print
