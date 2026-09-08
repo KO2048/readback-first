@@ -1,8 +1,8 @@
 # Readback First Protocol
 
-**Protocol Version: 0.9**
+**Protocol Version: 0.10**
 
-**Status:** Protocol contract 0.9. The installed package version, release status, and current evidence scope are in [release.json](release.json); this protocol coordinate is not the package version.
+**Status:** Protocol contract 0.10. The installed package version, release status, and current evidence scope are in [release.json](release.json); this protocol coordinate is not the package version.
 
 ## 0. Harness-independent delivery requirement
 
@@ -438,3 +438,35 @@ Relationship links describe relations; workflow links describe sequence or
 conditional transitions. Unresolved evidence cannot silently flow into a
 supported conclusion. Check this separately in every diagram, even when a
 different diagram in the same response already represents the condition.
+
+
+## 19. Observable conduct and decision provenance
+
+The input record and the conduct record serve different purposes. A model MUST
+account for its material adopted defaults and actual actions as well as what the
+user said. At minimum, retain the choice/action, source or authorization scope,
+execution state, verification evidence/limits, and correction relation in the
+available current-session context. No persistent storage is implied.
+
+Execution states distinguish planned, attempted, succeeded, failed, denied and
+unknown. Tool success supports the reported operation only, not unperformed
+content validation. A denied call still records an attempt; ambiguous outcomes
+remain unknown. Neither failure nor a claim of correction establishes rollback.
+
+Before reporting completion, reconcile statements with observable results and
+show material choices, actual outcomes, verification limits and boundary breaches
+in ordinary prose. A direct-answer request permits brevity, not omission that
+would misrepresent completion. A supplied hypothetical log is not the agent's
+own execution history. Missing traces cannot prove compliant conduct.
+
+User-authorized discretion permits reasonable defaults without repeated approval.
+Attribute those defaults to the model and cite the scope of discretion, rather
+than promoting them to user decisions. Later acceptance changes the current
+state prospectively; it never changes who chose originally or authorizes earlier
+conduct retroactively. A scoped stop survives unrelated or ambiguous acceptance.
+
+If conduct exceeds authority, disclose the discrepancy, stop the affected action,
+preserve origin and correction history, and continue independent authorized work.
+Recovery follows the host's applicable authorization, not an invented automatic
+rollback or an unlimited new permission gate. The conduct account contains
+observable actions and concise decision basis, never private reasoning.
