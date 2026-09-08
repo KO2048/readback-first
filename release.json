@@ -1,15 +1,15 @@
 {
-  "version": "0.8.0",
+  "version": "0.8.1",
   "status": "release",
-  "theme": "Source-faithful reception with normal continuation",
-  "theme_zh": "保留来源细节与正常继续回应",
-  "base_version": "0.7.1",
+  "theme": "Stable question identities and cumulative-view evidence",
+  "theme_zh": "问题身份与完整当前稿",
+  "base_version": "0.8.0",
   "branch": "main",
-  "source_commit": "7d6c13aa8cd707d62d7b19d48eb5a0d9e4489790",
-  "source_kind": "history-driven-runtime-fix",
-  "plan_version": "plan-v9",
+  "source_commit": "6e76cb807ad7b78d37949e5df9c6ee25ed138458",
+  "source_kind": "evidence-and-examples",
+  "plan_version": "plan-v10",
   "fixture_count": 39,
   "checks": "contract, fixtures, diff-check passed",
-  "runtime": "3-turn baseline per 3 arms; 5 control + 5 current micro samples; 5 candidate micro samples and 3-turn candidate replay observed; broader evaluation pending",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.0"
+  "runtime": "See versioned suite identity-current-view; same-host sequential observations, not independent causal evidence",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.1"
 }

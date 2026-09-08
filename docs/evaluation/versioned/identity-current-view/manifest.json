@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "suite": "identity-current-view",
+  "baseline": "v0.8.0",
+  "design": "3 actual sequential turns per arm; treatment labels describe requested reads, not isolated environments",
+  "limitations": [
+    "All arms share host instructions; no independent causal attribution.",
+    "Skill and governance participants were reused after prior v0.8.0 tests; they are not fresh contexts.",
+    "Exact model service build and complete action traces not captured.",
+    "One conversation per arm; semantic judgments are manual, integrity checks do not establish efficacy."
+  ],
+  "files": {
+    "control-1.md": "8fcffc0dae3440d6b037f6d00982b8b375d71db412cbafb987084e94ef6459fa",
+    "control-2.md": "d9dc3b39ac93ee4ff67a9df63ef7457ccc9bf2c63012f8397edc4a24de1413d9",
+    "control-3.md": "912d0f4e3e5c25d8ca7904c6060420e89829e8a573aa72e9ad0f51a85c36cdc4",
+    "governance-1.md": "52531b3f5c30acee5202003c53ab297c76a85b3e7ed8309b22161f08fe1e4378",
+    "governance-2.md": "72dd2d62f79bbf6c5df06de1ba7ff41702729ff3b1112f925d28e84ed6051ef1",
+    "governance-3.md": "28a240a914fdca3cacc7d345dc4aa819357fd003a28f2e918ff97b51b52ec6ff",
+    "input-1.md": "9ecd478b256e2a62810adaf030854ca848a063f0d7c9567703eb1925237a9a14",
+    "input-2.md": "758ab3548f4cd0b55f2843b7352ac302946a87d49d3352d8cbde7fcc5d6ece46",
+    "input-3.md": "813d03c1e4aa95adf93fd4634414901633c3642ee0cd9c03b5f76b064c2d0bc8",
+    "skill-1.md": "fd802107ab7a87b737ea15ffae06f63a0c17d46b70c7b96b2c0c22cfd7b7f16f",
+    "skill-2.md": "280d14557b0c73670a4d66d45387e08c992aaa966bb46b7ee385646c4be30e38",
+    "skill-3.md": "6fde561fa713c8736254bc054fcf3628f0f5f78a30e5cb4e947fb9b8f682affe"
+  },
+  "turns": [
+    {
+      "arm": "control",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "control-1.md"
+    },
+    {
+      "arm": "control",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "control-2.md"
+    },
+    {
+      "arm": "control",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "control-3.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "skill-1.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "skill-2.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "skill-3.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "governance-1.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "governance-2.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "governance-3.md"
+    }
+  ],
+  "reviews": [
+    {
+      "output": "control-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "Q1.3 包装未定",
+      "finding": "保留身份、包装候选及确认范围，继续给建议。"
+    },
+    {
+      "output": "control-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "周二、周四送货",
+      "finding": "收紧日期保留车辆和司机理由，五元未采纳不等于免费。"
+    },
+    {
+      "output": "control-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "Q1.2 周末是否开放｜未决，暂缓讨论",
+      "finding": "完整当前稿保留原编号和子项，拒绝按状态重命名；提示范围歧义。"
+    },
+    {
+      "output": "skill-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "Q1.3",
+      "finding": "原议题与层级保留，继续回应。"
+    },
+    {
+      "output": "skill-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "两条限制分别涉及车辆和司机",
+      "finding": "新原因没有取代旧限定；认可范围没有扩张。"
+    },
+    {
+      "output": "skill-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "当前也不继续展开其细节",
+      "finding": "完整稿及编号保留；对周末暂缓作较宽解释，暂停自取细节。原文范围有歧义，记为差异，不把它计作已证明缺陷或完全对齐。"
+    },
+    {
+      "output": "governance-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "Q2.1",
+      "finding": "身份、到访限定和未决费用保留。"
+    },
+    {
+      "output": "governance-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "上一轮我的首要判断实际偏向人员条件",
+      "finding": "没有把用户对需求方向的认可反写为对先前全部分析的认可。"
+    },
+    {
+      "output": "governance-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "我把这里的“周末安排”理解为原本未定的",
+      "finding": "完整当前稿，显式给出窄范围工作理解，保留原编号与状态，继续可修改。"
+    }
+  ]
+}
