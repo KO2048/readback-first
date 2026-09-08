@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "suite": "cognition-evidence",
+  "baseline": "v0.8.2",
+  "design": "3 actual sequential turns per arm; treatment labels describe requested reads, not isolated environments",
+  "limitations": [
+    "All arms share host instructions; no independent causal attribution.",
+    "Skill and governance participants were reused after prior v0.8.0 tests; they are not fresh contexts.",
+    "Exact model service build and complete action traces not captured.",
+    "One conversation per arm; semantic judgments are manual, integrity checks do not establish efficacy."
+  ],
+  "files": {
+    "control-1.md": "d02d1ba765f80a0dce0fbb713e5432484aed7a208a065c273c14e7487fb7704a",
+    "control-2.md": "0b024ca7410c720f63b0ab00640e189fce015a50689732ac986181462da42124",
+    "control-3.md": "dd0b3d9b80ac679d4784bc0a97b3e0551e0a5b14886b24df678445c6655917b8",
+    "governance-1.md": "7ff30b939f919b8f704e247638775a121310753e36bb0ad9fdd68a940d35000c",
+    "governance-2.md": "4af15c19783b38c925cc7304fad7bb07a1186063abef96fbee08e3d34b70188c",
+    "governance-3.md": "4a325b64ae60d6b94d529231b3591126292baecc23239dcd1c1613073619f24b",
+    "input-1.md": "dfa2f703025fd20aa88881e6d832f7dbe488498f5927b31a388df0b147e5ba0d",
+    "input-2.md": "1cf1e2b7285bc8e756c1778a589e27ca86105dd88faa4580e6713b829660c0cd",
+    "input-3.md": "a6d8f59c34ca657adaeaed437de16db9da01d5e3f60e150d5e2720003bbf2574",
+    "skill-1.md": "4a81276d4e330d084a480f269dfb7dddaff8beee5a2809c3f4b4077c2910e6b8",
+    "skill-2.md": "42aac59e8ad7a235a007cbe1f506df0dab39c6f197feb64d006c4d26a48b6ba9",
+    "skill-3.md": "b49da6e93ca10411acc085585c41bca4e78da1bc31ce976ed9ac6dedf98a1465"
+  },
+  "turns": [
+    {
+      "arm": "control",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "control-1.md"
+    },
+    {
+      "arm": "control",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "control-2.md"
+    },
+    {
+      "arm": "control",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "control-3.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "skill-1.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "skill-2.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "skill-3.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "governance-1.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "governance-2.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "governance-3.md"
+    }
+  ],
+  "reviews": [
+    {
+      "output": "control-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "尚不能确定存在直接依赖",
+      "finding": "不虚构Q2→Q3关系，Q1暂定及Q4排除保留。"
+    },
+    {
+      "output": "control-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "原判断的依据已经变化",
+      "finding": "整合Q1-Q3，重审下游不自动否决现场领取。"
+    },
+    {
+      "output": "control-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "不能因服务对象扩大而连带作废",
+      "finding": "保留新确认和候选范围，正确限制关键词与单轮观察结论。"
+    },
+    {
+      "output": "skill-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "Q1 是 Q2、Q3 共同依赖的暂定前提",
+      "finding": "显式标示共同前提的工作理解，不把依据关系当必然推出。"
+    },
+    {
+      "output": "skill-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "没有新增 Q2 → Q3 的依赖",
+      "finding": "新认知影响两个下游，保留未决，不新增因果链。"
+    },
+    {
+      "output": "skill-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "已有本轮独立确认，不随旧前提失效而作废",
+      "finding": "当前完整稿保留独立确认与局部候选，证据结论有边界。"
+    },
+    {
+      "output": "governance-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "“有依据关系”不等于“必然推出”",
+      "finding": "明确推导的不足，保持Q3前提歧义。"
+    },
+    {
+      "output": "governance-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "这不等于已经确定替代语言或领取方案",
+      "finding": "同时重审Q2/Q3但不自动做新决策。"
+    },
+    {
+      "output": "governance-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "缺少轨迹不自动证明行为错误",
+      "finding": "完整稿及证据边界清楚，不因记录缺失虚报成功或失败。"
+    }
+  ]
+}
