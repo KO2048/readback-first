@@ -14,3 +14,10 @@ manual semantic review must inspect every arrow, not merely the presence of a
 Mermaid fence. Neither file adds to the 39 deterministic fixture count.
 
 [Eight history-derived scenarios](history/README.md) extend manual evaluation coverage; they are not additional deterministic fixtures or eight runtime passes.
+
+## Versioned runtime evidence
+
+Run `python3 tests/validate_runtime_evidence.py` for hashes, review quotes and source
+references, and `python3 -m unittest discover -s tests -p test_runtime_evidence.py`
+for the checker itself. These 7 tool tests are separate from the 39 deterministic
+fixtures. Neither suite scores model semantics or proves host activation.
