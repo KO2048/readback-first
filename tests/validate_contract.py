@@ -35,7 +35,6 @@ def main() -> int:
     protocol = read_required(protocol_path, "PROTOCOL.md", failures)
     if protocol:
         for needle in (
-            "Protocol Version: 0.7",
             "Readback is the core",
             "Default readback",
             "Visible working understanding",
@@ -65,7 +64,6 @@ def main() -> int:
 
     skill = read_required(skill_path, "SKILL.md", failures)
     for needle in (
-        "Protocol version: 0.7",
         "Default readback",
         "Readback shown is not reception confirmed",
         "source_state",

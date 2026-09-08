@@ -1,15 +1,15 @@
 {
-  "version": "0.7.1",
+  "version": "0.8.0",
   "status": "release",
-  "theme": "Diagram semantic consistency",
-  "theme_zh": "图文语义一致性",
-  "base_version": "0.7.0",
+  "theme": "Source-faithful reception with normal continuation",
+  "theme_zh": "保留来源细节与正常继续回应",
+  "base_version": "0.7.1",
   "branch": "main",
-  "source_commit": "8ba109b7c343959de01213218da334ba0a43f881",
-  "source_kind": "evidence-driven-patch",
-  "plan_version": "plan-v7",
+  "source_commit": "7d6c13aa8cd707d62d7b19d48eb5a0d9e4489790",
+  "source_kind": "history-driven-runtime-fix",
+  "plan_version": "plan-v9",
   "fixture_count": 39,
   "checks": "contract, fixtures, diff-check passed",
-  "runtime": "three paired turns observed; diagram ambiguity fixed in one targeted replay; broader evaluation pending",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.7.1"
+  "runtime": "3-turn baseline per 3 arms; 5 control + 5 current micro samples; 5 candidate micro samples and 3-turn candidate replay observed; broader evaluation pending",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.0"
 }

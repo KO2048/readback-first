@@ -1,18 +1,18 @@
 # Readback First
 
-**0.7.1 — Diagram semantic consistency**
+**0.8.0 — Source-faithful reception and continuation**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.7.1.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.8.0.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
-- Preserve evidence and authorization conditions in every diagram.
-- Distinguish relationship views from processing order without forcing different diagram types.
-- Retain [three paired rounds and one targeted replay](docs/evaluation/three-round/report.md), including the original failure and evaluation limits.
+- Keep received content at the specificity supplied by the user; label useful inference separately.
+- Preserve source wording without unnecessary clarification when the missing distinction does not matter.
+- Retain [raw baseline and candidate observations](docs/evaluation/reception-continuation/review.md), including failures and limits. Broader alignment remains open.
 
 ## Read back, then answer
 
@@ -27,7 +27,7 @@ source coverage and useful continuation survive the move.
 
 ## Install the latest version
 
-The default `main` branch contains **v0.7.1**. Ask your agent:
+The default `main` branch contains **v0.8.0**. Ask your agent:
 
 > Install the Skill at https://github.com/KO2048/readback-first from the repository
 > root on main, named readback-first. If already installed, preserve local changes
@@ -43,11 +43,11 @@ Do not run the clone over an existing directory. For a Git-based installation,
 review local changes before updating with `git pull --ff-only origin main` from
 that installation; other installations can be updated by the agent/installer.
 Reload the Skill or start a new session as your host requires. Check `release.json`
-for version `0.7.1`; installing this Skill does not itself update host rules.
+for version `0.8.0`; installing this Skill does not itself update host rules.
 
 To apply it on **every user turn**, add the small required entry from
 [the always-on host profile](docs/always-on.md) to your host's always-loaded
-instructions. For reproducibility, [v0.7.1](https://github.com/KO2048/readback-first/releases/tag/v0.7.1)
+instructions. For reproducibility, [v0.8.0](https://github.com/KO2048/readback-first/releases/tag/v0.8.0)
 provides a pinned release snapshot.
 
 ## Evidence and status
@@ -59,8 +59,7 @@ python3 tests/validate_contract.py
 python3 tests/validate_fixtures.py
 ```
 
-These checks do not run a model. Three paired turns and one targeted replay are
-recorded separately; broader runtime behavior, loading and rendering remain pending. This is a published 0.x protocol/Skill release, not a claim of
+These checks do not run a model. The [v0.8.0 runtime report](docs/evaluation/reception-continuation/review.md) archives three three-turn baseline conversations, ten baseline micro samples, five candidate micro samples and a three-turn candidate replay; broader runtime behavior, loading and rendering remain pending. This is a published 0.x protocol/Skill release, not a claim of
 cross-model reliability. It does not silently replace global rules. See the [evaluation matrix](tests/runtime-matrix.md).
 
 [Complete examples](examples/before-after.md) · [Changelog](CHANGELOG.md) · Apache-2.0

@@ -1,0 +1,127 @@
+{
+  "samples": [
+    {
+      "arm": "baseline_no_skill",
+      "index": 1,
+      "raw_output": "回讲：你目前的安排里，有已明确的信息，也有待确认和仅供考虑的部分：\n\n- 社区图书馆平日开放到九点；你没有说明周六的开放时间，不能据此推定。\n- 志愿者小周说周六两点能来，但他要到周五才会确认，所以目前还是暂定。“两点”是上午还是下午，你尚未明确。\n- 把活动室留给儿童活动只是建议，还没有定下来。\n\n小周是否到场，要等周五确认；活动室的用途仍未确定。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "保留九点、两点及周五的原始具体程度；明确两点的时段尚未明确，并保留到场待确认和活动室用途仅为建议的状态。"
+      }
+    },
+    {
+      "arm": "baseline_no_skill",
+      "index": 2,
+      "raw_output": "回讲：你目前的安排包含三条信息，确定程度不同：\n\n- **图书馆开放时间**：平日开放到九点；你没有说明周末的开放时间。\n- **志愿者小周**：他说周六两点能来，但要到周五才会确认，因此目前还不能算已确定到场。\n- **活动室用途**：留给儿童活动只是建议，尚未定案。\n\n我在这里保留这些安排及其待确认、建议状态。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "未添加时间的早晚或具体确认时刻，保留到场待确认与活动室用途尚未定案。"
+      }
+    },
+    {
+      "arm": "baseline_no_skill",
+      "index": 3,
+      "raw_output": "回讲：你目前的安排和待定事项是：\n\n- 社区图书馆平日开放到九点；这条信息没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但要到周五才会确认，因此目前仍是待确认安排。\n- 把活动室留给儿童活动只是建议，还没有确定下来。\n\n你没有明确“两点”和“九点”的上午、下午或晚上，我先保留原说法。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "明确指出两点和九点的时段未提供，保留原说法及待确认、建议状态。"
+      }
+    },
+    {
+      "arm": "baseline_no_skill",
+      "index": 4,
+      "raw_output": "回讲：你目前的安排和待确认信息是：\n\n- 社区图书馆平日开放到九点；这里没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但要到周五才会确认，因此他的到场安排仍待确认。\n- 把活动室留给儿童活动目前只是建议，还没有确定下来。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "未将时间具体化为早晚或新增确认时刻，保留到场待确认与用途建议状态。"
+      }
+    },
+    {
+      "arm": "baseline_no_skill",
+      "index": 5,
+      "raw_output": "回讲：社区图书馆平日开放到九点；志愿者小周说周六两点能来，但要到周五才会确认，因此目前还不能算确定到场。把活动室留给儿童活动只是建议，尚未定案。\n\n你没有说明周六的开放时间，也没有明确“两点”是上午还是下午，我先保留这些未明确之处。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "保留原始时间粒度，明确两点的时段未提供，并解释到场未定及用途仅为建议。"
+      }
+    },
+    {
+      "arm": "readback_first_skill_and_protocol",
+      "index": 1,
+      "raw_output": "回讲：你目前的安排是：\n\n- 社区图书馆平日开放到晚上九点；这里没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但要到周五才会确认，因此他的到场安排尚未确定。\n- 活动室留给儿童活动目前只是建议，还没有定下来。",
+      "finding": {
+        "source_specificity_failure": true,
+        "failure_quotes": [
+          "社区图书馆平日开放到晚上九点；这里没有说明周六的开放时间。"
+        ],
+        "reason": "将用户的九点无标识地具体化为晚上九点，且放在用户安排的回讲中。未新增两点的时段或周五的具体确认时刻。"
+      }
+    },
+    {
+      "arm": "readback_first_skill_and_protocol",
+      "index": 2,
+      "raw_output": "回讲：按你提供的信息，目前的安排是：\n\n- 社区图书馆平日开放到九点；这条信息没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但他要到周五才会确认，因此到场安排目前仍待确认。\n- 把活动室留给儿童活动只是建议，还没有定下来。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "未新增时间早晚或具体确认时刻，保留到场待确认及活动室用途建议状态。"
+      }
+    },
+    {
+      "arm": "readback_first_skill_and_protocol",
+      "index": 3,
+      "raw_output": "回讲：你提供的安排是：\n\n- 社区图书馆平日开放到九点；这里没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但要到周五才会确认，所以目前仍是待确认的到场安排。\n- 把活动室留给儿童活动只是建议，还没有定下来。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "时间保持原始具体程度，解释到场安排待确认，并保留活动室用途尚未定案。"
+      }
+    },
+    {
+      "arm": "readback_first_skill_and_protocol",
+      "index": 4,
+      "raw_output": "回讲：按你提供的信息，目前的安排是：\n\n- 社区图书馆平日开放到九点；你没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但要到周五才会确认，所以他的到场安排仍待确认。\n- 把活动室留给儿童活动目前只是建议，还没有定下来。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "未添加时间早晚或确认时刻，保留志愿者到场待确认和活动室用途仅为建议。"
+      }
+    },
+    {
+      "arm": "readback_first_skill_and_protocol",
+      "index": 5,
+      "raw_output": "回讲：按你的描述，目前的安排是：\n\n- 社区图书馆平日开放到九点；这没有说明周六的开放时间。\n- 志愿者小周说周六两点能来，但他要到周五才会确认，因此目前还不能算已确定到场。\n- 把活动室留给儿童活动只是建议，尚未定下来。",
+      "finding": {
+        "source_specificity_failure": false,
+        "failure_quotes": [],
+        "reason": "保留九点、两点与周五的原始粒度，以及到场待确认和用途尚未定案的状态。"
+      }
+    }
+  ],
+  "observed_counts": {
+    "baseline_no_skill": {
+      "samples": 5,
+      "source_specificity_failures": 0,
+      "no_observed_source_specificity_failure": 5
+    },
+    "readback_first_skill_and_protocol": {
+      "samples": 5,
+      "source_specificity_failures": 1,
+      "no_observed_source_specificity_failure": 4
+    },
+    "total": {
+      "samples": 10,
+      "source_specificity_failures": 1,
+      "no_observed_source_specificity_failure": 9,
+      "unmarked_nine_oclock_period_additions": 1,
+      "unmarked_two_oclock_period_additions": 0,
+      "unmarked_friday_confirmation_time_additions": 0
+    },
+    "limits": "同一输入的10次fresh fork_turns=none单轮微测试，顺序执行且每次仅运行一个测试代理。结果仅为指定来源具体化维度的观察，不代表整体合格率，也不能据此推断Skill导致差异。"
+  }
+}

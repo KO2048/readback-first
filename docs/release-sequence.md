@@ -1,6 +1,6 @@
 # Public iteration sequence / 公开迭代顺序
 
-Latest public version: **v0.7.1**. Install from `main`, or pin the v0.7.1 release.
+Latest public version: **v0.8.0**. Install from `main`, or pin the v0.8.0 release.
 The intermediate versions below were merged separately as iteration milestones;
 this publication does not invent earlier releases or tag every milestone.
 
@@ -29,3 +29,7 @@ The original umbrella PR #1 remains a closed historical source.
 
 [图文语义一致性修复](releases/0.7.1.md)由三轮配对观察中的实际歧义驱动。
 一次针对性重放通过，不声称全面对齐；原治理层继续保留。
+
+## 0.8.0
+
+[来源忠实度与继续回应](releases/0.8.0.md)：由历史纠错测试驱动的限定来源修复；累计内容与正常继续纳入三轮回归。其余对齐 issues 仍开放。
