@@ -1,18 +1,18 @@
 # Readback First
 
-**0.8.3 — Cross-topic revision and inspectable alignment status**
+**0.9.0 — Formal conversation readback before task execution**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.8.3.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.9.0.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
-- Add a worked example of revising shared premises while preserving independent confirmations and scoped candidates.
-- Archive three sequential turns per arm for cross-topic updates and evidence claims.
-- Publish an [alignment status table](docs/alignment-status.md) separating existing rules, observed behavior, actual fixes and unverified areas. This patch expands examples and evidence; it does not claim a new behavioral fix.
+- Require the first substantive receipt in the formal conversation before task tools, across all harnesses. Thinking and collapsed progress do not count.
+- Keep the receipt in the final body; default activation needs no user reminder. Existing direct-answer and authorization boundaries remain.
+- Validate observed delivery order, not a self-reported boolean. [Evidence and host limitations](docs/evaluation/formal-delivery/review.md).
 
 ## Read back, then answer
 
@@ -27,7 +27,7 @@ source coverage and useful continuation survive the move.
 
 ## Install the latest version
 
-The default `main` branch contains **v0.8.3**. Ask your agent:
+The default `main` branch contains **v0.9.0**. Ask your agent:
 
 > Install the Skill at https://github.com/KO2048/readback-first from the repository
 > root on main, named readback-first. If already installed, preserve local changes
@@ -43,11 +43,11 @@ Do not run the clone over an existing directory. For a Git-based installation,
 review local changes before updating with `git pull --ff-only origin main` from
 that installation; other installations can be updated by the agent/installer.
 Reload the Skill or start a new session as your host requires. Check `release.json`
-for version `0.8.3`; installing this Skill does not itself update host rules.
+for version `0.9.0`; installing this Skill does not itself update host rules.
 
 To apply it on **every user turn**, add the small required entry from
 [the always-on host profile](docs/always-on.md) to your host's always-loaded
-instructions. For reproducibility, [v0.8.3](https://github.com/KO2048/readback-first/releases/tag/v0.8.3)
+instructions. For reproducibility, [v0.9.0](https://github.com/KO2048/readback-first/releases/tag/v0.9.0)
 provides a pinned release snapshot.
 
 ## Evidence and status
@@ -78,3 +78,5 @@ Use different diagrams for different relationships; inferred links need labels.
 [Mandatory every-turn adapter / 每轮强制入口](docs/always-on.md)
 
 [对齐状态 / Alignment status](docs/alignment-status.md) · [原题与累计稿](examples/identity-current-view.md) · [未决交接](examples/unresolved-lineage.md) · [跨题更新](examples/cognition-evidence.md)
+
+[本版示例 / Worked example](examples/formal-receipt-first.md) · [本版实际观察 / Runtime observations](docs/evaluation/formal-delivery/review.md)

@@ -33,3 +33,7 @@ See the raw evidence for failures and limitations before reusing any claim.
 ## 0.8.3
 
 [三轮实际观察](../docs/evaluation/versioned/cognition-evidence/review.md)。三组各三轮，部分参与者复用旧测试上下文，宿主未隔离；保留原始输出与人工引文判断。
+
+## 0.9.0
+
+[正式对话优先](../docs/evaluation/formal-delivery/review.md)：无回讲提示的普通请求事件及候选受限出口。非新上下文隔离测试；没有WorkBuddy候选UI通过证据。13项顺序测试是编写的轨迹，不是13次模型运行。

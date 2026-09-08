@@ -1,7 +1,16 @@
 # Changelog
 
-v0.8.3 is the latest public release. Earlier entries record separately merged
+v0.9.0 is the latest public release. Earlier entries record separately merged
 iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
+
+## 0.9.0 (release)
+
+- Require substantive formal-conversation readback before task tools across every harness; promote may to MUST and move it to the entry.
+- Exclude hidden reasoning, collapsed progress and action notices; keep final-body receipt and existing explicit direct-answer exception.
+- Require observed display mapping, with an honest unsupported-host exit instead of false compliance.
+- Add 13 event-order tests and ordinary-request traces. WorkBuddy candidate UI acceptance remains unverified.
+
+[Record](docs/releases/0.9.0.md).
 
 ## 0.8.3 (release)
 

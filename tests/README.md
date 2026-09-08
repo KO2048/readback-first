@@ -21,3 +21,10 @@ Run `python3 tests/validate_runtime_evidence.py` for hashes, review quotes and s
 references, and `python3 -m unittest discover -s tests -p test_runtime_evidence.py`
 for the checker itself. These 7 tool tests are separate from the 39 deterministic
 fixtures. Neither suite scores model semantics or proves host activation.
+
+## Formal delivery order
+
+`python3 -m unittest discover -s tests -p test_delivery_trace.py` checks 13 authored
+event traces. It does not determine semantic meaning or UI visibility itself;
+adapter observations and review must supply those fields. Model self-reports do
+not count. These checks are separate from 39 fixtures and 7 evidence-tool tests.
