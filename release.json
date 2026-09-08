@@ -1,15 +1,15 @@
 {
-  "version": "0.10.0",
+  "version": "0.10.1",
   "status": "release",
-  "theme": "Observable conduct and decision provenance",
-  "theme_zh": "默认值、实际动作与授权依据",
-  "base_version": "0.9.0",
+  "theme": "Batched delivery and commit traceability",
+  "theme_zh": "分批交付与提交追溯",
+  "base_version": "0.10.0",
   "branch": "main",
-  "source_commit": "0a0b7bd1da72c9a60b8dd72eba7ff400ae06e691",
-  "source_kind": "conduct-contract",
+  "source_commit": "0928704334e745b13af6e35c5b3f3e4e8c5d1bff",
+  "source_kind": "delivery-documentation",
   "plan_version": "plan-v12",
   "fixture_count": 39,
-  "checks": "contract; 39 fixtures; 20 existing unit tests; evidence integrity; manual synthetic-response review",
-  "runtime": "Same-host reused-context baseline and candidate responses to supplied synthetic events; not real action or cross-harness validation",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.0"
+  "checks": "contract; 39 fixtures; 20 existing unit tests; evidence integrity; commit and tag lineage",
+  "runtime": "No new runtime experiment; inherits v0.10.0 evidence limits",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.1"
 }
