@@ -1,7 +1,15 @@
 # Changelog
 
-v0.8.2 is the latest public release. Earlier entries record separately merged
+v0.8.3 is the latest public release. Earlier entries record separately merged
 iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
+
+## 0.8.3 (release)
+
+- Cross-topic revision and inspectable alignment status.
+- Add a worked example and three sequential turns per arm with source-linked review.
+- Skill behavior remains unchanged; observations do not establish broad parity.
+
+[Record](docs/releases/0.8.3.md).
 
 ## 0.8.2 (release)
 

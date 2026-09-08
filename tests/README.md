@@ -1,4 +1,4 @@
-# Evidence for 0.7.0
+# Evidence and validation
 
 39 deterministic fixtures validate named semantic invariants on authored
 good/bad records. Some delivery cases use narrow text checks and reviewer-assigned

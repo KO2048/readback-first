@@ -1,15 +1,15 @@
 {
-  "version": "0.8.2",
+  "version": "0.8.3",
   "status": "release",
-  "theme": "Unresolved-item lineage and unambiguous package versions",
-  "theme_zh": "未决项继承、版本交接与安装版本识别",
-  "base_version": "0.8.1",
+  "theme": "Cross-topic revision and inspectable alignment status",
+  "theme_zh": "跨主题更新与可核查对齐状态",
+  "base_version": "0.8.2",
   "branch": "main",
-  "source_commit": "524d8623e602a2fdcb0c27c368947ffcf43cba51",
+  "source_commit": "f53f984e89e4843a7269b577628db2c632c2e6b2",
   "source_kind": "evidence-and-examples",
   "plan_version": "plan-v10",
   "fixture_count": 39,
   "checks": "contract, fixtures, diff-check passed",
-  "runtime": "See versioned suite unresolved-lineage; same-host sequential observations, not independent causal evidence",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.2"
+  "runtime": "See versioned suite cognition-evidence; same-host sequential observations, not independent causal evidence",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.3"
 }

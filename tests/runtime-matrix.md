@@ -29,3 +29,7 @@ See the raw evidence for failures and limitations before reusing any claim.
 ## 0.8.2
 
 [三轮实际观察](../docs/evaluation/versioned/unresolved-lineage/review.md)。三组各三轮，部分参与者复用旧测试上下文，宿主未隔离；保留原始输出与人工引文判断。
+
+## 0.8.3
+
+[三轮实际观察](../docs/evaluation/versioned/cognition-evidence/review.md)。三组各三轮，部分参与者复用旧测试上下文，宿主未隔离；保留原始输出与人工引文判断。
