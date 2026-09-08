@@ -12,3 +12,5 @@ The three-turn runtime scenario and source responses are linked from
 [Diagram consistency](../examples/diagram-consistency.md) is an authored reference;
 manual semantic review must inspect every arrow, not merely the presence of a
 Mermaid fence. Neither file adds to the 39 deterministic fixture count.
+
+[Eight history-derived scenarios](history/README.md) extend manual evaluation coverage; they are not additional deterministic fixtures or eight runtime passes.

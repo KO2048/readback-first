@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-08",
+  "case": "H02",
+  "baseline": "v0.7.1",
+  "design": "one fresh read-only agent per arm; no previous output shared",
+  "arms": {
+    "control": "no task-specific Skill or governance file read requested",
+    "governance": "global governance and Typeless read requested",
+    "skill": "Readback First SKILL.md and PROTOCOL.md read requested"
+  },
+  "limitations": [
+    "host prefixes not independently isolated",
+    "exact model build and full tool traces not archived",
+    "one sample per arm",
+    "single prompt embeds a short history; not actual long multi-turn test",
+    "explicit reminders in prompt may make case easier"
+  ],
+  "raw_sha256": {
+    "input.md": "726ad6119cba82f60b61a75afc3fe7f75fe5bcc0b59b80f8e35033585e486b3b",
+    "governance.md": "fbc7f45e560462980456efd4d4a5f9f00fdcb15146fab031ffe291c05ff2deae",
+    "skill.md": "ad027eae6ce8cdc43f08f0206ba503fd129adaa2496c1ac25e9f229ad7f25c80",
+    "control.md": "dd63d55fb0d7378b9cf72a2f5cd625babf54c235c658192088d23e48e9429c18"
+  }
+}
