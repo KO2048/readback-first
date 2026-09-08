@@ -1,15 +1,15 @@
 {
-  "version": "0.8.1",
+  "version": "0.8.2",
   "status": "release",
-  "theme": "Stable question identities and cumulative-view evidence",
-  "theme_zh": "问题身份与完整当前稿",
-  "base_version": "0.8.0",
+  "theme": "Unresolved-item lineage and unambiguous package versions",
+  "theme_zh": "未决项继承、版本交接与安装版本识别",
+  "base_version": "0.8.1",
   "branch": "main",
-  "source_commit": "6e76cb807ad7b78d37949e5df9c6ee25ed138458",
+  "source_commit": "524d8623e602a2fdcb0c27c368947ffcf43cba51",
   "source_kind": "evidence-and-examples",
   "plan_version": "plan-v10",
   "fixture_count": 39,
   "checks": "contract, fixtures, diff-check passed",
-  "runtime": "See versioned suite identity-current-view; same-host sequential observations, not independent causal evidence",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.1"
+  "runtime": "See versioned suite unresolved-lineage; same-host sequential observations, not independent causal evidence",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.8.2"
 }

@@ -154,6 +154,8 @@ def main() -> int:
     expected = meta["version"].rsplit(".", 1)[0]
     require(protocol, "Protocol Version: " + expected, "PROTOCOL.md", failures)
     require(skill, "Protocol version: " + expected, "SKILL.md", failures)
+    require(skill, "[release.json](release.json)", "SKILL.md", failures)
+    require(protocol, "[release.json](release.json)", "PROTOCOL.md", failures)
     actual_count = len(list((ROOT / "tests/fixtures").glob("*.json")))
     if actual_count != meta["fixture_count"]:
         failures.append("release.json: fixture count mismatch")

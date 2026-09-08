@@ -2,7 +2,7 @@
 
 **Protocol Version: 0.8**
 
-**Status:** 0.8.0 protocol release. Scoped source-specificity and continuation regressions observed; broader runtime and host independence remain unverified.
+**Status:** Protocol contract 0.8. The installed package version, release status, and current evidence scope are in [release.json](release.json); this protocol coordinate is not the package version.
 
 ## 1. Central contract
 
