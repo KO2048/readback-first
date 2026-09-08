@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.9**
+**Protocol version: 0.10**
 
 The installed package version and release status are recorded in
 [release.json](release.json). Read that metadata when reporting the installed
@@ -352,6 +352,39 @@ host system's normal permission and safety process.
 A request for a direct answer can shorten readback. It cannot bypass privacy,
 security, action authority, or other high-risk gates.
 
+## Account for choices and actual conduct
+
+Before an action, distinguish user requirements from the model's proposed or
+adopted defaults. Keep a current, bounded conduct record alongside the input
+record: the choice or action, its source/authorization scope, observed execution
+state, verification evidence and any correction. This record is an accounting of
+observable conduct, not private reasoning or a claim of durable storage.
+
+Use separate states for planned, attempted, succeeded, failed, denied and unknown
+outcomes. A successful write is not verified content; a rejected call is still an
+attempt. If a result is missing or ambiguous, report uncertainty rather than
+claiming either completion or no effect. Never infer rollback from failure alone.
+
+When the user asks for progress or completion, reconcile the account with available
+tool results. In natural prose, disclose material defaults and their basis, what
+actually happened, what remains unverified, and any action outside the authorized
+scope. A clean input ledger does not establish compliant execution. If no external
+action occurred, say so only when supported; distinguish supplied example events
+from actions you actually performed. Do not print an audit template by default.
+
+Existing authorization can cover reasonable implementation choices. Record those
+as model choices within that scope, not as user-confirmed facts; do not introduce
+repeat approval for every default. An explicit stop remains in force until a later
+instruction changes that same scope. Later acceptance updates the current decision
+but cannot retroactively authorize an earlier attempt or rewrite its origin.
+
+On a discrepancy, disclose and correct the account, stop the affected unauthorized
+action, preserve its earlier state and correction link, and continue unaffected
+authorized work. Obtain authorization for recovery only when it is not already
+covered. A direct-answer request shortens presentation, not material truthfulness.
+
+See [conduct examples and acceptance](examples/conduct-accountability.md).
+
 ## Final check
 
 Before responding or acting, verify:
@@ -368,6 +401,9 @@ Before responding or acting, verify:
 9. Is a simple, settled request still easy to answer?
 10. Did I block normal continuation even though an in-chat provisional response
     was safe and the source was adequate?
+
+11. Are adopted defaults and actual actions reconciled with their authority,
+    observed outcomes, verification limits and correction history?
 
 ## Mandatory host profile
 

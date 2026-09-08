@@ -1,15 +1,15 @@
 {
-  "version": "0.9.0",
+  "version": "0.10.0",
   "status": "release",
-  "theme": "Formal conversation readback before task execution",
-  "theme_zh": "所有harness正式对话优先回讲",
-  "base_version": "0.8.3",
+  "theme": "Observable conduct and decision provenance",
+  "theme_zh": "默认值、实际动作与授权依据",
+  "base_version": "0.9.0",
   "branch": "main",
-  "source_commit": "69caf043f4750a049ee2650b98ddeab5e0ac5d21",
-  "source_kind": "formal-delivery-contract",
-  "plan_version": "plan-v11",
+  "source_commit": "0a0b7bd1da72c9a60b8dd72eba7ff400ae06e691",
+  "source_kind": "conduct-contract",
+  "plan_version": "plan-v12",
   "fixture_count": 39,
-  "checks": "contract; 39 fixtures; 13 delivery trace tests; 7 evidence tests; versioned evidence integrity; diff",
-  "runtime": "Ordinary-request baseline event trace and candidate limitation exit observed; WorkBuddy UI candidate run not completed",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.9.0"
+  "checks": "contract; 39 fixtures; 20 existing unit tests; evidence integrity; manual synthetic-response review",
+  "runtime": "Same-host reused-context baseline and candidate responses to supplied synthetic events; not real action or cross-harness validation",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.0"
 }

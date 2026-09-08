@@ -1,17 +1,18 @@
 # Readback First
 
-**0.9.0 — 所有harness正式对话优先回讲**
+**0.10.0 — 默认值、实际动作与授权依据**
 
 先让用户看清 AI 接收到什么，再进行实质回应。回讲保留原意、限定、修正与未决项；
 回讲不等于事实核验或行动授权。
 
-[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.9.0.md) · [版本路线](docs/release-sequence.md)
+[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.10.0.md) · [版本路线](docs/release-sequence.md)
 
 ## 本版更新什么
 
-- 所有harness必须先在正式对话正文实质回讲，再调用任务工具或回答；思考、折叠进度和行动通知不算。
-- 最终正文也保留回讲，用户不必每次提示；直答例外与已有授权保持，不增加确认循环。
-- 增加消息位置与顺序检查，不把自报布尔量当证据。[实际记录与宿主限制](docs/evaluation/formal-delivery/review.md)。
+- 在Skill与协议中明确记录模型默认值、授权依据、实际动作和核验限制。
+- 区分尝试、成功、拒绝与未核验；后续接受不追溯改写来源或授权。
+- 保留既有自主判断空间与正式正文回讲，不引入逐项重复确认。
+- [合成回归与证据边界](docs/evaluation/conduct/review.md)。
 
 ## 回讲之后，继续回答
 
@@ -24,7 +25,7 @@
 
 ## 安装最新版
 
-默认 `main` 已包含 **v0.9.0**。可以直接对 Agent 说：
+默认 `main` 已包含 **v0.10.0**。可以直接对 Agent 说：
 
 > 从 https://github.com/KO2048/readback-first 的 main 分支安装仓库根目录中的 Skill，
 > 名称为 readback-first。如果已经安装，先保留本地改动，再更新到最新版。
@@ -37,11 +38,11 @@ git clone --branch main --depth 1 https://github.com/KO2048/readback-first.git ~
 
 已有目录不要直接覆盖。Git 安装先检查本地改动，再在安装目录执行
 `git pull --ff-only origin main`；其他安装方式交由 Agent／安装器更新。
-按宿主要求重新加载或新开会话，并检查 `release.json` 中的版本为 `0.9.0`。
+按宿主要求重新加载或新开会话，并检查 `release.json` 中的版本为 `0.10.0`。
 
 要求**每条输入都应用**时，将[强制宿主入口](docs/always-on.md)放入宿主始终加载的规则。
 安装 Skill 与配置这个入口分别完成；需要固定版本时使用
-[v0.9.0 发布快照](https://github.com/KO2048/readback-first/releases/tag/v0.9.0)。
+[v0.10.0 发布快照](https://github.com/KO2048/readback-first/releases/tag/v0.10.0)。
 
 ## 验证与限制
 

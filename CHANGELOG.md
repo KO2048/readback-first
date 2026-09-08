@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.0 — 默认值、实际动作与授权依据
+
+新增Skill行为记账入口与协议§19。明确来源、授权范围、尝试/结果、核验限制和纠正链；
+已有授权内合理判断不要求重复确认。合成回复回归不能证明真实工具或所有宿主安全。
+
+
+
 v0.9.0 is the latest public release. Earlier entries record separately merged
 iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
 
