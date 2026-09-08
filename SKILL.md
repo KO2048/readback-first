@@ -7,6 +7,10 @@ description: Use by default when relying on a user's expression to answer or act
 
 **Protocol version: 0.8**
 
+The installed package version and release status are recorded in
+[release.json](release.json). Read that metadata when reporting the installed
+version; the protocol version above is a separate compatibility coordinate.
+
 ## Purpose
 
 Align the user's expression with the AI's visible working understanding before

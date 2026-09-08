@@ -1,12 +1,12 @@
 # Readback First
 
-**0.8.1 — Stable question identities and cumulative-view evidence**
+**0.8.2 — Unresolved-item lineage and unambiguous package versions**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.8.1.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.8.2.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
@@ -27,7 +27,7 @@ source coverage and useful continuation survive the move.
 
 ## Install the latest version
 
-The default `main` branch contains **v0.8.1**. Ask your agent:
+The default `main` branch contains **v0.8.2**. Ask your agent:
 
 > Install the Skill at https://github.com/KO2048/readback-first from the repository
 > root on main, named readback-first. If already installed, preserve local changes
@@ -43,11 +43,11 @@ Do not run the clone over an existing directory. For a Git-based installation,
 review local changes before updating with `git pull --ff-only origin main` from
 that installation; other installations can be updated by the agent/installer.
 Reload the Skill or start a new session as your host requires. Check `release.json`
-for version `0.8.1`; installing this Skill does not itself update host rules.
+for version `0.8.2`; installing this Skill does not itself update host rules.
 
 To apply it on **every user turn**, add the small required entry from
 [the always-on host profile](docs/always-on.md) to your host's always-loaded
-instructions. For reproducibility, [v0.8.1](https://github.com/KO2048/readback-first/releases/tag/v0.8.1)
+instructions. For reproducibility, [v0.8.2](https://github.com/KO2048/readback-first/releases/tag/v0.8.2)
 provides a pinned release snapshot.
 
 ## Evidence and status
@@ -59,7 +59,7 @@ python3 tests/validate_contract.py
 python3 tests/validate_fixtures.py
 ```
 
-These checks do not run a model. The [v0.8.1 runtime report](docs/evaluation/reception-continuation/review.md) archives three three-turn baseline conversations, ten baseline micro samples, five candidate micro samples and a three-turn candidate replay; broader runtime behavior, loading and rendering remain pending. This is a published 0.x protocol/Skill release, not a claim of
+These checks do not run a model. The [v0.8.2 runtime report](docs/evaluation/reception-continuation/review.md) archives three three-turn baseline conversations, ten baseline micro samples, five candidate micro samples and a three-turn candidate replay; broader runtime behavior, loading and rendering remain pending. This is a published 0.x protocol/Skill release, not a claim of
 cross-model reliability. It does not silently replace global rules. See the [evaluation matrix](tests/runtime-matrix.md).
 
 [Complete examples](examples/before-after.md) · [Changelog](CHANGELOG.md) · Apache-2.0
@@ -78,3 +78,5 @@ Use different diagrams for different relationships; inferred links need labels.
 [Mandatory every-turn adapter / 每轮强制入口](docs/always-on.md)
 
 [本版示例 / Worked example](examples/identity-current-view.md) · [本版实际观察 / Runtime observations](docs/evaluation/versioned/identity-current-view/review.md)
+
+[本版示例 / Worked example](examples/unresolved-lineage.md) · [本版实际观察 / Runtime observations](docs/evaluation/versioned/unresolved-lineage/review.md)

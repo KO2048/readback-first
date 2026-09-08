@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "suite": "unresolved-lineage",
+  "baseline": "v0.8.1",
+  "design": "3 actual sequential turns per arm; treatment labels describe requested reads, not isolated environments",
+  "limitations": [
+    "All arms share host instructions; no independent causal attribution.",
+    "Skill and governance participants were reused after prior v0.8.0 tests; they are not fresh contexts.",
+    "Exact model service build and complete action traces not captured.",
+    "One conversation per arm; semantic judgments are manual, integrity checks do not establish efficacy."
+  ],
+  "files": {
+    "control-1.md": "d42e76e896ae781cd1e4d6d3eecb1f421524323ddb730b9c5180116b6c3312cc",
+    "control-2.md": "08440615473fa2da95bf7eeb44d3200df77745efb0b5c8975574c29f71444db2",
+    "control-3.md": "d0a194402f1edb235f991e7933f7f991824c806b12b62aa6abe7ee1f10b3a18f",
+    "governance-1.md": "581ed7312cdfccf219a68c8f68ca288c23a5e8503785a3e9101835e43c71f4c2",
+    "governance-2.md": "0a32247da03affebcdb813733fca6869d7de82e7a34f7898e4999345a012c604",
+    "governance-3.md": "d56f3992207284ac6ec701ead3bd64cc9988ef7b82a4e247e1ac320470029f6e",
+    "input-1.md": "c91008d5f89c15ee56dc6cf35d22182fa075298cc4dd162eb87f3f2aff34d2ad",
+    "input-2.md": "770050c6af2f1df62471bf6bfba21946a24a8873e6f148a8f3a2edbf03f0366f",
+    "input-3.md": "0a40bbe02a57b3bbe7bb0c3471adde63ebb92f3f6115aaebceba6f532ddf5c88",
+    "skill-1.md": "981eb4926a24d8e0749348068064042bb90c13acc4bd72c20d5b7f71d75a0f34",
+    "skill-2.md": "4eef3b6c3e76160075a642b35f465a91f92023cbae97f8eb2ceb5545c45a88dd",
+    "skill-3.md": "af7bafe9e525ddfe3432796299b5920acef70cf6b228ac9af0fbe9a1aef19687"
+  },
+  "turns": [
+    {
+      "arm": "control",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "control-1.md"
+    },
+    {
+      "arm": "control",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "control-2.md"
+    },
+    {
+      "arm": "control",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "control-3.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "skill-1.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "skill-2.md"
+    },
+    {
+      "arm": "skill",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "skill-3.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 1,
+      "input": "input-1.md",
+      "output": "governance-1.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 2,
+      "input": "input-2.md",
+      "output": "governance-2.md"
+    },
+    {
+      "arm": "governance",
+      "turn": 3,
+      "input": "input-3.md",
+      "output": "governance-3.md"
+    }
+  ],
+  "reviews": [
+    {
+      "output": "control-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "评审记录 R1 → 你写的 D3 → 我基于 D3 形成的 D4 讨论稿",
+      "finding": "识别来源链，区分用户描述与核验；建议本轮理解记录。"
+    },
+    {
+      "output": "control-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "保留 D4 当时的理解记录",
+      "finding": "U1未决与U2条件性解决均保留；此处把当时状态连到D4原理解，措辞有过强风险，原文不可核实，应保留边界。"
+    },
+    {
+      "output": "control-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "原评审条件下的达标结论保留；大型活动反馈待核实",
+      "finding": "保留双重状态和版本派生建议，未声称已创建文件。"
+    },
+    {
+      "output": "skill-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "已安装文件仍标注 **0.8.0**",
+      "finding": "来源和历史理解边界保留；额外版本回报混淆协议状态与包版本，引出issue #24。"
+    },
+    {
+      "output": "skill-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "未决，已转交设施组，等待测量结果",
+      "finding": "转交不解决；U2明确依用户所述R3而非原件核验，在限定条件下已解决。"
+    },
+    {
+      "output": "skill-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "不能用 E2 直接排除这次反馈",
+      "finding": "U1持续未决；U2旧依据与新反馈并存，原D4不可核实边界及修改者归属保留。"
+    },
+    {
+      "output": "governance-1.md",
+      "source_inputs": [
+        "input-1.md"
+      ],
+      "quote": "当时理解暂不可核实",
+      "finding": "来源链正确，明确当前重述不能伪作D4历史。"
+    },
+    {
+      "output": "governance-2.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md"
+      ],
+      "quote": "据所述记录，在指定评审使用条件下已解决；原件未核验",
+      "finding": "保留限定、来源与核验区别，U1继续待回。"
+    },
+    {
+      "output": "governance-3.md",
+      "source_inputs": [
+        "input-1.md",
+        "input-2.md",
+        "input-3.md"
+      ],
+      "quote": "不能冒充 D4 当时的实际表述",
+      "finding": "整合问题状态，保留E2与R4不同证据范围，明确版本派生建议不等于可验证旧稿。"
+    }
+  ]
+}
