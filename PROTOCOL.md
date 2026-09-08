@@ -1,8 +1,8 @@
 # Readback First Protocol
 
-**Protocol Version: 0.7**
+**Protocol Version: 0.8**
 
-**Status:** 0.7.0 protocol release. Deterministic checks pass; cross-model behavior and host rendering remain under evaluation.
+**Status:** 0.8.0 protocol release. Scoped source-specificity and continuation regressions observed; broader runtime and host independence remain unverified.
 
 ## 1. Central contract
 
@@ -173,6 +173,12 @@ source_fidelity: exact | semantic | unavailable
 coverage_state: mapped_with_known_limits | uncertain | unmapped |
   not_assessable
 ```
+
+Apply SKILL.md “Keep source specificity intact” when constructing received
+content. Contextually plausible specificity is not source evidence. Preserve
+source wording or distinguish the added interpretation; do not require irrelevant
+clarification merely to remove uncertainty. Later clarification cannot backdate
+an inferred detail into an earlier source span.
 
 Report ambiguous spans, possible unparsed material, low-confidence
 transcription, ungrounded pronouns, and unfinished content. Do not claim

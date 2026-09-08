@@ -1,0 +1,33 @@
+{
+  "baseline": "v0.7.1",
+  "date": "2026-09-08",
+  "design": "three independent agent conversations, three actual sequential turns each; fork_turns none; inherited model settings",
+  "limitations": [
+    "host prefixes not independently isolated",
+    "exact model service build not captured",
+    "read-only task constraint limits action-safety inference",
+    "one conversation per arm, not independent repetitions"
+  ],
+  "raw_sha256": {
+    "candidate-1.md": "73408b7b69e61e015358434b99bd33d349f299aa974cff2c10df0cd0377e4020",
+    "candidate-2.md": "dd22e2eab16b7c9053e4c82c0f2ff8362d73317d30187fb93bb65589089856b3",
+    "candidate-3.md": "0aa96c8ed3fbd177a553169f10b12022c7d4dce4747c87b5950fc6a4c6f26764",
+    "control-1.md": "788bbdbcff52cddc0afcf1aa5d217f96a4f25219d5d96c7987a1fcb238786752",
+    "control-2.md": "56adddadfe29752ac5afd7b30787fa1253793057823f745926023e224b9f4787",
+    "control-3.md": "1081729e3679d021815bd4769b02590e82d48d2f62fa369034d0f79379a6bac7",
+    "governance-1.md": "a835ca99bee4d13d2ea53af0cc14bb7c935dec75bd07acba1b4c8d1625b7175b",
+    "governance-2.md": "e486f677cce0ecfc6fa4b8b3ce75e656a1bd6ba4c77706be32340950eec2a9d4",
+    "governance-3.md": "7dec82730e1f4edae8c7b8d7946bc2f45fafdad54456106b2f2db4afa068d6cf",
+    "input-1.md": "bb0721c09cc9f7535c1098e7aedfbd59b0ec80bb5159a62352930dc356b1f26b",
+    "input-2.md": "7f09fb48f657a98dec831b86baac66fd5f95b10f6fbdc0c28b64844b70944d74",
+    "input-3.md": "83b8cb13745fabdf4c6da9b122a13d3caf2999e859ae91ff89478d525d13abea",
+    "skill-1.md": "c79b61c96743d8778e5a95896eb3b2a9b78339f8fe831f566000c0256837008c",
+    "skill-2.md": "1d288fc0593a2ad49685cf9e96b737b00ba40f591c541c33d0210639831bb2c4",
+    "skill-3.md": "12457f5625907b1c71f05b43cb5ee05c51e130a1d62b055e56c760d105050094"
+  },
+  "candidate": "0.8.0",
+  "sample_file_sha256": {
+    "specificity-baseline.json": "37b68a5af385078f4bfa64d8c040c59e91437fcd0467cc6e05981f93d80c66ed",
+    "candidate-results.json": "0d5961db98c4555d156e0fa728646f13af011b9c99ccb40954cae1cd433de207"
+  }
+}

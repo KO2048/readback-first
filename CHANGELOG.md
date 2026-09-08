@@ -1,7 +1,16 @@
 # Changelog
 
-v0.7.1 is the latest public release. Earlier entries record separately merged
+v0.8.0 is the latest public release. Earlier entries record separately merged
 iteration milestones, not separately tagged historical releases. 来源与实测限制见各版说明。
+
+## 0.8.0 (release)
+
+- Preserve source specificity in received content; distinguish useful interpretation from source evidence.
+- Keep irrelevant ambiguity from becoming a clarification gate; later clarification must not backdate source content.
+- Preserve three-turn reception/continuation baselines and fresh-context micro-tests.
+- Validate declared protocol version from release metadata instead of a stale hard-coded version.
+
+[Evidence](docs/releases/0.8.0.md). Broad alignment remains open.
 
 ## 0.7.1 (release)
 

@@ -1,0 +1,93 @@
+{
+  "kind": "reviewer-authored source meaning inventory; not model self-report",
+  "units": [
+    {
+      "id": "S01",
+      "source_turns": [
+        1
+      ],
+      "meaning": "借书与安静自习并存，排除付费共享办公室"
+    },
+    {
+      "id": "S02",
+      "source_turns": [
+        1,
+        2
+      ],
+      "meaning": "首轮九点未指明早晚，第二轮才明确晚上"
+    },
+    {
+      "id": "S03",
+      "source_turns": [
+        1,
+        3
+      ],
+      "meaning": "考试周延时从未决到撤回；志愿者和不默认加班仍保留为历史条件"
+    },
+    {
+      "id": "S04",
+      "source_turns": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "儿童活动来自他人，仍是候选，不能取消安静区域"
+    },
+    {
+      "id": "S05",
+      "source_turns": [
+        2
+      ],
+      "meaning": "每周是第二轮新补充的提议人原想法；改每月仍只是建议"
+    },
+    {
+      "id": "S06",
+      "source_turns": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "轮椅通道为担忧非核实堵塞；设施组无反馈，不能视为解决"
+    },
+    {
+      "id": "S07",
+      "source_turns": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "扩大面积来自他人，暂不讨论不等于否决"
+    },
+    {
+      "id": "S08",
+      "source_turns": [
+        2,
+        3
+      ],
+      "meaning": "助手判断及理由不冒充用户表达"
+    },
+    {
+      "id": "S09",
+      "source_turns": [
+        3
+      ],
+      "meaning": "认可总方向不代表全部内容确认"
+    },
+    {
+      "id": "S10",
+      "source_turns": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "开放输入等待继续；补完后判断；第三轮交付可继续修改的完整稿"
+    },
+    {
+      "id": "S11",
+      "source_turns": [
+        3
+      ],
+      "meaning": "聊天起草不等于正式交接或外部行动授权"
+    }
+  ]
+}

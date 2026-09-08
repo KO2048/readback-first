@@ -5,7 +5,7 @@ description: Use by default when relying on a user's expression to answer or act
 
 # Readback First
 
-**Protocol version: 0.7**
+**Protocol version: 0.8**
 
 ## Purpose
 
@@ -80,6 +80,21 @@ For complex input:
 6. Report ambiguous spans, low-confidence wording, possible unparsed material,
    unsupported pronouns, and unfinished content.
 7. Never invent an intention to make the result look complete.
+
+### Keep source specificity intact
+
+In the received-content portion, preserve the specificity the source actually
+provides. A plausible completion is still an inference: “nine” is not a sourced
+“nine in the evening”, and “Saturday at two” is not a sourced “Saturday afternoon”.
+Do not add a time period, unit, role, cause or decision status merely to make the
+readback smoother. Meaning-preserving cleanup may remove fillers; it may not
+silently add those distinctions.
+
+If the distinction is irrelevant to the current reply, keep the original wording
+and continue without a clarification question. If a working interpretation is
+useful, label it separately as an interpretation; ask only when it changes the
+next dependent step. A later clarification updates the current view but does not
+retroactively make the earlier inference part of the original source.
 
 Use bounded evidence fields when coverage matters:
 
