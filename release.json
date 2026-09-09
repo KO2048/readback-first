@@ -1,15 +1,15 @@
 {
-  "version": "0.10.1",
+  "version": "0.10.2",
   "status": "release",
-  "theme": "Batched delivery and commit traceability",
-  "theme_zh": "分批交付与提交追溯",
-  "base_version": "0.10.0",
+  "theme": "Install persistent every-turn entry",
+  "theme_zh": "安装常驻逐轮回讲入口",
+  "base_version": "0.10.1",
   "branch": "main",
-  "source_commit": "0928704334e745b13af6e35c5b3f3e4e8c5d1bff",
-  "source_kind": "delivery-documentation",
-  "plan_version": "plan-v12",
+  "source_commit": "62ce219db46ea2c0f416df1fb5e391c86bd51f59",
+  "source_kind": "host-integration",
+  "plan_version": "plan-v14",
   "fixture_count": 39,
-  "checks": "contract; 39 fixtures; 20 existing unit tests; evidence integrity; commit and tag lineage",
-  "runtime": "No new runtime experiment; inherits v0.10.0 evidence limits",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.1"
+  "checks": "contract; 39 fixtures; unit tests including adapter installation",
+  "runtime": "Configuration delivery verified; automatic model compliance and host UI mapping are not attested",
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.2"
 }

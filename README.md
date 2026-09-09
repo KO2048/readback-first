@@ -1,12 +1,12 @@
 # Readback First
 
-**0.10.1 — Batched delivery and commit traceability**
+**0.10.2 — Batched delivery and commit traceability**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.10.1.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.10.2.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
@@ -27,7 +27,7 @@ source coverage and useful continuation survive the move.
 
 ## Install the latest version
 
-The default `main` branch contains **v0.10.1**. Ask your agent:
+The default `main` branch contains **v0.10.2**. Ask your agent:
 
 > Install the Skill at https://github.com/KO2048/readback-first from the repository
 > root on main, named readback-first. If already installed, preserve local changes
@@ -43,12 +43,22 @@ Do not run the clone over an existing directory. For a Git-based installation,
 review local changes before updating with `git pull --ff-only origin main` from
 that installation; other installations can be updated by the agent/installer.
 Reload the Skill or start a new session as your host requires. Check `release.json`
-for version `0.10.1`; installing this Skill does not itself update host rules.
+for version `0.10.2`; installing this Skill does not itself update host rules.
 
-To apply it on **every user turn**, add the small required entry from
-[the always-on host profile](docs/always-on.md) to your host's always-loaded
-instructions. For reproducibility, [v0.10.1](https://github.com/KO2048/readback-first/releases/tag/v0.10.1)
-provides a pinned release snapshot.
+**Complete installation includes the persistent entry.** After installing or
+updating the package, run (Codex):
+
+```bash
+python3 ~/.codex/skills/readback-first/scripts/enable_always_on.py --skill-dir ~/.codex/skills/readback-first --rules-file ~/.codex/AGENTS.md
+```
+
+This preserves existing rules, backs up changes, and is safe to run repeatedly.
+For WorkBuddy or another host, pass its installed Skill directory and its
+**verified always-loaded instruction file**; do not guess a host path. If that
+host only offers a rules UI, paste the adapter from [always-on.md](docs/always-on.md)
+there. Package copying alone is incomplete every-turn setup. Reload/start a fresh
+session afterwards. Configuration success does not attest model compliance or UI
+visibility; existing governance remains in place.
 
 ## Evidence and status
 
