@@ -1,18 +1,18 @@
 # Readback First
 
-**0.10.2 — Batched delivery and commit traceability**
+**0.10.3 — Mandatory global persistent installation**
 
 Make the AI's working understanding inspectable before it responds or acts.
 Preserve qualifiers, corrections and open items. Readback is neither factual
 verification nor action authorization.
 
-[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.10.2.md) · [Version sequence](docs/release-sequence.md)
+[中文](README.zh-CN.md) · [Protocol](PROTOCOL.md) · [This iteration](docs/releases/0.10.3.md) · [Version sequence](docs/release-sequence.md)
 
 ## What this version changes
 
-- Add the [delivery ledger](docs/delivery-ledger.md): issue, implementation commit, merge commit, PR, version and remaining acceptance.
-- Document Chinese-first commit conventions and distinguish behavior, examples, tests and documentation.
-- This is a documentation patch; the behavioral contract remains v0.10.0.
+- Require the global package and persistent entry together in SKILL.md.
+- Make both steps explicit in the installation prompt and commands.
+- Require ordinary fresh-session, follow-up and restart checks before claiming activation verified.
 
 ## Read back, then answer
 
@@ -27,23 +27,27 @@ source coverage and useful continuation survive the move.
 
 ## Install the latest version
 
-The default `main` branch contains **v0.10.2**. Ask your agent:
+The default `main` branch contains **v0.10.3**. Ask your agent:
 
 > Install the Skill at https://github.com/KO2048/readback-first from the repository
 > root on main, named readback-first. If already installed, preserve local changes
-> and update it to the latest main version.
+> and update it to the latest main version. Complete the user-global persistent
+> entry as part of installation, preserve existing governance, and verify an
+> ordinary new conversation and follow-up without manually invoking the Skill.
+> Report incomplete activation honestly; package copying alone is not completion.
 
-For a new Codex installation, the manual equivalent is:
+For a new Codex installation, run both commands (package plus global entry):
 
 ```bash
 git clone --branch main --depth 1 https://github.com/KO2048/readback-first.git ~/.codex/skills/readback-first
+python3 ~/.codex/skills/readback-first/scripts/enable_always_on.py --skill-dir ~/.codex/skills/readback-first --rules-file ~/.codex/AGENTS.md
 ```
 
 Do not run the clone over an existing directory. For a Git-based installation,
 review local changes before updating with `git pull --ff-only origin main` from
 that installation; other installations can be updated by the agent/installer.
 Reload the Skill or start a new session as your host requires. Check `release.json`
-for version `0.10.2`; installing this Skill does not itself update host rules.
+for version `0.10.3`; installing this Skill does not itself update host rules.
 
 **Complete installation includes the persistent entry.** After installing or
 updating the package, run (Codex):

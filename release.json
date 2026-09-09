@@ -1,15 +1,15 @@
 {
-  "version": "0.10.2",
+  "version": "0.10.3",
   "status": "release",
-  "theme": "Install persistent every-turn entry",
-  "theme_zh": "安装常驻逐轮回讲入口",
-  "base_version": "0.10.1",
+  "theme": "Mandatory global persistent installation",
+  "theme_zh": "全局常驻默认安装契约",
+  "base_version": "0.10.2",
   "branch": "main",
-  "source_commit": "62ce219db46ea2c0f416df1fb5e391c86bd51f59",
+  "source_commit": "6e592c137d25d50fecf0f447713fd3812d1a3e99",
   "source_kind": "host-integration",
-  "plan_version": "plan-v14",
+  "plan_version": "plan-v16",
   "fixture_count": 39,
   "checks": "contract; 39 fixtures; unit tests including adapter installation",
   "runtime": "Configuration delivery verified; automatic model compliance and host UI mapping are not attested",
-  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.2"
+  "release_url": "https://github.com/KO2048/readback-first/releases/tag/v0.10.3"
 }
