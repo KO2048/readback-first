@@ -1,11 +1,11 @@
 # Readback First
 
-**0.10.1 — 分批交付与提交追溯**
+**0.10.2 — 分批交付与提交追溯**
 
 先让用户看清 AI 接收到什么，再进行实质回应。回讲保留原意、限定、修正与未决项；
 回讲不等于事实核验或行动授权。
 
-[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.10.1.md) · [版本路线](docs/release-sequence.md)
+[English](README.md) · [协议](PROTOCOL.md) · [本版迭代记录](docs/releases/0.10.2.md) · [版本路线](docs/release-sequence.md)
 
 ## 本版更新什么
 
@@ -24,7 +24,7 @@
 
 ## 安装最新版
 
-默认 `main` 已包含 **v0.10.1**。可以直接对 Agent 说：
+默认 `main` 已包含 **v0.10.2**。可以直接对 Agent 说：
 
 > 从 https://github.com/KO2048/readback-first 的 main 分支安装仓库根目录中的 Skill，
 > 名称为 readback-first。如果已经安装，先保留本地改动，再更新到最新版。
@@ -37,11 +37,11 @@ git clone --branch main --depth 1 https://github.com/KO2048/readback-first.git ~
 
 已有目录不要直接覆盖。Git 安装先检查本地改动，再在安装目录执行
 `git pull --ff-only origin main`；其他安装方式交由 Agent／安装器更新。
-按宿主要求重新加载或新开会话，并检查 `release.json` 中的版本为 `0.10.1`。
+按宿主要求重新加载或新开会话，并检查 `release.json` 中的版本为 `0.10.2`。
 
 要求**每条输入都应用**时，将[强制宿主入口](docs/always-on.md)放入宿主始终加载的规则。
 安装 Skill 与配置这个入口分别完成；需要固定版本时使用
-[v0.10.1 发布快照](https://github.com/KO2048/readback-first/releases/tag/v0.10.1)。
+[v0.10.2 发布快照](https://github.com/KO2048/readback-first/releases/tag/v0.10.2)。
 
 ## 验证与限制
 
@@ -73,3 +73,13 @@ Use different diagrams for different relationships; inferred links need labels.
 [对齐状态 / Alignment status](docs/alignment-status.md) · [原题与累计稿](examples/identity-current-view.md) · [未决交接](examples/unresolved-lineage.md) · [跨题更新](examples/cognition-evidence.md)
 
 [本版示例 / Worked example](examples/formal-receipt-first.md) · [本版实际观察 / Runtime observations](docs/evaluation/formal-delivery/review.md)
+
+## 必须完成常驻入口安装
+
+仅复制 Skill 不等于默认每轮启用。Codex 安装或更新包后执行：
+
+```bash
+python3 ~/.codex/skills/readback-first/scripts/enable_always_on.py --skill-dir ~/.codex/skills/readback-first --rules-file ~/.codex/AGENTS.md
+```
+
+安装器保留原治理、修改前备份、重复运行不重复追加。WorkBuddy 等宿主需指定经过核实的常驻规则文件；仅提供规则界面的宿主粘贴 docs/always-on.md 的入口。不得猜测路径。重新加载或新建会话后生效；配置完成不等于已证明所有模型和界面的执行效果。
